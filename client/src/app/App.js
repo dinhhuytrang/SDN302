@@ -15,6 +15,7 @@ import SearchView from '../routes/Search';
 import CartItemsProvider from '../Context/CartItemsProvider';
 import Login from '../components/Authentication/Login/Login';
 import Register from '../components/Authentication/Register/Register';
+import ResetPassword from '../components/Authentication/ResetPassword/ResetPassword';
 import ChangePasswordScreen from '../components/Authentication/ChangePassword/ChangePassword';
 import Wishlist from '../components/Wishlist';
 import WishItemsProvider from '../Context/WishItemsProvider';
@@ -38,6 +39,7 @@ function App() {
                 <Route path="manage" element={<ManageAccount/>}/>
                 <Route path="login" element={<Login />}/>
                 <Route path="register" element={<Register />}/>
+                <Route path="resetpassword" element={<ResetPassword/>}/>
                 <Route path="changepw" element={<ChangePasswordScreen />}/>
                 <Route path="*" element={<Login />}/>
               </Route>
