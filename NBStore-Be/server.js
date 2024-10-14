@@ -7,8 +7,11 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
-const Rate = require('./models/Rate.model'); // Ensure this path is correct
+const Rate = require('./models/Rate.model'); 
 const Product = require('./models/Products.model');
+const sendEmail = require('./sendEmail/sendEmail');
+const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = require('./constant/Constant');
+const router = express.Router();
 const User = require('./models/User.models')
 
 dotenv.config();
@@ -52,11 +55,11 @@ const rateData = [
         dateReview: new Date() // Current date
     }
 ];
-const newProduct=[{
-    name:"do choi",
-    price:2323,
-    remain:20,
-    numberOfSale:20
+const newProduct = [{
+    name: "do choi",
+    price: 2323,
+    remain: 20,
+    numberOfSale: 20
 
 }]  
 
@@ -84,6 +87,21 @@ connectDB()
 
 // Use user routes
 app.use('/api/users', userRoutes);
+app.use('/api/sendemail', router.post('/', async (req, res, next) => {
+    try {
+        // Wait for the email to be sent
+        const info = await sendEmail('dduy2357@gmail.com', SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT);
+
+        // Log the response and send a success message back to Postman
+        console.log('Email sent: ' + info.response);
+        res.status(200).json({ message: 'Email sent successfully!' });
+    } catch (error) {
+        // Log the error and send an error response back to Postman
+        console.log('Error sending email: ' + error);
+        res.status(500).json({ message: 'Error sending email', error: error.message });
+    }
+}));
+
 
 // Error handling middleware
 app.use(errorHandler);
