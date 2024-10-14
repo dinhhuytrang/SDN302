@@ -3,25 +3,17 @@ const Schema = mongoose.Schema;
 
 // Tạo schema cho Rate
 const rateSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true
-  },
-  idProduct: {
+  product: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết với bảng products
     ref: 'Product',
-    required: true
   },
-  idUser: {
+  user: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết với bảng users
     ref: 'User',
-    required: true
   },
-  idOrderItem: {
+  orderItem: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết với bảng orderItems
     ref: 'OrderItem',
-    required: true
   },
   star: {
     type: Number, // Đánh giá sao từ 1-5

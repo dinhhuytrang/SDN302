@@ -3,11 +3,6 @@ const Schema = mongoose.Schema;
 
 // Tạo schema cho Product
 const productSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true
-  },
   name: {
     type: String,
     required: true
@@ -28,19 +23,24 @@ const productSchema = new Schema({
     type: Number, // Số lượng đã bán
     required: true
   },
-  idCategory: {
+  category: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết tới bảng categories
     ref: 'Category',
-    required: true
+    required: false
   },
   description: {
     type: String,
     required: false
   },
   option: {
-    type: [String], 
+    type: [String],
     required: false
-  }
+  },
+  rate: [{
+    type: mongoose.Schema.Types.ObjectId, // Reference to the Rate model
+    ref: 'Rate',
+    required: false
+  }]
 }, { timestamps: true });
 
 // Tạo model từ schema

@@ -6,6 +6,7 @@ const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 const Rate = require('./models/Rate.model'); // Ensure this path is correct
+const Product = require('./models/Products.model');
 
 dotenv.config();
 
@@ -15,7 +16,6 @@ app.use(express.json());
 // Sample data to insert
 const rateData = [
     {
-        id: 1,
         idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd49'),
         idUser: new mongoose.Types.ObjectId('6704f7c7141519736358774c'),
         idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8aa'),
@@ -24,7 +24,6 @@ const rateData = [
         dateReview: new Date() // Current date
     },
     {
-        id: 2,
         idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd49'),
         idUser: new mongoose.Types.ObjectId('6704f7c7141519736358774d'),
         idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8ac'),
@@ -33,7 +32,6 @@ const rateData = [
         dateReview: new Date() // Current date
     },
     {
-        id: 3,
         idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd4d'),
         idUser: new mongoose.Types.ObjectId('6704f7c7141519736358774c'),
         idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8aa'),
@@ -42,12 +40,20 @@ const rateData = [
         dateReview: new Date() // Current date
     }
 ];
+const newProduct=[{
+    name:"do choi",
+    price:2323,
+    remain:20,
+    numberOfSale:20
 
+}]
 // Function to insert sample rate data into MongoDB
 const insertSampleRateData = async () => {
     try {
         await Rate.insertMany(rateData); // Use Rate to insert data
         console.log("Sample rate data inserted successfully!");
+
+        await Product.insertMany(newProduct)
     } catch (error) {
         console.error("Error inserting sample rate data:", error);
     }

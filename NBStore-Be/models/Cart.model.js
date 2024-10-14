@@ -3,24 +3,19 @@ const Schema = mongoose.Schema;
 
 // Tạo schema cho Cart
 const cartSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true
-  },
-  idUser: {
+  user: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết với bảng users
     ref: 'User',
-    required: true
+    required: false
   },
-  idProduct: {
+  product: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết với bảng products
     ref: 'Product',
-    required: true
+    required: false
   },
   quantity: {
     type: Number, // Số lượng sản phẩm trong giỏ hàng
-    required: true
+    required: false
   }
 }, { timestamps: true });
 

@@ -3,17 +3,12 @@ const Schema = mongoose.Schema;
 
 // Tạo schema cho OrderItem
 const orderItemSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true
-  },
-  idOrder: {
+  order: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết với bảng orders
     ref: 'Order',
     required: true
   },
-  idProduct: {
+  product: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết với bảng products
     ref: 'Product',
     required: true

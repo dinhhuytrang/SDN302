@@ -3,12 +3,7 @@ const Schema = mongoose.Schema;
 
 // Tạo schema cho Order
 const orderSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true
-  },
-  idUser: {
+  user: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết với bảng users
     ref: 'User',
     required: true

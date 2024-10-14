@@ -3,12 +3,7 @@ const Schema = mongoose.Schema;
 
 // Tạo schema cho ProductWarehouse
 const productWarehouseSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true
-  },
-  idProduct: {
+  product: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết với bảng products
     ref: 'Product',
     required: true
