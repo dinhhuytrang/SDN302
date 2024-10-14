@@ -1,8 +1,17 @@
 const express = require('express');
-const { getUsers, createUser } = require('../controllers/userController');
-const router = express.Router();
+const { getUsers, createUser,changePassword } = require('../controllers/userController');
+const authenticateToken = require('../middleware/auth.middleware');
+const UserRouter = express.Router();
 
-router.get('/', getUsers); 
-router.post('/', createUser); 
+UserRouter.get('/', getUsers); 
+UserRouter.post('/', createUser); 
 
-module.exports = router;
+
+
+
+UserRouter.post('/changepw', authenticateToken, changePassword);
+
+
+
+
+module.exports = UserRouter;

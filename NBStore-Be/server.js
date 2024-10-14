@@ -1,18 +1,30 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 const Rate = require('./models/Rate.model'); // Ensure this path is correct
 const Product = require('./models/Products.model');
+const User = require('./models/User.models')
 
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,POST,PUT,DELETE',  
+    allowedHeaders: 'Content-Type,Authorization'  
+}));
 
+app.options('*', cors()); 
+
+
+app.use(express.json());
+app.use(bodyParser.json());
 // Sample data to insert
 const rateData = [
     {
@@ -46,7 +58,8 @@ const newProduct=[{
     remain:20,
     numberOfSale:20
 
-}]
+}]  
+
 // Function to insert sample rate data into MongoDB
 const insertSampleRateData = async () => {
     try {
@@ -54,6 +67,7 @@ const insertSampleRateData = async () => {
         console.log("Sample rate data inserted successfully!");
 
         await Product.insertMany(newProduct)
+        
     } catch (error) {
         console.error("Error inserting sample rate data:", error);
     }
