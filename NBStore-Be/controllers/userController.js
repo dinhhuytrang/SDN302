@@ -1,7 +1,8 @@
 const User = require('../models/User.models');
 const bcrypt = require("bcryptjs");
+const saltRounds = 10;
 const crypto = require('crypto');
-
+const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = require('../constant/Constant');
 const sendEmail = require('../sendEmail/sendEmail')
 require('dotenv').config();
 
@@ -155,4 +156,24 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, createUser, changePassword, verifyEmail };
+
+const resetAccount = async (req, res, next) => {
+  const { email, username } = req.body
+
+  try {
+    const account = await User.findOne({ email: email, username: username })
+    if (!account) {
+      return res.status(404).json({ message: "account not found" })
+    }
+    const newPassword = Math.random().toString(36).slice(2, 10)
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+    account.password = hashedPassword
+    await account.save()
+
+    const info = await sendEmail(email, SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT + `<b>${newPassword}</b>`);
+    res.status(200).json({ message: "Email reset sent successfully", info })
+  } catch (error) {
+    next(error)
+  }
+}
+module.exports = { getUsers, createUser, changePassword, verifyEmail, resetAccount };
