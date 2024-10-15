@@ -13,6 +13,7 @@ const sendEmail = require('./sendEmail/sendEmail');
 const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = require('./constant/Constant');
 const router = express.Router();
 const User = require('./models/User.models')
+const category = require('./models/Category.model')
 
 dotenv.config();
 
@@ -36,7 +37,7 @@ const rateData = [
         idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8aa'),
         star: 5,
         review: 'Excellent product!',
-        dateReview: new Date() // Current date
+        dateReview: new Date() 
     },
     {
         idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd49'),
@@ -62,7 +63,11 @@ const newProduct = [{
     numberOfSale: 20
 
 }]  
-
+const categories = [
+    { id: 1, name: "Men", image: "https://i0.wp.com/mylook.com.de/wp-content/uploads/2024/02/spring-2024-streetwear-fashion-trends-for-men.webp?fit=1024%2C1024&ssl=1" },
+    { id: 2, name: "Women", image: "https://i.pinimg.com/736x/75/85/f0/7585f0454f86e6323bd18cdc46e080a2.jpg" },
+    { id: 3, name: "Children", image: "https://img.freepik.com/free-photo/full-shot-kids-posing-together_23-2149853383.jpg" },
+];
 // Function to insert sample rate data into MongoDB
 const insertSampleRateData = async () => {
     try {
@@ -70,6 +75,7 @@ const insertSampleRateData = async () => {
         console.log("Sample rate data inserted successfully!");
 
         await Product.insertMany(newProduct)
+        await category.insertMany(categories)
         
     } catch (error) {
         console.error("Error inserting sample rate data:", error);
