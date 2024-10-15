@@ -68,6 +68,21 @@ const newProduct = [{
 //     {  name: "Women", image: "https://i.pinimg.com/736x/75/85/f0/7585f0454f86e6323bd18cdc46e080a2.jpg" },
 //     {  name: "Children", image: "https://img.freepik.com/free-photo/full-shot-kids-posing-together_23-2149853383.jpg" },
 // ];
+const newUser=[
+    {
+        username:"user1",
+        password:"1234",
+        name:"duy",
+        email:"dduy2357@gmail.com",
+    },
+    {
+        username:"user2",
+        password:"1234",
+        name:"trang",
+        email:"qduy2357@gmail.com",
+    }
+]
+
 // Function to insert sample rate data into MongoDB
 const insertSampleRateData = async () => {
     try {
@@ -75,8 +90,11 @@ const insertSampleRateData = async () => {
         console.log("Sample rate data inserted successfully!");
 
         await Product.insertMany(newProduct)
+
         // await category.insertMany(categories)
         
+        // await User.insertMany(newUser)
+
     } catch (error) {
         console.error("Error inserting sample rate data:", error);
     }
