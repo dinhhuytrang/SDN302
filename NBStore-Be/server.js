@@ -62,7 +62,20 @@ const newProduct = [{
     numberOfSale: 20
 
 }]  
-
+const newUser=[
+    {
+        username:"user1",
+        password:"1234",
+        name:"duy",
+        email:"dduy2357@gmail.com",
+    },
+    {
+        username:"user2",
+        password:"1234",
+        name:"trang",
+        email:"qduy2357@gmail.com",
+    }
+]
 // Function to insert sample rate data into MongoDB
 const insertSampleRateData = async () => {
     try {
@@ -70,7 +83,7 @@ const insertSampleRateData = async () => {
         console.log("Sample rate data inserted successfully!");
 
         await Product.insertMany(newProduct)
-        
+        // await User.insertMany(newUser)
     } catch (error) {
         console.error("Error inserting sample rate data:", error);
     }

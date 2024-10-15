@@ -1,5 +1,5 @@
 export const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-export const BASE_URL="http://localhost:8080"
+export const BASE_URL="http://localhost:9999"
 
 export const WAIT_FOR_CONFIRM_ORDER = "Chờ xác nhận"
 export const PREPARING_ORDER = "Đang chuẩn bị hàng"
