@@ -1,10 +1,11 @@
 const express = require('express');
-const { getUsers, createUser,changePassword } = require('../controllers/userController');
+const { getUsers, createUser,changePassword, verifyEmail } = require('../controllers/userController');
 const authenticateToken = require('../middleware/auth.middleware');
 const UserRouter = express.Router();
 
 UserRouter.get('/', getUsers); 
-UserRouter.post('/', createUser); 
+UserRouter.post('/register', createUser); 
+UserRouter.get('/verify-email', verifyEmail); 
 
 
 
