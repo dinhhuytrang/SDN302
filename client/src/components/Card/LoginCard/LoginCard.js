@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LoginCard.css';
 
 const LoginCard = () => {
     // Khai báo state cho email và password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); 
 
     // Hàm xử lý khi nhấn nút LOGIN
     const handleLogin = async () => {
@@ -26,6 +27,7 @@ const LoginCard = () => {
             } else {
                 console.log('Login successful:', data);
                 // Chuyển hướng hoặc thực hiện hành động sau khi đăng nhập thành công
+                navigate('/');
             }
         } catch (error) {
             console.error('Error:', error);

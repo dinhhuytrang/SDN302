@@ -265,6 +265,9 @@ async function signin(req, res, next) {
       path: "/",
     });
 
+    // Redirect to homepage after successful login
+    // res.redirect('/');
+
     const responsePayload = {
       message: "Logged in successfully",
       accessToken,
