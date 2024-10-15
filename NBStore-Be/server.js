@@ -63,11 +63,11 @@ const newProduct = [{
     numberOfSale: 20
 
 }]  
-const categories = [
-    { id: 1, name: "Men", image: "https://i0.wp.com/mylook.com.de/wp-content/uploads/2024/02/spring-2024-streetwear-fashion-trends-for-men.webp?fit=1024%2C1024&ssl=1" },
-    { id: 2, name: "Women", image: "https://i.pinimg.com/736x/75/85/f0/7585f0454f86e6323bd18cdc46e080a2.jpg" },
-    { id: 3, name: "Children", image: "https://img.freepik.com/free-photo/full-shot-kids-posing-together_23-2149853383.jpg" },
-];
+// const categories = [
+//     {  name: "Men", image: "https://i0.wp.com/mylook.com.de/wp-content/uploads/2024/02/spring-2024-streetwear-fashion-trends-for-men.webp?fit=1024%2C1024&ssl=1" },
+//     {  name: "Women", image: "https://i.pinimg.com/736x/75/85/f0/7585f0454f86e6323bd18cdc46e080a2.jpg" },
+//     {  name: "Children", image: "https://img.freepik.com/free-photo/full-shot-kids-posing-together_23-2149853383.jpg" },
+// ];
 // Function to insert sample rate data into MongoDB
 const insertSampleRateData = async () => {
     try {
@@ -75,7 +75,7 @@ const insertSampleRateData = async () => {
         console.log("Sample rate data inserted successfully!");
 
         await Product.insertMany(newProduct)
-        await category.insertMany(categories)
+        // await category.insertMany(categories)
         
     } catch (error) {
         console.error("Error inserting sample rate data:", error);
