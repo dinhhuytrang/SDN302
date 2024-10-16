@@ -13,7 +13,8 @@ const sendEmail = require('./sendEmail/sendEmail');
 const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = require('./constant/Constant');
 const router = express.Router();
 const User = require('./models/User.models')
-const category = require('./models/Category.model')
+const category = require('./models/Category.model');
+const ProductRoute = require('./routes/ProductRouter');
 
 dotenv.config();
 
@@ -56,18 +57,61 @@ const rateData = [
         dateReview: new Date() // Current date
     }
 ];
-const newProduct = [{
-    name: "do choi",
-    price: 2323,
-    remain: 20,
-    numberOfSale: 20
 
-}]  
 // const categories = [
 //     {  name: "Men", image: "https://i0.wp.com/mylook.com.de/wp-content/uploads/2024/02/spring-2024-streetwear-fashion-trends-for-men.webp?fit=1024%2C1024&ssl=1" },
 //     {  name: "Women", image: "https://i.pinimg.com/736x/75/85/f0/7585f0454f86e6323bd18cdc46e080a2.jpg" },
 //     {  name: "Children", image: "https://img.freepik.com/free-photo/full-shot-kids-posing-together_23-2149853383.jpg" },
 // ];
+
+// const  newProduct = [
+//     {
+//       "name": "Single-Breasted Wool Pont Neuf Jacket",
+//       "image": [
+//         "https://us.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-single-breasted-wool-pont-neuf-jacket--HSFJ8EJWO651_PM2_Front%20view.png?wid=1090&hei=1090",
+//         "https://us.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-single-breasted-wool-pont-neuf-jacket--HSFJ8EJWO651_PM1_Side%20view.png?wid=1090&hei=1090",
+//         "https://us.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-single-breasted-wool-pont-neuf-jacket--HSFJ8EJWO651_PM1_Back%20view.png?wid=1090&hei=1090"
+//       ],
+//       "price": 3400000,
+//       "remain": 10,
+//       "numberOfSale": 5,
+//       "category": "670e29ff0f3f380a21eecc7b",
+//       "description": "This sleek single-breasted Pont Neuf jacket is distinguished with a fine wool Damier Heritage jacquard.",
+//       "option": ["M", "SM", "L", "XL", "XXL"],
+//       "rate": []
+//     },
+//     {
+//       "name": "Wool Cigarette Pants",
+//       "image": [
+//         "https://us.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-wool-cigarette-pants--HSFP8WJWO651_PM2_Front%20view.png?wid=1090&hei=1090",
+//         "https://us.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-wool-cigarette-pants--HSFP8WJWO651_PM1_Side%20view.png?wid=1090&hei=1090",
+//         "https://us.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-wool-cigarette-pants--HSFP8WJWO651_PM1_Back%20view.png?wid=1090&hei=1090"
+//       ],
+//       "price": 130000,
+//       "remain": 10,
+//       "numberOfSale": 5,
+//       "category": "670e29ff0f3f380a21eecc7b",
+//       "description": "These elegantly tailored navy blue Pont Neuf cigarette pants stand out with a fine wool Damier Heritage jacquard.",
+//       "option": ["M", "SM", "L", "XL", "XXL"],
+//       "rate": []
+//     },
+//     {
+//       "name": "Ribbed Hood Double Face Cape",
+//       "image": [
+//         "https://us.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-ribbed-hood-double-face-cape%20--FSCO19QWE904_PM2_Front%20view.png?wid=1090&hei=1090",
+//         "https://us.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-ribbed-hood-double-face-cape%20--FSCO19QWE904_PM1_Side%20view.png?wid=1090&hei=1090",
+//         "https://us.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-ribbed-hood-double-face-cape%20--FSCO19QWE904_PM1_Back%20view.png?wid=1090&hei=1090"
+//       ],
+//       "price": 535000,
+//       "remain": 10,
+//       "numberOfSale": 5,
+//       "category": "670e29ff0f3f380a21eecc7c",
+//       "description": "This cape is crafted from cozy double-face wool-silk, which is signed on the inside with a graphic Monogram jacquard for a subtle signature accent.",
+//       "option": ["M", "SM", "L", "XL", "XXL"],
+//       "rate": []
+//     }
+//   ];
+  
 const newUser=[
     {
         username:"user1",
@@ -89,7 +133,7 @@ const insertSampleRateData = async () => {
         await Rate.insertMany(rateData); // Use Rate to insert data
         console.log("Sample rate data inserted successfully!");
 
-        await Product.insertMany(newProduct)
+        // await Product.insertMany(newProduct)
 
         // await category.insertMany(categories)
         
@@ -110,6 +154,7 @@ connectDB()
     });
 
 // Use user routes
+app.use('/api/products',ProductRoute)
 app.use('/api/users', userRoutes);
 app.use('/api/sendemail', router.post('/', async (req, res, next) => {
     try {

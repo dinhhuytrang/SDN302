@@ -111,25 +111,35 @@ const verifyEmail = async (req, res) => {
 };
 
 // Hàm changepw
-const changePassword = async (req, res) => {
+const changePassword = async (req, res, next) => {
   const { currentPassword, newPassword, confirmPassword } = req.body;
+
   try {
-    const userId = req.user.id;
-    const user = await User.findById(userId);
+    const userId = req.user.id; // Assuming req.user contains the authenticated user data
+    const user = await User.findById(userId).populate("role").exec(); // Similar to your signin structure
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
+    // Validate the current password
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Incorrect current password" });
     }
+
+    // Check if newPassword and confirmPassword match
     if (newPassword !== confirmPassword) {
       return res.status(400).json({ message: "New password and confirm password do not match" });
     }
+
+    // Ensure the new password is different from the current password
     const isSamePassword = await bcrypt.compare(newPassword, user.password);
     if (isSamePassword) {
       return res.status(400).json({ message: "New password must be different from the current password" });
     }
+
+    // Password strength validation
     if (newPassword.length < 8) {
       return res.status(400).json({ message: "New password must be at least 8 characters long" });
     }
@@ -143,19 +153,26 @@ const changePassword = async (req, res) => {
         message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
       });
     }
+
+    // Hash the new password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-
+    // Update the user's password in the database
     user.password = hashedPassword;
     await user.save();
 
+    // Optionally, you can invalidate the current tokens by deleting the refresh token
+    res.clearCookie("refreshToken");
+
+    // Send success response
     return res.status(200).json({ message: "Password changed successfully" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "An error occurred", error });
   }
 };
+
 
 
 const resetAccount = async (req, res, next) => {
