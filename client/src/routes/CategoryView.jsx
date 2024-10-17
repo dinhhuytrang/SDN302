@@ -6,32 +6,45 @@ import Category from '../components/Category/Category';
 
 const CategoryView = () => {
     const param = useParams()
-    const [ menItems, setMenItems ] = useState()
-    const [ womenItems, setWomenItems ] = useState()
-    const [ kidsItems, setKidsItems ] = useState()
-    const [ loading , setLoading ] = useState(true) 
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    
+    // Category IDs for men, women, kids (replace with your real ObjectId values)
+    const MEN_CATEGORY_ID = '670f7b169f5902e8b2adf1ff';
+    const WOMEN_CATEGORY_ID = '670f7b169f5902e8b2adf200';
+    const KIDS_CATEGORY_ID = '670f7b169f5902e8b2adf201';
 
     useEffect(() => {
-        axios.get("https://shema-backend.vercel.app/api/items")
+        axios.get("http://localhost:9999/api/products")
             .then(res => {
-                setMenItems(res.data.filter((item) => item.category === "men"))
-                setKidsItems(res.data.filter((item) => item.category === "kids" ))
-                setWomenItems(res.data.filter((item) => item.category === "women")) 
-                setLoading(false)
+                const data = res.data.data; // accessing 'data' array from API response
+                
+                // Filter products by category based on URL parameter
+                if (param.id === 'men') {
+                    setProducts(data.filter(item => item.category._id === MEN_CATEGORY_ID));
+                } else if (param.id === 'women') {
+                    setProducts(data.filter(item => item.category._id === WOMEN_CATEGORY_ID));
+                } else if (param.id === 'kids') {
+                    setProducts(data.filter(item => item.category._id === KIDS_CATEGORY_ID));
+                }
+                
+                setLoading(false);
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+        
+        window.scrollTo(0, 0);
+    }, [param.id]);
 
-        window.scrollTo(0, 0)
-    }, [param.id])
-    
-    return ( 
+    return (
         <div className='d-flex min-vh-100 w-100 justify-content-center align-items-center m-auto'>
-            {loading && <ReactLoading type="balls" color='#FFE26E' height={100} width={100} className='m-auto'/>}
-            { menItems && param.id === 'men' && <Category name="Men's Fashion" items={menItems} category="men"/>}
-            { womenItems && param.id === 'kids' && <Category name="Kids Fashion" items={kidsItems} category="kids"/>}
-            { kidsItems && param.id === 'women' && <Category name="Women's Fashion" items={womenItems} category="women"/>}
+            {loading && <ReactLoading type="balls" color='#FFE26E' height={100} width={100} className='m-auto' />}
+            
+            {/* Render category-specific products */}
+            {products && param.id === 'men' && <Category name="Men's Fashion" items={products} category="men" />}
+            {products && param.id === 'women' && <Category name="Women's Fashion" items={products} category="women" />}
+            {products && param.id === 'kids' && <Category name="Kids Fashion" items={products} category="kids" />}
         </div>
-     );
+    );
 }
  
 export default CategoryView;
