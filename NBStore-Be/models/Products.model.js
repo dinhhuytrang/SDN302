@@ -25,8 +25,8 @@ const productSchema = new Schema({
   },
   category: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết tới bảng categories
-    ref: 'Category',
-    required: false
+    ref: 'category',
+    required: true
   },
   description: {
     type: String,
