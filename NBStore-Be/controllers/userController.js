@@ -2,6 +2,7 @@ const User = require('../models/User.models');
 const bcrypt = require("bcryptjs");
 const saltRounds = 10;
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = require('../constant/Constant');
 const sendEmail = require('../sendEmail/sendEmail')
 require('dotenv').config();
@@ -176,4 +177,117 @@ const resetAccount = async (req, res, next) => {
     next(error)
   }
 }
-module.exports = { getUsers, createUser, changePassword, verifyEmail, resetAccount };
+
+//generate access token : chứa thông tin user trả về, muốn nó trả về cái gì thì thêm vào object
+//thiếu hạn sử dụng, nếu không thì nó sẽ mặc định là 15 phút :       expiresIn: "15m",
+function generateAccessToken(user) {
+  return jwt.sign(
+    {
+      id: user.id,
+      name: user.name,
+    },
+    process.env.JWT_ACCESS_KEY,
+    {
+      expiresIn: "15m",
+    },
+  );
+}
+
+
+// Generate refresh token
+async function generateRefreshToken(user) {
+  const token = jwt.sign({ id: user.id}, 
+   process.env.JWT_SECRET,
+  { expiresIn: "7d" });
+
+  user.refreshToken = token;
+  await user.save();
+
+  return token;
+}
+
+// Request refresh token
+async function requestRefreshToken(req, res, next) {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) return res.status(401).json({ message: "You're not Authenticated." });
+
+    const foundUser = await User.findOne({ refreshToken }).populate("role").exec();
+    if (!foundUser) return res.status(403).json({ message: "Refresh token is not valid" });
+
+    jwt.verify(refreshToken,  process.env.JWT_SECRET, async (err, user) => {
+      if (err) return res.status(403).json({ message: "Refresh token is not valid" });
+
+      const newAccessToken = generateAccessToken(foundUser);
+      const newRefreshToken = await generateRefreshToken(foundUser);
+
+      res.cookie("refreshToken", newRefreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "Strict",
+        path: "/",
+      });
+
+      res.status(200).json({ accessToken: newAccessToken });
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+// Sign in action
+async function signin(req, res, next) {
+  try {
+    const {email, password} = req.body;
+
+    const user = await User.findOne({ email }).populate("role").exec();
+    if (!user) return res.status(404).json({ message: "Email and User not found." });
+
+    //validate password
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) return res.status(401).json({ message: "Wrong password" });
+
+    //check status account
+    if (user.statusAccount !== 1) { 
+      console.log("Account is locked by system");
+      //send mail notify user
+      return res.status(401).json({ message: "Your account is locked by system." });
+    }
+
+    const accessToken = generateAccessToken(user);
+    const refreshToken = await generateRefreshToken(user);
+    await user.save();
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Strict",
+      path: "/",
+    });
+
+    // Redirect to homepage after successful login
+    // res.redirect('/');
+
+    const responsePayload = {
+      message: "Logged in successfully",
+      accessToken,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,  
+        phone: user.phone,
+        address: user.address,
+        avatar: user.avatar,
+        birthday: user.birthday,
+      }
+    };
+
+    res.status(201).json(responsePayload);
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+module.exports = { getUsers, signin, createUser, changePassword, verifyEmail, resetAccount };
