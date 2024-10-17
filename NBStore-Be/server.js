@@ -31,32 +31,32 @@ app.options('*', cors());
 app.use(express.json());
 app.use(bodyParser.json());
 // Sample data to insert
-const rateData = [
-    {
-        idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd49'),
-        idUser: new mongoose.Types.ObjectId('6704f7c7141519736358774c'),
-        idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8aa'),
-        star: 5,
-        review: 'Excellent product!',
-        dateReview: new Date() 
-    },
-    {
-        idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd49'),
-        idUser: new mongoose.Types.ObjectId('6704f7c7141519736358774d'),
-        idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8ac'),
-        star: 4,
-        review: 'Very good, but could be improved.',
-        dateReview: new Date() // Current date
-    },
-    {
-        idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd4d'),
-        idUser: new mongoose.Types.ObjectId('6704f7c7141519736358774c'),
-        idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8aa'),
-        star: 3,
-        review: 'Average product, met expectations.',
-        dateReview: new Date() // Current date
-    }
-];
+// const rateData = [
+//     {
+//         idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd49'),
+//         idUser: new mongoose.Types.ObjectId('6704f7c7141519736358774c'),
+//         idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8aa'),
+//         star: 5,
+//         review: 'Excellent product!',
+//         dateReview: new Date() 
+//     },
+//     {
+//         idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd49'),
+//         idUser: new mongoose.Types.ObjectId('6704f7c7141519736358774d'),
+//         idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8ac'),
+//         star: 4,
+//         review: 'Very good, but could be improved.',
+//         dateReview: new Date() // Current date
+//     },
+//     {
+//         idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd4d'),
+//         idUser: new mongoose.Types.ObjectId('6704f7c7141519736358774c'),
+//         idOrderItem: new mongoose.Types.ObjectId('67050888fb7b98a85874f8aa'),
+//         star: 3,
+//         review: 'Average product, met expectations.',
+//         dateReview: new Date() // Current date
+//     }
+// ];
 
 // const categories = [
 //     {  name: "Men", image: "https://i0.wp.com/mylook.com.de/wp-content/uploads/2024/02/spring-2024-streetwear-fashion-trends-for-men.webp?fit=1024%2C1024&ssl=1" },
@@ -147,7 +147,7 @@ const insertSampleRateData = async () => {
 // Connect to MongoDB and insert sample data
 connectDB()
     .then(() => {
-        insertSampleRateData(); // Call the function to insert sample data
+        // insertSampleRateData(); // Call the function to insert sample data
     })
     .catch(error => {
         console.error("Database connection error:", error);
