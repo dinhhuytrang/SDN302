@@ -3,11 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginCard.css';
 
 const LoginCard = () => {
-    // Khai báo state cho email, password và rememberMe
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false); // Thêm state cho Remember Me
-    const navigate = useNavigate(); 
+    const [email, setEmail] = useState(localStorage.getItem('rememberEmail') || ''); // Lấy từ localStorage nếu Remember Me đã được chọn
+    const [password, setPassword] = useState(localStorage.getItem('rememberPassword') || ''); // Lấy từ localStorage nếu Remember Me đã được chọn
+    const [rememberMe, setRememberMe] = useState(false); // Trạng thái Remember Me
+    const navigate = useNavigate();
 
     // Hàm xử lý khi nhấn nút LOGIN
     const handleLogin = async () => {
@@ -27,15 +26,21 @@ const LoginCard = () => {
                 alert(data.message); // Thông báo lỗi nếu đăng nhập không thành công
             } else {
                 console.log('Login successful:', data);
-                // Lưu thông tin người dùng vào localStorage hoặc sessionStorage
+
+                // Lưu thông tin tài khoản và mật khẩu nếu Remember Me được chọn
                 if (rememberMe) {
-                    localStorage.setItem('accessToken', data.accessToken); // Lưu token
-                    localStorage.setItem('user', JSON.stringify(data.user)); // Lưu thông tin người dùng
+                    localStorage.setItem('rememberEmail', email);
+                    localStorage.setItem('rememberPassword', password);
                 } else {
-                    sessionStorage.setItem('accessToken', data.accessToken); // Lưu token
-                    sessionStorage.setItem('user', JSON.stringify(data.user)); // Lưu thông tin người dùng
+                    localStorage.removeItem('rememberEmail'); // Xóa nếu Remember Me không được chọn
+                    localStorage.removeItem('rememberPassword');
                 }
-                // Chuyển hướng hoặc thực hiện hành động sau khi đăng nhập thành công
+
+                // Luôn lưu token và thông tin người dùng vào localStorage
+                localStorage.setItem('accessToken', data.accessToken);
+                localStorage.setItem('user', JSON.stringify(data.user));
+
+                // Chuyển hướng sau khi đăng nhập thành công
                 navigate('/');
             }
         } catch (error) {
@@ -44,7 +49,7 @@ const LoginCard = () => {
         }
     };
 
-    return ( 
+    return (
         <div className="login__card__container">
             <div className="login__card">
                 <div className="login__header">
@@ -53,19 +58,19 @@ const LoginCard = () => {
                 <div className="login__inputs">
                     <div className="email__input__container input__container">
                         <label className="email__label input__label">Email</label>
-                        <input 
-                            type="email" 
-                            className="email__input login__input" 
-                            placeholder='example@gmail.com' 
+                        <input
+                            type="email"
+                            className="email__input login__input"
+                            placeholder='example@gmail.com'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)} // Cập nhật giá trị email
                         />
                     </div>
                     <div className="password__input__container input__container">
                         <label className="password__label input__label">Password</label>
-                        <input 
-                            type="password" 
-                            className="password__input login__input" 
+                        <input
+                            type="password"
+                            className="password__input login__input"
                             placeholder='**********'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} // Cập nhật giá trị password
@@ -73,9 +78,9 @@ const LoginCard = () => {
                     </div>
                     <div className="remember__me__container">
                         <label className="remember__me__label">
-                            <input 
-                                type="checkbox" 
-                                checked={rememberMe} 
+                            <input
+                                type="checkbox"
+                                checked={rememberMe}
                                 onChange={(e) => setRememberMe(e.target.checked)} // Cập nhật giá trị rememberMe
                             />
                             Remember Me
@@ -93,5 +98,5 @@ const LoginCard = () => {
         </div>
     );
 }
- 
+
 export default LoginCard;
