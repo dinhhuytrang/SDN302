@@ -3,9 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginCard.css';
 
 const LoginCard = () => {
-    const [email, setEmail] = useState(localStorage.getItem('rememberEmail') || ''); // Lấy từ localStorage nếu Remember Me đã được chọn
-    const [password, setPassword] = useState(localStorage.getItem('rememberPassword') || ''); // Lấy từ localStorage nếu Remember Me đã được chọn
-    const [rememberMe, setRememberMe] = useState(false); // Trạng thái Remember Me
+    const [email, setEmail] = useState(''); // Không lấy từ localStorage nữa
+    const [password, setPassword] = useState(''); // Không lấy từ localStorage nữa
     const navigate = useNavigate();
 
     // Hàm xử lý khi nhấn nút LOGIN
@@ -26,15 +25,6 @@ const LoginCard = () => {
                 alert(data.message); // Thông báo lỗi nếu đăng nhập không thành công
             } else {
                 console.log('Login successful:', data);
-
-                // Lưu thông tin tài khoản và mật khẩu nếu Remember Me được chọn
-                if (rememberMe) {
-                    localStorage.setItem('rememberEmail', email);
-                    localStorage.setItem('rememberPassword', password);
-                } else {
-                    localStorage.removeItem('rememberEmail'); // Xóa nếu Remember Me không được chọn
-                    localStorage.removeItem('rememberPassword');
-                }
 
                 // Luôn lưu token và thông tin người dùng vào localStorage
                 localStorage.setItem('accessToken', data.accessToken);
@@ -75,16 +65,6 @@ const LoginCard = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} // Cập nhật giá trị password
                         />
-                    </div>
-                    <div className="remember__me__container">
-                        <label className="remember__me__label">
-                            <input
-                                type="checkbox"
-                                checked={rememberMe}
-                                onChange={(e) => setRememberMe(e.target.checked)} // Cập nhật giá trị rememberMe
-                            />
-                            Remember Me
-                        </label>
                     </div>
                     <div className="login__button__container">
                         <button className="login__button" onClick={handleLogin}>LOGIN</button>
