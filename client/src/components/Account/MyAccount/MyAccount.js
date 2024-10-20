@@ -1,8 +1,15 @@
+import { Button } from 'react-bootstrap';
 import Account from '../Account';
 import './MyAccount.css';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const MyAccount = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = ()=> {
+            localStorage.clear();
+            navigate('/account/login');
+    }
     return ( 
         <Account>
             <div className="order__history__container">
@@ -14,7 +21,7 @@ const MyAccount = () => {
             <div className="account__details__container">
                 <div className="account__details__header">
                     <div className="details__header">Account Details</div>
-                    <div className="logout__action">Logout</div>
+                    <Button onClick={e => handleLogout(e)}>Logout</Button>
                 </div>
                 <div className="account__details">
                     <div className="account__holder__name">Account holder name</div>

@@ -12,8 +12,13 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 const CartCard = (props) => {
+
+    const [user, setUser] = useState();
+    localStorage.getItem()
+
     let cartItems  = useContext(CartItemsContext)
     const [size, setSize] = useState(props.item.size[0]);
+
 
     const handelQuantityIncrement = (event) => {
         cartItems.quantity(props.item.id, 'INC');

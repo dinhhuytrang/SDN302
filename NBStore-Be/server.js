@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/errorHandler');
+const cartRoutes = require('./routes/cartRoutes');
 
 const Rate = require('./models/Rate.model');
 const Product = require('./models/Products.model');
@@ -377,7 +378,7 @@ app.use('/api/sendemail', router.post('/', async (req, res, next) => {
         res.status(500).json({ message: 'Error sending email', error: error.message });
     }
 }));
-
+app.use('/api/cart', cartRoutes)
 
 // Error handling middleware
 app.use(errorHandler);
