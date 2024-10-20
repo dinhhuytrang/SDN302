@@ -67,7 +67,7 @@ function App() {
               </Route>
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/search/*" element={<SearchView />} />
-
+              <Route path="/checkout" element={<Checkout />} />
 
               <Route path="/admin" element={<Overview />} />
 
