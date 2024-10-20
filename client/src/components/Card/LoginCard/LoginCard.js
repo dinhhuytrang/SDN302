@@ -3,9 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginCard.css';
 
 const LoginCard = () => {
-    // Khai báo state cho email và password
+    // Khai báo state cho email, password và rememberMe
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false); // Thêm state cho Remember Me
     const navigate = useNavigate(); 
 
     // Hàm xử lý khi nhấn nút LOGIN
@@ -26,6 +27,14 @@ const LoginCard = () => {
                 alert(data.message); // Thông báo lỗi nếu đăng nhập không thành công
             } else {
                 console.log('Login successful:', data);
+                // Lưu thông tin người dùng vào localStorage hoặc sessionStorage
+                if (rememberMe) {
+                    localStorage.setItem('accessToken', data.accessToken); // Lưu token
+                    localStorage.setItem('user', JSON.stringify(data.user)); // Lưu thông tin người dùng
+                } else {
+                    sessionStorage.setItem('accessToken', data.accessToken); // Lưu token
+                    sessionStorage.setItem('user', JSON.stringify(data.user)); // Lưu thông tin người dùng
+                }
                 // Chuyển hướng hoặc thực hiện hành động sau khi đăng nhập thành công
                 navigate('/');
             }
@@ -61,6 +70,16 @@ const LoginCard = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} // Cập nhật giá trị password
                         />
+                    </div>
+                    <div className="remember__me__container">
+                        <label className="remember__me__label">
+                            <input 
+                                type="checkbox" 
+                                checked={rememberMe} 
+                                onChange={(e) => setRememberMe(e.target.checked)} // Cập nhật giá trị rememberMe
+                            />
+                            Remember Me
+                        </label>
                     </div>
                     <div className="login__button__container">
                         <button className="login__button" onClick={handleLogin}>LOGIN</button>

@@ -27,7 +27,7 @@ const ItemCard = (props) => {
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 > 
-                    {isHovered? <img src={`https://shema-backend.vercel.app/public/${props.item.category}/${props.item.image[1].filename}`} alt="item" className="product__img"/>: <img src= {`https://shema-backend.vercel.app/public/${props.item.category}/${props.item.image[0].filename}`} alt="item" className="product__img"/> }
+                    {isHovered? <img src={props?.item.image[0]} alt="item" className="product__img"/>: <img src= {props?.item.image[1]} alt="item" className="product__img"/> }
                 </div>
                 <div className="product__card__detail">
                     <div className="product__name">
@@ -35,9 +35,9 @@ const ItemCard = (props) => {
                            {props.item.name}
                         </Link>
                     </div>
-                    <div className="product__description">
+                    {/* <div className="product__description">
                         <span>{props.item.description}</span>
-                    </div>
+                    </div> */}
                     <div className="product__price">
                         <span>${props.item.price}</span>
                     </div>
