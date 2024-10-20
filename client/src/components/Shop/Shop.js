@@ -21,7 +21,9 @@ const Shop = () => {
                  setKidsItems(res.data.data.filter((item) => item.category.name === "kids" ))
                  setWomenItems(res.data.data.filter((item) => item.category.name === "women"))
                 setLoading(false)
-            })
+            }) 
+            
+                        
             .catch(err => console.log(err))
         window.scrollTo(0, 0)
     

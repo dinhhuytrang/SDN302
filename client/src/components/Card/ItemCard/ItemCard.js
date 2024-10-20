@@ -31,7 +31,7 @@ const ItemCard = (props) => {
                 </div>
                 <div className="product__card__detail">
                     <div className="product__name">
-                        <Link to={`/item/${props.item.category}/${props.item._id}`}>
+                        <Link to={`/item/${props.item.category.name}/${props.item._id}`}>
                            {props.item.name}
                         </Link>
                     </div>
