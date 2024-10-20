@@ -85,7 +85,7 @@ const newProduct = [
             "Lightblue-Size S", "Lightblue-Size M", "Lightblue-Size L",
             "Purple-Size S", "Purple-Size M", "Purple-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
 
     },
     {
@@ -99,7 +99,7 @@ const newProduct = [
             "White-blue-Size S", "White-blue-Size M", "White-blue-Size L",
             "White-green-Size S", "White-green-Size M", "White-green-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
     },
 
     {
@@ -112,7 +112,7 @@ const newProduct = [
         option: [
             "Size S", "Size M", "Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
     },
 
     {
@@ -126,7 +126,7 @@ const newProduct = [
             "White-Size S", "White-Size M", "White-Size L",
             "Black-Size S", "Black-Size M", "Black-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
     },
 
     {
@@ -140,7 +140,7 @@ const newProduct = [
             "White-Size S", "White-Size M", "White-Size L",
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
     },
 
     {
@@ -154,7 +154,7 @@ const newProduct = [
             "White-Size S", "White-Size M", "White-Size L",
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
     },
 
     //Women
@@ -168,7 +168,7 @@ const newProduct = [
         option: [           
             "Size S", "Size M", "Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
     },
 
     {
@@ -182,7 +182,7 @@ const newProduct = [
             "Black-Size S", "Black-Size M", "Black-Size L",
             "Brown-Size S", "Brown-Size M", "Brown-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
     },
 
     {
@@ -196,7 +196,7 @@ const newProduct = [
             "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
     },
 
     {
@@ -210,7 +210,7 @@ const newProduct = [
             "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
     },
 
     {
@@ -224,7 +224,7 @@ const newProduct = [
             "Pink-Size S", "Pink-Size M", "Pink-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
     },
 
     {
@@ -238,7 +238,7 @@ const newProduct = [
             "Pink-Size S", "Pink-Size M", "Pink-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
     },
 
     // Men
@@ -253,7 +253,7 @@ const newProduct = [
             "Brown-Size S", "Brown-Size M", "Brown-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
     },
 
     {
@@ -266,7 +266,7 @@ const newProduct = [
         option: [           
             "Brown-Size S", "Brown-Size M", "Brown-Size L"          
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
     },
 
     {
@@ -279,7 +279,7 @@ const newProduct = [
         option: [           
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
     },
 
     {
@@ -292,7 +292,7 @@ const newProduct = [
         option: [           
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
     },
 
     {
@@ -306,7 +306,7 @@ const newProduct = [
             "Black-Size S", "Black-Size M", "Black-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
     },
 
     {
@@ -320,7 +320,7 @@ const newProduct = [
             "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
+        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
     }
 ]
 const newUser = [
@@ -340,7 +340,7 @@ const newUser = [
 // Function to insert sample rate data into MongoDB
 const insertSampleRateData = async () => {
     try {
-        await Rate.insertMany(rateData); // Use Rate to insert data
+        // await Rate.insertMany(rateData); // Use Rate to insert data
         console.log("Sample rate data inserted successfully!");
 
         // await Product.insertMany(newProduct)
