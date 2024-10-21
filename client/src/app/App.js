@@ -19,13 +19,14 @@ import ResetPassword from '../components/Authentication/ResetPassword/ResetPassw
 import ChangePasswordScreen from '../components/Authentication/ChangePassword/ChangePassword';
 import Wishlist from '../components/Wishlist';
 import WishItemsProvider from '../Context/WishItemsProvider';
-import DrawerNav from '../components/Nav/DrawerNav/DrawerNav';
+// import DrawerNav from '../components/Nav/DrawerNav/DrawerNav';
 import Checkout from '../components/Checkout/Checkout';
 import SearchProvider from '../Context/SearchProvider';
 import Overview from '../adminPage/component/Overview';
 import ListUser from '../adminPage/component/ListUser';
 import Categories from '../adminPage/component/Categories';
 import OrderAdmin from '../adminPage/component/OrderAdmin';
+import PurchaseOrder from '../components/PurchaseOrder/PurchaseOrder';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
                 <Route path="changepw" element={<ChangePasswordScreen />} />
                 <Route path="*" element={<Login />} />
               </Route>
+              <Route path='purchaseOrder' element={<PurchaseOrder/>}/>
               <Route path="/shop" element={<Shop />} />
               <Route path="/category">
                 <Route path=":id" element={<CategoryView />} />
