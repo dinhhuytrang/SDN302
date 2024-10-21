@@ -14,7 +14,9 @@ const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = requir
 const router = express.Router();
 const User = require('./models/User.models');
 const Category = require('./models/Category.model');
-const productRoutes = require('./routes/productRoutes')
+const productRoutes = require('./routes/productRoutes');
+const { searchProducts } = require('./controllers/productController');
+
 
 dotenv.config();
 
@@ -85,7 +87,7 @@ const newProduct = [
             "Lightblue-Size S", "Lightblue-Size M", "Lightblue-Size L",
             "Purple-Size S", "Purple-Size M", "Purple-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
 
     },
     {
@@ -99,7 +101,7 @@ const newProduct = [
             "White-blue-Size S", "White-blue-Size M", "White-blue-Size L",
             "White-green-Size S", "White-green-Size M", "White-green-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
     },
 
     {
@@ -112,7 +114,7 @@ const newProduct = [
         option: [
             "Size S", "Size M", "Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
     },
 
     {
@@ -126,7 +128,7 @@ const newProduct = [
             "White-Size S", "White-Size M", "White-Size L",
             "Black-Size S", "Black-Size M", "Black-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
     },
 
     {
@@ -140,7 +142,7 @@ const newProduct = [
             "White-Size S", "White-Size M", "White-Size L",
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
     },
 
     {
@@ -154,7 +156,7 @@ const newProduct = [
             "White-Size S", "White-Size M", "White-Size L",
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf201')
     },
 
     //Women
@@ -168,7 +170,7 @@ const newProduct = [
         option: [           
             "Size S", "Size M", "Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
     },
 
     {
@@ -182,7 +184,7 @@ const newProduct = [
             "Black-Size S", "Black-Size M", "Black-Size L",
             "Brown-Size S", "Brown-Size M", "Brown-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
     },
 
     {
@@ -196,7 +198,7 @@ const newProduct = [
             "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
     },
 
     {
@@ -210,7 +212,7 @@ const newProduct = [
             "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
     },
 
     {
@@ -224,7 +226,7 @@ const newProduct = [
             "Pink-Size S", "Pink-Size M", "Pink-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
     },
 
     {
@@ -238,7 +240,7 @@ const newProduct = [
             "Pink-Size S", "Pink-Size M", "Pink-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf200')
     },
 
     // Men
@@ -253,7 +255,7 @@ const newProduct = [
             "Brown-Size S", "Brown-Size M", "Brown-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
     },
 
     {
@@ -266,7 +268,7 @@ const newProduct = [
         option: [           
             "Brown-Size S", "Brown-Size M", "Brown-Size L"          
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
     },
 
     {
@@ -279,7 +281,7 @@ const newProduct = [
         option: [           
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
     },
 
     {
@@ -292,7 +294,7 @@ const newProduct = [
         option: [           
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
     },
 
     {
@@ -306,7 +308,7 @@ const newProduct = [
             "Black-Size S", "Black-Size M", "Black-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
     },
 
     {
@@ -320,7 +322,7 @@ const newProduct = [
             "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('670f7b169f5902e8b2adf1ff')
     }
 ]
 const newUser = [
@@ -363,6 +365,7 @@ connectDB()
 // Use user routes
 app.use('/api/products', productRoutes.ProductRouter);
 app.use('/api/users', userRoutes);
+app.use('/api/products', searchProducts);
 app.use('/api/sendemail', router.post('/', async (req, res, next) => {
     try {
         // Wait for the email to be sent
