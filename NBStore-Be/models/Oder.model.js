@@ -21,7 +21,7 @@ const orderSchema = new Schema({
     default: Date.now
   },
   payMethod: {
-    type: String, // Phương thức thanh toán (ví dụ: "Credit Card", "Cash on Delivery")
+    type: String, // Phương thức thanh toán (ví dụ: "vnpay", "cod")
     required: true
   },
   orderCode: {
