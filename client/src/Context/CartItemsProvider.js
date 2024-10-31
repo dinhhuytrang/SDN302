@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { CartItemsContext } from "./CartItemsContext";
+import { BASE_URL } from '../constant/constant';
 
 const CartItemsProvider = (props) => {
 
@@ -44,10 +45,47 @@ const CartItemsProvider = (props) => {
         }
     }
 
-    useEffect(() => {
-        calculateTotalAmount(cartItems)
-        
-    }, [cartItems])
+    useEffect( () => {
+        const fetchCartItems = async () => {
+            try {
+                // Get userId from localStorage
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (!user || !user.id) {
+                    console.error('User ID not found in local storage');
+                    return;
+                }
+                const userId = user.id;
+    
+                // Fetch the cart items for the specific user
+                const response = await fetch(`${BASE_URL}/api/cart?userId=${userId}`, { method: 'GET' });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to fetch cart items');
+                }
+    
+                const data = await response.json();
+                console.log('Fetched cart items successfully:');
+    
+                // Map cart items to extract only product details and quantity
+                const formattedCartItems = data.cartItems.map((item) => ({
+                    _id: item.product._id,
+                    category: item.product.category,
+                    name: item.product.name,
+                    price: item.product.price,
+                    image: item.product.image,
+                    quantity: item.quantity, // Quantity from the cart
+                }));
+    
+                // Set the formatted cart items and total order price
+                setCartItems(formattedCartItems);
+                setTotalAmountOfItems(data.totalOrderPrice);
+    
+            } catch (error) {
+                console.error('Error fetching cart items:', error.message);
+            }
+        };
+        fetchCartItems();
+    }, [])
 
 
     const cartItemCtx = {

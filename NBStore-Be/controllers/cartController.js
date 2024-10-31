@@ -109,30 +109,28 @@ const removeCartItem = async (req, res) => {
 
 // Lấy giỏ hàng của người dùng
 const getAll = async (req, res) => {
-  const userId = req.user._id; // Lấy user từ request
+  const userId = req.query.userId;
 
-  try {
-    // Lấy các sản phẩm trong giỏ hàng và cập nhật giá mới nhất từ bảng product
-    const cartItems = await Cart.find({ user: userId }).populate('product');
+    try {
+        // Fetch cart items for the specific user and populate product details
+        const cartItems = await Cart.find({ user: userId }).populate('product');
 
-    // Cập nhật lại giá sản phẩm theo giá mới nhất từ Product model
-    const updatedCartItems = cartItems.map(item => {
-      return {
-        ...item._doc,
-        product: {
-          ...item.product._doc,
-          price: item.product.price // Lấy giá cập nhật từ Product
-        }
-      };
-    });
+        // Update cart items to use the latest product prices
+        const updatedCartItems = cartItems.map(item => ({
+            ...item._doc,
+            product: {
+                ...item.product._doc,
+                price: item.product.price // Use updated price from Product
+            }
+        }));
 
-    // Tính tổng giá trị đơn hàng
-    const totalOrderPrice = updatedCartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
+        // Calculate the total order price
+        const totalOrderPrice = updatedCartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
 
-    res.status(200).json({ cartItems: updatedCartItems, totalOrderPrice });
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching cart', error });
-  }
+        res.status(200).json({ cartItems: updatedCartItems, totalOrderPrice });
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching cart', error });
+    }
 };
 
 const getCart = async (req, res) => {
