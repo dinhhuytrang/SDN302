@@ -2,11 +2,12 @@ import './RelatedCard.css'
 import { Link } from "react-router-dom"
 
 const RelatedCard = (props) => {
+    console.log(props.item , "RelatedCard")
     return ( 
         <div className="related__product__card__container">
             <div className="related__product__card__inner">
                 <div className="related__product__image"> 
-                    <img src= {`https://shema-backend.vercel.app/public/${props.item.category}/${props.item.image[0].filename}`} alt="item" className="product__img"/> 
+                    <img src= {`${props.item.image[0]}`} alt="item" className="product__img"/> 
                 </div>
                 <div className="related__product__card__detail">
                     <div className="related__product__name">

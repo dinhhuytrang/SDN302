@@ -6,7 +6,7 @@ import './Shop.css';
 import ReactLoading from 'react-loading';
 
 const Shop = () => {
-    TabTitle("Shop - SHEMA")
+    TabTitle("NBStore")
     const [ menItems, setMenItems ] = useState()
     const [ womenItems, setWomenItems ] = useState()
     const [ kidsItems, setKidsItems ] = useState()
@@ -21,7 +21,9 @@ const Shop = () => {
                  setKidsItems(res.data.data.filter((item) => item.category.name === "kids" ))
                  setWomenItems(res.data.data.filter((item) => item.category.name === "women"))
                 setLoading(false)
-            })
+            }) 
+            
+                        
             .catch(err => console.log(err))
         window.scrollTo(0, 0)
     
