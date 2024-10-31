@@ -71,4 +71,23 @@ const getRecommendedProducts = async (req, res, next) => {
         next(error); 
     }
 };
-module.exports = { getProducts,getProductByID,getRecommendedProducts };
+
+//search product
+const searchProducts = async (req, res, next) => {
+    try {
+        const { query } = req.query; 
+
+        
+        const products = await Product.find({
+            name: { $regex: query, $options: "i" } 
+        });
+
+        // Trả về kết quả
+        res.status(200).json(products);
+        
+
+    } catch (error) {
+        next(error);
+    }
+};
+module.exports = { getProducts,searchProducts, getProductByID,getRecommendedProducts, };

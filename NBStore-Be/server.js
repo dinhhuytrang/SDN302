@@ -15,7 +15,12 @@ const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = requir
 const router = express.Router();
 const User = require('./models/User.models');
 const Category = require('./models/Category.model');
-const productRoutes = require('./routes/productRoutes')
+const productRoutes = require('./routes/productRoutes');
+const { searchProducts } = require('./controllers/productController');
+const Order = require('./models/Oder.model');
+const { OrderRouter } = require('./routes/orderRoutes');
+const OrderItem = require('./models/OderItem.model');
+
 
 dotenv.config();
 
@@ -32,6 +37,72 @@ app.options('*', cors());
 app.use(express.json());
 app.use(bodyParser.json());
 // Sample data to insert
+const order=[
+    {
+        user:new mongoose.Types.ObjectId('67164900364a5090c4e51b2f'),
+        totalOrder:300000,
+        status:"Pending",
+        payMethod:"cod",
+        orderCode:"DSGFGFB341",
+        address:"Ha Noi",
+        phone:"0912300920"
+    },
+    {
+        user:new mongoose.Types.ObjectId('67164900364a5090c4e51b2f'),
+        totalOrder:1220000,
+        status:"Shipped",
+        payMethod:"vnpay",
+        orderCode:"LLSMDODNM2",
+        address:"Ha Noi",
+        phone:"0912300920"
+    },
+    {
+        user:new mongoose.Types.ObjectId('67164900364a5090c4e51b2f'),
+        totalOrder:231300,
+        status:"Delivered",
+        payMethod:"vnpay",
+        orderCode:"DLSKD30291",
+        address:"Ha Noi",
+        phone:"0912300920"
+    },
+    {
+        user:new mongoose.Types.ObjectId('67164900364a5090c4e51b2f'),
+        totalOrder:2313500,
+        status:"Pending",
+        payMethod:"vnpay",
+        orderCode:"DSFMMK2810",
+        address:"Ha Noi",
+        phone:"0912300920"
+    }
+]
+
+const orderItem=[
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e495'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40677'),
+        quantity:2
+    },
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e495'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40678'),
+        quantity:2
+    },
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e496'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40677'),
+        quantity:1
+    },
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e497'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40677'),
+        quantity:1
+    },
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e498'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40677'),
+        quantity:2
+    },
+]
 const rateData = [
     {
         idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd49'),
@@ -344,9 +415,10 @@ const insertSampleRateData = async () => {
         // await Rate.insertMany(rateData); // Use Rate to insert data
         console.log("Sample rate data inserted successfully!");
 
-        // await Product.insertMany(newProduct)
+        // await Order.insertMany(order)
         // await User.insertMany(newUser)
         // await Category.insertMany(newCategory)
+        // await OrderItem.insertMany(orderItem)
     } catch (error) {
         console.error("Error inserting sample rate data:", error);
     }
@@ -364,6 +436,8 @@ connectDB()
 // Use user routes
 app.use('/api/products', productRoutes.ProductRouter);
 app.use('/api/users', userRoutes);
+app.use('/api/products', searchProducts);
+app.use('/api/orders',OrderRouter)
 app.use('/api/sendemail', router.post('/', async (req, res, next) => {
     try {
         // Wait for the email to be sent

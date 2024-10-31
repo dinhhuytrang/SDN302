@@ -6,8 +6,10 @@ const {productController} = require("../controllers")
 ProductRouter.use(bodyParser.json());
 
 ProductRouter.get('/', getProducts);
-ProductRouter.get('/:id',productController.getProductByID)
-ProductRouter.get('/:id/recommendations',productController.getRecommendedProducts)
+ProductRouter.get('/search', productController.searchProducts);
+ProductRouter.get('/:id',productController.getProductByID);
+ProductRouter.get('/:id/recommendations',productController.getRecommendedProducts);
+
 module.exports = {
-    ProductRouter,
+    ProductRouter
 }
