@@ -16,7 +16,9 @@ const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = requir
 const router = express.Router();
 const User = require('./models/User.models');
 const Category = require('./models/Category.model');
-const productRoutes = require('./routes/productRoutes')
+const productRoutes = require('./routes/productRoutes');
+const { OrderRouter } = require('./routes/orderRoutes');
+const CategoryRouter = require('./routes/categoryRoutes');
 
 dotenv.config();
 
@@ -503,11 +505,11 @@ connectDB()
     });
 
 // Use user routes
-app.use('/api/products', productRoutes);
+app.use('/api/products', productRoutes.ProductRouter);
 app.use('/api/warehouse',productWareHouseRoute)
 app.use('/api/users', userRoutes);
-app.use('/api/products', searchProducts);
-app.use('/api/orders',OrderRouter)
+app.use('/api/orders', OrderRouter)
+app.use('/api/categories', CategoryRouter)
 app.use('/api/sendemail', router.post('/', async (req, res, next) => {
     try {
         // Wait for the email to be sent

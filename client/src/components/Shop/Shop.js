@@ -15,7 +15,7 @@ const Shop = () => {
     useEffect(() => {
         axios.get("http://localhost:9999/api/products")
             .then(res => {
-                console.log(res.data)
+                console.log(res.data)   
                  setMenItems(res.data.data.filter((item) => item.category?.name === "men")) // So sánh với category.name
                 
                  setKidsItems(res.data.data.filter((item) => item.category?.name === "kids" ))
