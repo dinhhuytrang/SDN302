@@ -147,7 +147,7 @@ const PurchaseOrder = () => {
     }
 
     const viewDetailOrder = (idOrder) => {
-        navigate(`/user/detailOrder?idOrder=${idOrder}`)
+        navigate(`/purchaseOrder/detail?idOrder=${idOrder}`)
     }
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -188,7 +188,7 @@ const PurchaseOrder = () => {
                                     {allItem?.map(item =>
                                         item.order._id === order._id ? (
                                             <Container key={item._id}>
-                                                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #7F7F7F" }}>
+                                                <div style={{  borderBottom: "1px solid #7F7F7F",padding:"20px 10px" }}>
                                                     {order?.status === COMPLETED ? (
                                                         item?.rate ? (
                                                             <div style={{
@@ -212,11 +212,11 @@ const PurchaseOrder = () => {
                                                             </div>
                                                         )
                                                     ) : (
-                                                        <div style={{display:"flex",justifyContent:"space-around",alignItems:"center"}}>
+                                                        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                                                             <div>
-                                                                Code:
+                                                                Code: {order?.orderCode}
                                                             </div>
-                                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', color: "red" }}>
+                                                            <div style={{ color: "red" }}>
                                                                 {order?.status}
                                                             </div>
                                                         </div>
@@ -282,7 +282,8 @@ const PurchaseOrder = () => {
                             ) : (
                                 <div>
                                     <Container style={{ display: "flex", borderBottom: "1px solid #7F7F7F" }}>
-                                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: "20px" }}>Mã đơn hàng: {order?.code}</div>
+                                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: "20px" }}>Code: {order?.orderCode}</div>
+                                        
                                     </Container>
                                     {allItem?.map(item =>
                                         item.order._id === order._id ? (
