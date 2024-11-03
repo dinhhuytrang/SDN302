@@ -7,7 +7,6 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const cartRoutes = require('./routes/cartRoutes');
-
 const Rate = require('./models/Rate.model');
 const Product = require('./models/Products.model');
 const sendEmail = require('./sendEmail/sendEmail');
@@ -15,8 +14,10 @@ const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = requir
 const router = express.Router();
 const User = require('./models/User.models');
 const Category = require('./models/Category.model');
-const productRoutes = require('./routes/productRoutes')
-
+const productRoutes = require('./routes/productRoutes');
+const { productWareHouseRouter } = require('./routes/ProductWarehouseRouter');
+const { searchProducts } = require('./controllers/productController');
+const {OrderRouter} = require('./routes/orderRoutes')
 dotenv.config();
 
 const app = express();
