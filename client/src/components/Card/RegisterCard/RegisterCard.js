@@ -23,7 +23,7 @@ const RegisterCard = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:9999/api/users/register`, { // Change to your backend URL
+            const response = await fetch(`http://localhost:9999/api/users/register`, { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

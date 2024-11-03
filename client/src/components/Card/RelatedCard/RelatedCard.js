@@ -11,7 +11,7 @@ const RelatedCard = (props) => {
                 </div>
                 <div className="related__product__card__detail">
                     <div className="related__product__name">
-                        <Link to={`/item/${props.item.category}/${props.item._id}`}>
+                        <Link to={`/item/${props.item.category.name}/${props.item._id}`}>
                            {props.item.name}
                         </Link>
                         

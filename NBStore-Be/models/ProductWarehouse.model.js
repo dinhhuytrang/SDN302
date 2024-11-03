@@ -17,10 +17,10 @@ const productWarehouseSchema = new Schema({
     type: Number, // Số lượng sản phẩm được nhập/xuất
     required: true
   },
-  date: {
-    type: Date, // Ngày nhập/xuất kho
-    default: Date.now
-  }
+  supplier: {
+    type:String
+  },
+  note:{type: String}
 }, { timestamps: true });
 
 // Tạo model từ schema

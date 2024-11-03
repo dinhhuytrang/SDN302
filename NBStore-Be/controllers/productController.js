@@ -72,6 +72,36 @@ const getRecommendedProducts = async (req, res, next) => {
     }
 };
 
+const createNewProduct = async (req, res, next) => {
+    try {
+        
+        if (typeof req.body.image === 'string') {
+            try {
+                
+                req.body.image = JSON.parse(req.body.image);
+            } catch (error) {
+                return res.status(400).json({ message: 'Invalid image format' });
+            }
+        }
+
+       
+        if (!Array.isArray(req.body.image)) {
+            return res.status(400).json({ message: 'Image must be an array of strings' });
+        }
+
+       
+        const newProduct = new Product(req.body);
+        await newProduct.save();
+
+        res.status(201).json({
+            message: "Product created successfully",
+            data: newProduct
+        });
+    } catch (error) {
+        next(error); 
+    }
+};
+
 //search product
 const searchProducts = async (req, res, next) => {
     try {
@@ -90,4 +120,5 @@ const searchProducts = async (req, res, next) => {
         next(error);
     }
 };
-module.exports = { getProducts,searchProducts, getProductByID,getRecommendedProducts, };
+module.exports = { getProducts,searchProducts, getProductByID,getRecommendedProducts,createNewProduct };
+
