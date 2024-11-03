@@ -10,27 +10,19 @@ const CartItemsProvider = (props) => {
     const addToCartHandler = (item, quantity) => {
         const { _id, name, price, image, category } = item;
         removeFromCartHandler(item)
-        setCartItems((prevItems) => [...prevItems, { _id, name, price, image, category, itemQuantity: quantity }])
+        setCartItems((prevItems) => [...prevItems, { _id, name, price, image, category, quantity: quantity }])
     }
 
     const removeFromCartHandler = (item) => {
         setCartItems(cartItems.filter((prevItem) => prevItem._id !== item._id))
     }
 
-    const calculateTotalAmount = (currentCartItems) => {
-        let total = 0
-        currentCartItems.forEach((item) => {
-            total = total + (item.price * item.itemQuantity)
-        })
-
-        setTotalAmountOfItems(total)
-    }
 
     const quantityHandler = (itemId, action) => {
         if (action === 'INC') {
             setCartItems(cartItems.map((item) => {
                 if (item.id === itemId) {
-                    item.itemQuantity += 1
+                    item.quantity += 1
                 }
                 return item
             }))
@@ -38,7 +30,7 @@ const CartItemsProvider = (props) => {
         else {
             setCartItems(cartItems.map((item) => {
                 if (item.id === itemId) {
-                    item.itemQuantity -= 1
+                    item.quantity -= 1
                 }
                 return item
             }))
@@ -85,7 +77,7 @@ const CartItemsProvider = (props) => {
             }
         };
         fetchCartItems();
-    }, [])
+    }, [cartItems])
 
 
     const cartItemCtx = {
