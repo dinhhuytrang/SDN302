@@ -26,7 +26,13 @@ import Overview from '../adminPage/component/Overview';
 import ListUser from '../adminPage/component/ListUser';
 import Categories from '../adminPage/component/Categories';
 import OrderAdmin from '../adminPage/component/OrderAdmin';
+import AddProductPage from '../adminPage/Whitehouse/AddNewWhitehouse';
+import ViewDetailWhiteHouse from '../adminPage/Whitehouse/ViewDetailWhiteHouse';
+import NewProduct from '../adminPage/products/AddProduct';
+import ListWareHouse from '../adminPage/Whitehouse/WareHouseList';
+import UpdateWareHouse from '../adminPage/Whitehouse/UpdateWareHouse';
 import PurchaseOrder from '../components/PurchaseOrder/PurchaseOrder';
+
 
 
 function App() {
@@ -78,7 +84,11 @@ function App() {
               <Route path="/admin/categories" element={<Categories />} />
               {/* <Route path="/admin/products" element={<ProductAdmin />} /> */}
               <Route path="/admin/orders" element={<OrderAdmin />} />
-
+              <Route path="/admin/add-product" element={<NewProduct />} />
+              <Route path="/admin/warehouse" element={<ListWareHouse />} />
+              <Route path="/admin/warehouse/addnew" element={<AddProductPage />} />
+              <Route path="/admin/warehouse/detail/:id" element={<ViewDetailWhiteHouse />} />
+              <Route path="/admin/warehouse/update/:id" element={<UpdateWareHouse />} />
             </Routes>
             <Footer />
           </Router>

@@ -20,3 +20,7 @@ export const REFUND="REFUND"
 export const DEPOSIT="DEPOSIT"
 export const TRANSFER="TRANSFER"
 export const RECEIVE="RECEIVE"
+
+export const MEN = "6713930b1073ede74abcabd2"
+export const WOMEN = "6713930b1073ede74abcabd3"
+export const KIDS = "6713930b1073ede74abcabd4"
