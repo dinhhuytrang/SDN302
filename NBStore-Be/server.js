@@ -14,7 +14,9 @@ const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = requir
 const router = express.Router();
 const User = require('./models/User.models');
 const Category = require('./models/Category.model');
-const productRoutes = require('./routes/productRoutes')
+const ProductWarehouse = require('./models/ProductWarehouse.model');
+const productRoutes = require('./routes/productRoutes');
+const { productWareHouseRouter } = require('./routes/ProductWarehouse');
 
 dotenv.config();
 
@@ -337,12 +339,85 @@ const newUser = [
         email: "qduy2357@gmail.com",
     }
 ]
+const newWhiteHouse = [
+    {
+      product: new mongoose.Types.ObjectId('671393b30c8881ed7d3c5e7e'),
+      status: 'In',
+      quantity: 30,
+      supplier: 'Supplier A',
+      note: 'Initial stock'
+    },
+    {
+      product: new mongoose.Types.ObjectId('671393b30c8881ed7d3c5e7f'),
+      status: 'In',
+      quantity: 45,
+      supplier: 'Supplier B',
+      note: 'Initial stock'
+    },
+    {
+      product: new mongoose.Types.ObjectId('671393b30c8881ed7d3c5e80'),
+      status: 'In',
+      quantity: 30,
+      supplier: 'Supplier C',
+      note: 'Initial stock'
+    },
+    {
+      product: new mongoose.Types.ObjectId('671393b30c8881ed7d3c5e81'),
+      status: 'In',
+      quantity: 24,
+      supplier: 'Supplier D',
+      note: 'Initial stock'
+    },
+    {
+      product: new mongoose.Types.ObjectId('671393b30c8881ed7d3c5e86'),
+      status: 'In',
+      quantity: 30,
+      supplier: 'Supplier E',
+      note: 'Initial stock'
+    },
+    {
+      product: new mongoose.Types.ObjectId('671393b30c8881ed7d3c5e87'),
+      status: 'In',
+      quantity: 30,
+      supplier: 'Supplier F',
+      note: 'Initial stock'
+    },
+    {
+      product: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3'),
+      status: 'In',
+      quantity: 50,
+      supplier: 'Supplier G',
+      note: 'Initial stock'
+    },
+    {
+      product: new mongoose.Types.ObjectId('671393b30c8881ed7d3c5e88'),
+      status: 'In',
+      quantity: 40,
+      supplier: 'Supplier H',
+      note: 'Initial stock'
+    },
+    {
+      product: new mongoose.Types.ObjectId('671393b30c8881ed7d3c5e89'),
+      status: 'In',
+      quantity: 35,
+      supplier: 'Supplier I',
+      note: 'Initial stock'
+    },
+    {
+      product: new mongoose.Types.ObjectId('671393b30c8881ed7d3c5e8f'),
+      status: 'In',
+      quantity: 40,
+      supplier: 'Supplier J',
+      note: 'Initial stock'
+    }
+  ]
+  
 // Function to insert sample rate data into MongoDB
 const insertSampleRateData = async () => {
     try {
         // await Rate.insertMany(rateData); // Use Rate to insert data
-        console.log("Sample rate data inserted successfully!");
-
+        // console.log("Sample rate data inserted successfully!");
+        //  await ProductWarehouse.insertMany(newWhiteHouse)
         // await Product.insertMany(newProduct)
         // await User.insertMany(newUser)
         // await Category.insertMany(newCategory)
@@ -362,6 +437,7 @@ connectDB()
 
 // Use user routes
 app.use('/api/products', productRoutes.ProductRouter);
+app.use('/api/warehouse',productWareHouseRouter)
 app.use('/api/users', userRoutes);
 app.use('/api/sendemail', router.post('/', async (req, res, next) => {
     try {
