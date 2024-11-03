@@ -1,9 +1,9 @@
 const Product = require('../models/Products.model');
 
-const getProducts = async (req, res,next) => {
+const getProducts = async (req, res, next) => {
     try {
         const products = await Product.find().populate("category").exec(); //1 
-        if(products && products.length > 0) {
+        if (products && products.length > 0) {
             res.status(200).json({
                 message: "List of products",
                 data: products
@@ -41,7 +41,7 @@ const getProductByID = async (req, res, next) => {
 const getRecommendedProducts = async (req, res, next) => {
     try {
         const productId = req.params.id;
-        
+
         // Find the current product by ID
         const currentProduct = await Product.findById(productId).populate("category").exec(); //1
         // res.status(200).json(currentProduct);
@@ -68,28 +68,28 @@ const getRecommendedProducts = async (req, res, next) => {
             });
         }
     } catch (error) {
-        next(error); 
+        next(error);
     }
 };
 
 const createNewProduct = async (req, res, next) => {
     try {
-        
+
         if (typeof req.body.image === 'string') {
             try {
-                
+
                 req.body.image = JSON.parse(req.body.image);
             } catch (error) {
                 return res.status(400).json({ message: 'Invalid image format' });
             }
         }
 
-       
+
         if (!Array.isArray(req.body.image)) {
             return res.status(400).json({ message: 'Image must be an array of strings' });
         }
 
-       
+
         const newProduct = new Product(req.body);
         await newProduct.save();
 
@@ -98,30 +98,57 @@ const createNewProduct = async (req, res, next) => {
             data: newProduct
         });
     } catch (error) {
-        next(error); 
+        next(error);
     }
 };
 
 //search product
 const searchProducts = async (req, res, next) => {
     try {
-        const { query } = req.query; 
+        const { query } = req.query;
 
-        
+
         const products = await Product.find({
-            name: { $regex: query, $options: "i" } 
+            name: { $regex: query, $options: "i" }
         });
 
         // Trả về kết quả
         res.status(200).json(products);
-        
+
 
     } catch (error) {
         next(error);
     }
 };
 
+const updateProduct = async (req, res, next) => {
+    try {
+        const productId = req.params.productId;
+        const updatedFields = req.body; 
 
-module.exports = { getProducts,searchProducts, getProductByID,getRecommendedProducts, };
-module.exports = { getProducts,searchProducts, getProductByID,getRecommendedProducts,createNewProduct };
+        const updatedProduct = await Product.findByIdAndUpdate(productId, updatedFields, { new: true });
+        if (!updatedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+const deleteProduct = async (req, res) => {
+    const productId = req.params.productId;
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(productId);
+        if (!deletedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.status(200).json({ message: 'Product deleted successfully' });
+    } catch (error) {
+       next(error);
+    }
+};
+
+module.exports = { getProducts, searchProducts, getProductByID, getRecommendedProducts, createNewProduct, updateProduct, deleteProduct };
 

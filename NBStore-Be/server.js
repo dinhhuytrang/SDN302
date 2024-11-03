@@ -7,6 +7,7 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const cartRoutes = require('./routes/cartRoutes');
+const productWareHouseRoute = require('./routes/ProductWarehouse')
 
 const Rate = require('./models/Rate.model');
 const Product = require('./models/Products.model');
@@ -502,8 +503,8 @@ connectDB()
     });
 
 // Use user routes
-app.use('/api/products', productRoutes.ProductRouter);
-app.use('/api/warehouse',productWareHouseRouter)
+app.use('/api/products', productRoutes);
+app.use('/api/warehouse',productWareHouseRoute)
 app.use('/api/users', userRoutes);
 app.use('/api/products', searchProducts);
 app.use('/api/orders',OrderRouter)
