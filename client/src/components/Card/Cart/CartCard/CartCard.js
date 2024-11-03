@@ -9,6 +9,8 @@ import { BASE_URL } from '../../../../constant/constant';
 
 const CartCard = (props) => {
     let cartItems = useContext(CartItemsContext)
+    // console.log(cartItems)
+    console.log(props)
 
     const handelQuantityIncrement = async (event) => {
         cartItems.quantity(props.item.id, 'INC');
@@ -21,7 +23,7 @@ const CartCard = (props) => {
             const response = await fetch(`${BASE_URL}/api/cart/update`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ product: props.item._id, user: user.id, quantity: props.item.itemQuantity })
+                body: JSON.stringify({ product: props.item._id, user: user.id, quantity: props.item.quantity })
             });
 
             if (!response.ok) {
@@ -36,7 +38,7 @@ const CartCard = (props) => {
     };
 
     const handelQuantityDecrement = async (event) => {
-        if (props.item.itemQuantity > 1) {
+        if (props.item.quantity > 1) {
             cartItems.quantity(props.item.id, 'DEC');
 
         }
@@ -49,7 +51,7 @@ const CartCard = (props) => {
             const response = await fetch(`${BASE_URL}/api/cart/update`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ product: props.item._id, user: user.id, quantity: props.item.itemQuantity })
+                body: JSON.stringify({ product: props.item._id, user: user.id, quantity: props.item.quantity })
             });
 
             if (!response.ok) {
@@ -110,7 +112,7 @@ const CartCard = (props) => {
                 <IconButton onClick={handelQuantityIncrement}>
                     <AddCircleIcon />
                 </IconButton>
-                <div type="text" name="quantity" className="quantity__input">{props.item.itemQuantity}</div>
+                <div type="text" name="quantity" className="quantity__input">{props.item.quantity}</div>
                 <IconButton onClick={handelQuantityDecrement}>
                     <RemoveCircleIcon fontSize='medium' />
                 </IconButton>

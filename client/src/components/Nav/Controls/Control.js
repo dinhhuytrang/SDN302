@@ -13,7 +13,7 @@ const Control = () => {
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('user')))
-    }, [])
+    }, [user])
 
     return (
         <div className="control__bar__container">
