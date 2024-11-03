@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/errorHandler');
+const cartRoutes = require('./routes/cartRoutes');
 
 const Rate = require('./models/Rate.model');
 const Product = require('./models/Products.model');
@@ -14,9 +15,7 @@ const { SUBJECT_RESET_ACCOUNT, TEXT_RESET_ACCOUNT, HTML_RESET_ACCOUNT } = requir
 const router = express.Router();
 const User = require('./models/User.models');
 const Category = require('./models/Category.model');
-const ProductWarehouse = require('./models/ProductWarehouse.model');
-const productRoutes = require('./routes/productRoutes');
-const { productWareHouseRouter } = require('./routes/ProductWarehouse');
+const productRoutes = require('./routes/productRoutes')
 
 dotenv.config();
 
@@ -33,6 +32,72 @@ app.options('*', cors());
 app.use(express.json());
 app.use(bodyParser.json());
 // Sample data to insert
+const order=[
+    {
+        user:new mongoose.Types.ObjectId('67164900364a5090c4e51b2f'),
+        totalOrder:300000,
+        status:"Pending",
+        payMethod:"cod",
+        orderCode:"DSGFGFB341",
+        address:"Ha Noi",
+        phone:"0912300920"
+    },
+    {
+        user:new mongoose.Types.ObjectId('67164900364a5090c4e51b2f'),
+        totalOrder:1220000,
+        status:"Shipped",
+        payMethod:"vnpay",
+        orderCode:"LLSMDODNM2",
+        address:"Ha Noi",
+        phone:"0912300920"
+    },
+    {
+        user:new mongoose.Types.ObjectId('67164900364a5090c4e51b2f'),
+        totalOrder:231300,
+        status:"Delivered",
+        payMethod:"vnpay",
+        orderCode:"DLSKD30291",
+        address:"Ha Noi",
+        phone:"0912300920"
+    },
+    {
+        user:new mongoose.Types.ObjectId('67164900364a5090c4e51b2f'),
+        totalOrder:2313500,
+        status:"Pending",
+        payMethod:"vnpay",
+        orderCode:"DSFMMK2810",
+        address:"Ha Noi",
+        phone:"0912300920"
+    }
+]
+
+const orderItem=[
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e495'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40677'),
+        quantity:2
+    },
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e495'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40678'),
+        quantity:2
+    },
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e496'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40677'),
+        quantity:1
+    },
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e497'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40677'),
+        quantity:1
+    },
+    {
+        order:new mongoose.Types.ObjectId('67165c92e277be5e7fe1e498'),
+        product: new mongoose.Types.ObjectId('67163099c872ff2744f40677'),
+        quantity:2
+    },
+]
 const rateData = [
     {
         idProduct: new mongoose.Types.ObjectId('67050413a94726a643b8dd49'),
@@ -60,20 +125,20 @@ const rateData = [
     }
 ];
 
-const newCategory = [
-    {
-        name: "men",
-        image: "https://i.pinimg.com/736x/d4/24/58/d4245806458d4177c8f0ef15d2733522.jpg"
-    },
-    {
-        name: "women",
-        image: "https://i.pinimg.com/736x/9d/04/6f/9d046fea7c898e80afc80f20bb5a26d3.jpg"
-    },
-    {
-        name: "kids",
-        image: "https://i.pinimg.com/736x/80/eb/06/80eb06b4e48fadbee71c7d71246caf41.jpg"
-    }
-];
+// const newCategory = [
+//     {
+//         name: "men",
+//         image: "https://i.pinimg.com/736x/d4/24/58/d4245806458d4177c8f0ef15d2733522.jpg"
+//     },
+//     {
+//         name: "women",
+//         image: "https://i.pinimg.com/736x/9d/04/6f/9d046fea7c898e80afc80f20bb5a26d3.jpg"
+//     },
+//     {
+//         name: "kids",
+//         image: "https://i.pinimg.com/736x/80/eb/06/80eb06b4e48fadbee71c7d71246caf41.jpg"
+//     }
+// ];
 
 const newProduct = [
     {
@@ -87,7 +152,7 @@ const newProduct = [
             "Lightblue-Size S", "Lightblue-Size M", "Lightblue-Size L",
             "Purple-Size S", "Purple-Size M", "Purple-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
 
     },
     {
@@ -101,7 +166,7 @@ const newProduct = [
             "White-blue-Size S", "White-blue-Size M", "White-blue-Size L",
             "White-green-Size S", "White-green-Size M", "White-green-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
     },
 
     {
@@ -114,7 +179,7 @@ const newProduct = [
         option: [
             "Size S", "Size M", "Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
     },
 
     {
@@ -128,7 +193,7 @@ const newProduct = [
             "White-Size S", "White-Size M", "White-Size L",
             "Black-Size S", "Black-Size M", "Black-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
     },
 
     {
@@ -142,7 +207,7 @@ const newProduct = [
             "White-Size S", "White-Size M", "White-Size L",
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
     },
 
     {
@@ -156,7 +221,7 @@ const newProduct = [
             "White-Size S", "White-Size M", "White-Size L",
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd4')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
     },
 
     //Women
@@ -170,7 +235,7 @@ const newProduct = [
         option: [           
             "Size S", "Size M", "Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
     },
 
     {
@@ -184,7 +249,7 @@ const newProduct = [
             "Black-Size S", "Black-Size M", "Black-Size L",
             "Brown-Size S", "Brown-Size M", "Brown-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
     },
 
     {
@@ -198,7 +263,7 @@ const newProduct = [
             "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
     },
 
     {
@@ -212,7 +277,7 @@ const newProduct = [
             "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
     },
 
     {
@@ -226,7 +291,7 @@ const newProduct = [
             "Pink-Size S", "Pink-Size M", "Pink-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
     },
 
     {
@@ -240,7 +305,7 @@ const newProduct = [
             "Pink-Size S", "Pink-Size M", "Pink-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd3')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
     },
 
     // Men
@@ -255,7 +320,7 @@ const newProduct = [
             "Brown-Size S", "Brown-Size M", "Brown-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
     },
 
     {
@@ -268,7 +333,7 @@ const newProduct = [
         option: [           
             "Brown-Size S", "Brown-Size M", "Brown-Size L"          
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
     },
 
     {
@@ -281,7 +346,7 @@ const newProduct = [
         option: [           
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
     },
 
     {
@@ -294,7 +359,7 @@ const newProduct = [
         option: [           
             "Blue-Size S", "Blue-Size M", "Blue-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
     },
 
     {
@@ -308,7 +373,7 @@ const newProduct = [
             "Black-Size S", "Black-Size M", "Black-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
     },
 
     {
@@ -322,7 +387,7 @@ const newProduct = [
             "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
             "White-Size S", "White-Size M", "White-Size L"
         ],
-        category: new mongoose.Types.ObjectId('6713930b1073ede74abcabd2')
+        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
     }
 ]
 const newUser = [
@@ -416,11 +481,12 @@ const newWhiteHouse = [
 const insertSampleRateData = async () => {
     try {
         // await Rate.insertMany(rateData); // Use Rate to insert data
-        // console.log("Sample rate data inserted successfully!");
-        //  await ProductWarehouse.insertMany(newWhiteHouse)
+        console.log("Sample rate data inserted successfully!");
+
         // await Product.insertMany(newProduct)
         // await User.insertMany(newUser)
         // await Category.insertMany(newCategory)
+        // await OrderItem.insertMany(orderItem)
     } catch (error) {
         console.error("Error inserting sample rate data:", error);
     }
@@ -439,6 +505,8 @@ connectDB()
 app.use('/api/products', productRoutes.ProductRouter);
 app.use('/api/warehouse',productWareHouseRouter)
 app.use('/api/users', userRoutes);
+app.use('/api/products', searchProducts);
+app.use('/api/orders',OrderRouter)
 app.use('/api/sendemail', router.post('/', async (req, res, next) => {
     try {
         // Wait for the email to be sent
@@ -453,7 +521,7 @@ app.use('/api/sendemail', router.post('/', async (req, res, next) => {
         res.status(500).json({ message: 'Error sending email', error: error.message });
     }
 }));
-
+app.use('/api/cart', cartRoutes)
 
 // Error handling middleware
 app.use(errorHandler);

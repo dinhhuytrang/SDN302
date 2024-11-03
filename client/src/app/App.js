@@ -19,7 +19,7 @@ import ResetPassword from '../components/Authentication/ResetPassword/ResetPassw
 import ChangePasswordScreen from '../components/Authentication/ChangePassword/ChangePassword';
 import Wishlist from '../components/Wishlist';
 import WishItemsProvider from '../Context/WishItemsProvider';
-import DrawerNav from '../components/Nav/DrawerNav/DrawerNav';
+// import DrawerNav from '../components/Nav/DrawerNav/DrawerNav';
 import Checkout from '../components/Checkout/Checkout';
 import SearchProvider from '../Context/SearchProvider';
 import Overview from '../adminPage/component/Overview';
@@ -31,6 +31,8 @@ import ViewDetailWhiteHouse from '../adminPage/Whitehouse/ViewDetailWhiteHouse';
 import NewProduct from '../adminPage/products/AddProduct';
 import ListWareHouse from '../adminPage/Whitehouse/WareHouseList';
 import UpdateWareHouse from '../adminPage/Whitehouse/UpdateWareHouse';
+import PurchaseOrder from '../components/PurchaseOrder/PurchaseOrder';
+
 
 
 function App() {
@@ -52,6 +54,7 @@ function App() {
                 <Route path="changepw" element={<ChangePasswordScreen />} />
                 <Route path="*" element={<Login />} />
               </Route>
+              <Route path='purchaseOrder' element={<PurchaseOrder/>}/>
               <Route path="/shop" element={<Shop />} />
               <Route path="/category">
                 <Route path=":id" element={<CategoryView />} />
@@ -72,7 +75,7 @@ function App() {
               </Route>
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/search/*" element={<SearchView />} />
-
+              <Route path="/checkout" element={<Checkout />} />
 
               <Route path="/admin" element={<Overview />} />
 

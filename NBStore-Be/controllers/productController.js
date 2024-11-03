@@ -71,6 +71,7 @@ const getRecommendedProducts = async (req, res, next) => {
         next(error); 
     }
 };
+
 const createNewProduct = async (req, res, next) => {
     try {
         
@@ -101,7 +102,23 @@ const createNewProduct = async (req, res, next) => {
     }
 };
 
+//search product
+const searchProducts = async (req, res, next) => {
+    try {
+        const { query } = req.query; 
 
+        
+        const products = await Product.find({
+            name: { $regex: query, $options: "i" } 
+        });
 
+        // Trả về kết quả
+        res.status(200).json(products);
+        
 
-module.exports = { getProducts,getProductByID,getRecommendedProducts,createNewProduct};
+    } catch (error) {
+        next(error);
+    }
+};
+module.exports = { getProducts,searchProducts, getProductByID,getRecommendedProducts,createNewProduct };
+

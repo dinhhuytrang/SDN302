@@ -10,9 +10,9 @@ const CategoryView = () => {
     const [loading, setLoading] = useState(true);
     
     // Category IDs for men, women, kids (replace with your real ObjectId values)
-    const MEN_CATEGORY_ID = '6713930b1073ede74abcabd2';
-    const WOMEN_CATEGORY_ID = '6713930b1073ede74abcabd3';
-    const KIDS_CATEGORY_ID = '6713930b1073ede74abcabd4';
+    const MEN_CATEGORY_ID = '6716709457498f74ea78c8cf';
+    const WOMEN_CATEGORY_ID = '6716709457498f74ea78c8d0';
+    const KIDS_CATEGORY_ID = '6716709457498f74ea78c8d1';
 
     useEffect(() => {
         axios.get("http://localhost:9999/api/products")
