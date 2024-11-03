@@ -90,4 +90,6 @@ const searchProducts = async (req, res, next) => {
         next(error);
     }
 };
+
+
 module.exports = { getProducts,searchProducts, getProductByID,getRecommendedProducts, };

@@ -56,7 +56,6 @@ const CartItemsProvider = (props) => {
                 }
     
                 const data = await response.json();
-                console.log('Fetched cart items successfully:');
     
                 // Map cart items to extract only product details and quantity
                 const formattedCartItems = data.cartItems.map((item) => ({
