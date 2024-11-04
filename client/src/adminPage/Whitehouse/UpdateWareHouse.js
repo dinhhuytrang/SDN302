@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Row, Col, Button, Alert, Image, Form } from 'react-bootstrap';
 import "../Whitehouse/addwhite.css";
 import Swal from 'sweetalert2';
-import { BASE_URL} from '../../constant/constant'
+import { BASE_URL } from '../../constant/constant'
 function UpdateWareHouse() {
   const { id } = useParams(); // Extract `id` from the route parameters
   const navigate = useNavigate(); // Use navigate hook for programmatic navigation
@@ -20,7 +20,13 @@ function UpdateWareHouse() {
   const [selectedImage, setSelectedImage] = useState('');
   const [loading, setLoading] = useState(true); // Loading state
   const fileInputRef = useRef(null);
+  const token = JSON.parse(localStorage.getItem("admin"))?.accessToken
 
+  useEffect(() => {
+    if (!token) {
+      navigate('/admin/signin');
+    }
+  }, [token, navigate]);
   // Fetch product data if id is provided
   useEffect(() => {
     if (id) {
@@ -38,7 +44,7 @@ function UpdateWareHouse() {
               note: data.note,
             });
             if (data.product.image && data.product.image.length > 0) {
-              setSelectedImage(data.product.image[0]); 
+              setSelectedImage(data.product.image[0]);
             }
           } else {
             setErrorMessage("Product data is missing in the response.");
@@ -47,7 +53,7 @@ function UpdateWareHouse() {
           setErrorMessage("Error fetching product data. Please try again.");
           console.error(error);
         } finally {
-          setLoading(false); 
+          setLoading(false);
         }
       };
 

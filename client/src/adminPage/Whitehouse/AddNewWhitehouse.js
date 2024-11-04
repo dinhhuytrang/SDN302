@@ -15,7 +15,13 @@ const AddProductPage = () => {
     supplier: "",
     quantity: "",
     note: ""
-  });
+  });const token = JSON.parse(localStorage.getItem("admin"))?.accessToken
+
+  useEffect(() => {
+    if (!token) {
+        navigate('/admin/signin');
+    } 
+}, [token, navigate]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
 

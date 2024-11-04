@@ -11,7 +11,7 @@ import { message, Spin } from 'antd';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {BASE_URL} from "../../constant/constant"
+import { BASE_URL } from "../../constant/constant"
 
 function SigninAdmin() {
     const [username, setUsername] = useState('');
@@ -26,14 +26,8 @@ function SigninAdmin() {
 
     const loginAdmin = async () => {
         setLoading(true)
-        const hash = btoa(`${username}:${password}`);
         try {
-            const response = await axios.post(`${BASE_URL}/signinAdmin`, {},
-                {
-                    headers: {
-                        Authorization: `Basic ${hash}`,
-                    },
-                })
+            const response = await axios.post(`${BASE_URL}/api/users/loginAdmin`, { username, password })
             console.log(response);
 
             localStorage.setItem("admin", JSON.stringify(response.data));
@@ -86,8 +80,8 @@ function SigninAdmin() {
                                         onClick={() => setShowPassword(!showPassword)}
                                         style={{
                                             position: 'absolute',
-                                            right: '0px',
-                                            top: '25%',
+                                            right: '-18rem',
+                                            top: '0',
                                             transform: 'translateY(-50%)',
                                             background: 'none',
                                             border: 'none',

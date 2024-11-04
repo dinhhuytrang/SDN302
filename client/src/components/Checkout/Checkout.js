@@ -3,6 +3,7 @@ import { CartItemsContext } from '../../Context/CartItemsContext';
 import './Checkout.css';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import Header from '../Header/Header';
 
 const Checkout = () => {
     const [name, setName] = useState('');
@@ -33,55 +34,58 @@ const Checkout = () => {
     };
 
     return (
-        <div className="checkout__container">
-            <h2>Checkout</h2>
-            <div className="checkout__form">
-                <label>Tên người nhận</label>
-                <input 
-                    type="text" 
-                    value={name} 
-                    onChange={(e) => setName(e.target.value)} 
-                    placeholder="Nhập tên người nhận"
-                />
+        <div>
+            <Header />
+            <div className="checkout__container">
+                <h2>Checkout</h2>
+                <div className="checkout__form">
+                    <label>Tên người nhận</label>
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Nhập tên người nhận"
+                    />
 
-                <label>Số điện thoại</label>
-                <input 
-                    type="text" 
-                    value={phone} 
-                    onChange={(e) => setPhone(e.target.value)} 
-                    placeholder="Nhập số điện thoại"
-                />
+                    <label>Số điện thoại</label>
+                    <input
+                        type="text"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="Nhập số điện thoại"
+                    />
 
-                <label>Địa chỉ</label>
-                <input 
-                    type="text" 
-                    value={address} 
-                    onChange={(e) => setAddress(e.target.value)} 
-                    placeholder="Nhập địa chỉ giao hàng"
-                />
-            </div>
-
-            <div className="checkout__items">
-                <h3>Danh sách sản phẩm</h3>
-                <ul>
-                    {cartItems.items.map(item => (
-                        <li key={item._id}>
-                            {item.name} - ${item.price} x {item.quantity}
-                        </li>
-                    ))}
-                </ul>
-                <div className="total__amount">
-                    Tổng cộng: ${cartItems.totalAmount}.00
+                    <label>Địa chỉ</label>
+                    <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder="Nhập địa chỉ giao hàng"
+                    />
                 </div>
-            </div>
 
-            <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={handlePayment}
-            >
-                Thanh toán
-            </Button>
+                <div className="checkout__items">
+                    <h3>Danh sách sản phẩm</h3>
+                    <ul>
+                        {cartItems.items.map(item => (
+                            <li key={item._id}>
+                                {item.name} - ${item.price} x {item.quantity}
+                            </li>
+                        ))}
+                    </ul>
+                    <div className="total__amount">
+                        Tổng cộng: ${cartItems.totalAmount}.00
+                    </div>
+                </div>
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handlePayment}
+                >
+                    Thanh toán
+                </Button>
+            </div>
         </div>
     );
 };

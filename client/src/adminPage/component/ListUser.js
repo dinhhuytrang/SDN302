@@ -17,7 +17,7 @@ const ListUser = () => {
     const [usersPerPage] = useState(6); // Number of users per page
     const [onlySellers, setOnlySellers] = useState(false); // State to manage checkbox value
     const navigate = useNavigate();
-    const token = JSON.parse(localStorage.getItem("admin"))?.token;
+    const token = JSON.parse(localStorage.getItem("admin"))?.accessToken;
 
     useEffect(() => {
         if (!token) {
@@ -29,7 +29,7 @@ const ListUser = () => {
 
     const fetchData = async () => {
         try {
-            const userApi = await axios.get(`${BASE_URL}/users`);
+            const userApi = await axios.get(`${BASE_URL}/api/users`);
             setUsers(userApi.data.filter(user => user.role === "USER"));
             setFilteredUsers(userApi.data.filter(user => user.role === "USER"));
         } catch (error) {
@@ -51,7 +51,7 @@ const ListUser = () => {
 
     const changeStatusAccount = async (idUser) => {
         try {
-            const response = await axios.post(`${BASE_URL}/admin/changeStatusAccount?idUser=${idUser}`, {}, {
+            const response = await axios.post(`${BASE_URL}/api/users/changeStatusAccount?idUser=${idUser}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -81,7 +81,7 @@ const ListUser = () => {
 
     return (
         <div>
-            {/* <Header /> */}
+            <Header />
             <Container fluid>
                 <Row>
                     <Col xs={2}>
@@ -114,7 +114,7 @@ const ListUser = () => {
                                 </thead>
                                 <tbody>
                                     {currentUsers?.map((user, index) => (
-                                        <tr key={user?.id} style={{ height: "70px", alignItems: "center" }} >
+                                        <tr key={user?._id} style={{ height: "70px", alignItems: "center" }} >
                                             <td>{indexOfFirstUser + index + 1}</td>
                                             <td>
                                                 {user?.avatar ? (
@@ -127,12 +127,12 @@ const ListUser = () => {
                                             <td>{user?.email}</td>
                                             <td>{user?.name}</td>
                                             <td>Người mua {user?.pickupAddress ? <div>Người bán</div> : null}</td>
-                                            <td>{user?.status ? (<span style={{ color: "green" }}>Bình thường</span>) : (<span style={{ color: "red" }}>Bị Khóa</span>)}</td>
-                                            <td>{user?.status ?
-                                                (<button onClick={() => changeStatusAccount(user?.id)} style={{ border: "none", background: "none" }}>
+                                            <td>{user?.statusAccount ? (<span style={{ color: "green" }}>Bình thường</span>) : (<span style={{ color: "red" }}>Bị Khóa</span>)}</td>
+                                            <td>{user?.statusAccount ?
+                                                (<button onClick={() => changeStatusAccount(user?._id)} style={{ border: "none", background: "none",color:"black",margin:0,paddingTop:0 }}>
                                                     <CiLock />
                                                 </button>) :
-                                                (<button onClick={() => changeStatusAccount(user?.id)} style={{ border: "none", background: "none" }}>
+                                                (<button onClick={() => changeStatusAccount(user?._id)} style={{ border: "none", background: "none",color:"black",margin:0,paddingTop:0 }}>
                                                     <CiUnlock />
                                                 </button>)}
                                             </td>

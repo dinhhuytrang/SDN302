@@ -213,9 +213,9 @@ function generateAccessToken(user) {
 
 // Generate refresh token
 async function generateRefreshToken(user) {
-  const token = jwt.sign({ id: user.id}, 
-   process.env.JWT_SECRET,
-  { expiresIn: "7d" });
+  const token = jwt.sign({ id: user.id },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" });
 
   user.refreshToken = token;
   await user.save();
@@ -232,7 +232,7 @@ async function requestRefreshToken(req, res, next) {
     const foundUser = await User.findOne({ refreshToken }).populate("role").exec();
     if (!foundUser) return res.status(403).json({ message: "Refresh token is not valid" });
 
-    jwt.verify(refreshToken,  process.env.JWT_SECRET, async (err, user) => {
+    jwt.verify(refreshToken, process.env.JWT_SECRET, async (err, user) => {
       if (err) return res.status(403).json({ message: "Refresh token is not valid" });
 
       const newAccessToken = generateAccessToken(foundUser);
@@ -255,7 +255,7 @@ async function requestRefreshToken(req, res, next) {
 // Sign in action
 async function signin(req, res, next) {
   try {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email }).populate("role").exec();
     if (!user) return res.status(404).json({ message: "Email and User not found." });
@@ -265,7 +265,7 @@ async function signin(req, res, next) {
     if (!validPassword) return res.status(401).json({ message: "Wrong password" });
 
     //check status account
-    if (user.statusAccount !== 1) { 
+    if (user.statusAccount !== 1) {
       console.log("Account is locked by system");
       //send mail notify user
       return res.status(401).json({ message: "Your account is locked by system." });
@@ -292,7 +292,7 @@ async function signin(req, res, next) {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role,  
+        role: user.role,
         phone: user.phone,
         address: user.address,
         avatar: user.avatar,
@@ -306,5 +306,70 @@ async function signin(req, res, next) {
   }
 }
 
+async function adminSignin(req, res, next) {
+  try {
+    const { username, password } = req.body;
 
-module.exports = { getUsers, signin, createUser, changePassword, verifyEmail, resetAccount };
+    const user = await User.findOne({ username }).populate("role").exec();
+    if (!user) return res.status(404).json({ message: "Account not found." });
+
+    //validate password
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) return res.status(401).json({ message: "Wrong password" });
+
+    if (!user.role === "ADMIN") {
+      return res.status(401).json({ message: "Your account not allow access" });
+    }
+
+    const accessToken = generateAccessToken(user);
+    const refreshToken = await generateRefreshToken(user);
+    await user.save();
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Strict",
+      path: "/",
+    });
+
+    // Redirect to homepage after successful login
+    // res.redirect('/');
+
+    const responsePayload = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      phone: user.phone,
+      address: user.address,
+      avatar: user.avatar,
+      birthday: user.birthday,
+      accessToken: accessToken
+    }
+
+    res.status(201).json(responsePayload);
+  } catch (error) {
+    next(error);
+  }
+}
+
+const changeStatusAccount = async (req, res, next) => {
+  try {
+    const idUser = req.query.idUser
+    const user = await User.findById(idUser)
+    if (user === null) {
+      return res.status(404).json("Not found user")
+    }
+    let statusAccount = user.statusAccount
+    if (statusAccount === 1) {
+      statusAccount = 0
+    } else {
+      statusAccount = 1
+    }
+    await User.findByIdAndUpdate(idUser, { statusAccount: statusAccount })
+    res.status(200).json("Update success")
+  } catch (error) {
+    next()
+  }
+}
+module.exports = { getUsers, signin, createUser, changePassword, verifyEmail, resetAccount, adminSignin, changeStatusAccount };

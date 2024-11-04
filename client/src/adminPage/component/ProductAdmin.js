@@ -7,14 +7,22 @@ import { useNavigate } from "react-router-dom";
 import formatNumber from "../../function/formatMoney";
 import { message, Pagination, Button, Modal } from "antd";
 import { BASE_URL } from "../../constant/constant";
+import Header from "../Header";
 
 const ProductAdmin = () => {
     const [product, setProduct] = useState([]);
     const navigate = useNavigate();
-    const token = JSON.parse(localStorage.getItem("admin"))?.token;
+    const token = JSON.parse(localStorage.getItem("admin"))?.accessToken;
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(5); // Number of products per page
-
+    useEffect(() => {
+        if (!token) {
+            // Chuyển hướng đến trang đăng nhập nếu không có token
+            navigate('/admin/signin');
+        } else {
+            fetchData();
+        }
+    }, [token, navigate])
     useEffect(() => {
         fetchData();
     }, []);
@@ -68,6 +76,7 @@ const ProductAdmin = () => {
 
     return (
         <div>
+            <Header/>
             <Container fluid>
                 <Row>
                     <Col xs={2}>
@@ -186,7 +195,6 @@ const ProductAdmin = () => {
                 </Row>
             </Container>
             <br />
-            <Footer />
         </div>
     );
 };
