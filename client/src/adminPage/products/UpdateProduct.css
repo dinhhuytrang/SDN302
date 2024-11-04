@@ -1,6 +1,6 @@
 .button-box {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
     margin-bottom: 10px;
 }
 
@@ -10,12 +10,12 @@
 }
 
 .box-content-left,
-.box-content-right { 
+.box-content-right {
     border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    padding: 10px; 
-    background-color: #fff; 
-    border-radius: 25px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 25px;
 }
 
 .text-content h4 {
@@ -24,24 +24,63 @@
 
 .content-image {
     border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    background-color: #fff; 
-    border-radius: 25px; 
-    padding: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 10px;
 }
-.box-content-detail{
+
+.box-content-detail {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    background-color: #fffdfd; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fffdfd;
 }
-.content-right{
+
+.content-right {
     margin-top: 40px;
 }
-.button-update{
+
+.button-update {
     margin-top: 10px;
     margin-bottom: 20px;
     margin-left: 300px;
-   
+
 }
+
+.product-images {
+    margin-top: 20px;
+  }
+  
+  .image-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .image-list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .image-preview {
+    width: 80px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 15px;
+  }
+  
+  .delete-button {
+    margin-left: auto; /* Pushes the delete button to the right */
+  }
+  .image-list-item:hover {
+    background-color: #f8f9fa;
+  }
+  .delete-button:hover {
+    background-color: #dc3545;
+    color: white;
+  }

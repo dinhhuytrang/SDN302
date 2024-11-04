@@ -126,13 +126,18 @@ const updateProduct = async (req, res, next) => {
         const productId = req.params.productId;
         const updatedFields = req.body; 
 
-        const updatedProduct = await Product.findByIdAndUpdate(productId, updatedFields, { new: true });
+        const updatedProduct = await Product.findByIdAndUpdate(productId, updatedFields, { new: true, runValidators: true });
+        
         if (!updatedProduct) {
             return res.status(404).json({ message: 'Product not found' });
         }
+        
         res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
 
     } catch (error) {
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: error.message });
+        }
         next(error);
     }
 }

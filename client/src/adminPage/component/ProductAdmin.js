@@ -16,8 +16,13 @@ const ProductAdmin = () => {
     const [productsPerPage] = useState(5); // Number of products per page
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        // if (!token) {
+        //     // Chuyển hướng đến trang đăng nhập nếu không có token
+        //     navigate('/admin/signin');
+        // } else {
+            fetchData();
+        })
+    // }, [token, navigate])
 
     const fetchData = async () => {
         try {
