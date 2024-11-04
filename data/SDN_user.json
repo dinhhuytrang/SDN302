@@ -1,0 +1,51 @@
+[
+    {
+      "_id": { "$oid": "67077d0b923f6eb796abca94" },
+      "username": "user1",
+      "password": "123456",
+      "name": "User1",
+      "email": "user1@gmail.com",
+      "phone": "1234567890",
+      "address": "123 Main St, Springfield",
+      "avatar": "https://example.com/avatars/developwebsite.jpg",
+      "role": "USER",
+      "token": "12345678",
+      "isActiveEmail": true,
+      "dateSignup": { "$date": "2023-10-01T00:00:00.000Z" },
+      "birthday": { "$date": "1990-05-20T00:00:00.000Z" },
+      "statusAccount": 1
+    },
+    {
+      "_id": { "$oid": "67077d4e923f6eb796abca9b" },
+      "username": "admin",
+      "password": "123456",
+      "name": "Admin",
+      "email": "admin@gmail.com",
+      "phone": "0987654321",
+      "address": "456 Elm St, Springfield",
+      "avatar": "https://example.com/avatars/dataanalysis.jpg",
+      "role": "ADMIN",
+      "token": "123456",
+      "isActiveEmail": true,
+      "dateSignup": { "$date": "2023-09-20T00:00:00.000Z" },
+      "birthday": { "$date": "1985-08-15T00:00:00.000Z" },
+      "statusAccount": 1
+    },
+    {
+      "_id": { "$oid": "67077d95923f6eb796abcaa1" },
+      "username": "user2",
+      "password": "123456",
+      "name": "USER2",
+      "email": "user2@gmail.com",
+      "phone": "1122334455",
+      "address": "789 Oak St, Springfield",
+      "avatar": "https://example.com/avatars/marketingcampaign.jpg",
+      "role": "USER",
+      "token": "123456",
+      "isActiveEmail": true,
+      "dateSignup": { "$date": "2023-09-01T00:00:00.000Z" },
+      "birthday": { "$date": "1992-12-10T00:00:00.000Z" },
+      "statusAccount": 1
+    }
+  ]
+  

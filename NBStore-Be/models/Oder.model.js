@@ -40,6 +40,10 @@ const orderSchema = new Schema({
   phone: {
     type: String, // Số điện thoại liên hệ
     required: true
+  },
+  sale: {
+    type: Number,
+    default: 0
   }
 }, { timestamps: true });
 

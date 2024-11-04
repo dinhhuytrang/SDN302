@@ -9,8 +9,6 @@ import { BASE_URL } from '../../../../constant/constant';
 
 const CartCard = (props) => {
     let cartItems = useContext(CartItemsContext)
-    // console.log(cartItems)
-    console.log(props)
 
     const handelQuantityIncrement = async (event) => {
         cartItems.quantity(props.item.id, 'INC');
@@ -30,8 +28,6 @@ const CartCard = (props) => {
                 throw new Error('Failed to update cart item');
             }
 
-            const data = await response.json();
-            console.log('Cart item updated successfully:', data);
         } catch (error) {
             console.error('Error updating cart item:', error.message);
         }
@@ -58,8 +54,6 @@ const CartCard = (props) => {
                 throw new Error('Failed to update cart item');
             }
 
-            const data = await response.json();
-            console.log('Cart item updated successfully:', data);
         } catch (error) {
             console.error('Error updating cart item:', error.message);
         }
@@ -88,9 +82,6 @@ const CartCard = (props) => {
             if (!response.ok) {
                 throw new Error('Failed to remove item from cart');
             }
-
-            const data = await response.json();
-            console.log('Cart item removed successfully:', data);
 
             // Optional: Update the cart state to reflect the item removal
             cartItems.removeItem(props.item);

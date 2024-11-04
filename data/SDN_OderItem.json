@@ -1,0 +1,12 @@
+[
+    {
+        "order": { "$oid": "67077f0b923f6eb796abca98" }, 
+        "product": { "$oid": "67077e36923f6eb796abcac0" }, 
+        "quantity": 2
+    },
+    {
+        "order": { "$oid": "67077f4e923f6eb796abca9e" }, 
+        "product": { "$oid": "67077d0b923f6eb796abcaa9" }, 
+        "quantity": 1
+    }
+]

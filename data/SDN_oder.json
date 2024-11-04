@@ -1,0 +1,25 @@
+[
+    {
+      "_id": { "$oid": "67077f0b923f6eb796abca98" },
+      "user": { "$oid": "67077d0b923f6eb796abca94" }, 
+      "totalOrder": 150.00,
+      "status": "Đang vận chuyển",
+      "payMethod": "vnpay",
+      "orderCode": "ORD001",
+      "address": "123 Main St, Springfield",
+      "phone": "1234567890",
+      "sale": 10
+    },
+    {
+      "_id": { "$oid": "67077f4e923f6eb796abca9e" },
+      "user": { "$oid": "67077d95923f6eb796abcaa1" }, 
+      "totalOrder": 250.00,
+      "status": "Hoàn thành",
+      "payMethod": "cod",
+      "orderCode": "ORD002",
+      "address": "456 Elm St, Springfield",
+      "phone": "0987654321",
+      "sale": 15
+    }
+  ]
+  

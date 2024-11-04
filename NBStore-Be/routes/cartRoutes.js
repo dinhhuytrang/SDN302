@@ -1,6 +1,5 @@
 const express = require('express');
 const { addToCart, updateCartItem, removeCartItem, getCart, getAll } = require('../controllers/cartController');
-const authenticateToken = require('../middleware/auth.middleware');
 const CartRouter = express.Router();
 
 // Thêm sản phẩm vào giỏ hàng

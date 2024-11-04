@@ -33,6 +33,8 @@ import ListWareHouse from '../adminPage/Whitehouse/WareHouseList';
 import UpdateWareHouse from '../adminPage/Whitehouse/UpdateWareHouse';
 import PurchaseOrder from '../components/PurchaseOrder/PurchaseOrder';
 import DetailOrder from '../components/PurchaseOrder/DetailOrder';
+import ProductAdmin from '../adminPage/component/ProductAdmin';
+import UpdateProduct from '../adminPage/products/UpdateProduct';
 
 
 
@@ -87,7 +89,8 @@ function App() {
               <Route path="/admin/overview" element={<Overview />} />
               <Route path="/admin/accounts" element={<ListUser />} />
               <Route path="/admin/categories" element={<Categories />} />
-              {/* <Route path="/admin/products" element={<ProductAdmin />} /> */}
+              <Route path="/admin/products" element={<ProductAdmin />} />
+              <Route path="/admin/products/:id" element={<UpdateProduct/>} />
               <Route path="/admin/orders" element={<OrderAdmin />} />
               <Route path="/admin/add-product" element={<NewProduct />} />
               <Route path="/admin/warehouse" element={<ListWareHouse />} />

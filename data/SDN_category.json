@@ -1,0 +1,18 @@
+[
+    {
+      "_id": { "$oid": "67077e0b923f6eb796abca97" },
+      "name": "men",
+      "image": "https://i.pinimg.com/736x/d4/24/58/d4245806458d4177c8f0ef15d2733522.jpg"
+    },
+    {
+      "_id": { "$oid": "67077e4e923f6eb796abca9d" },
+      "name": "women",
+      "image": "https://i.pinimg.com/736x/9d/04/6f/9d046fea7c898e80afc80f20bb5a26d3.jpg"
+    },
+    {
+      "_id": { "$oid": "67077e95923f6eb796abcaa4" },
+      "name": "kids",
+      "image": "https://i.pinimg.com/736x/80/eb/06/80eb06b4e48fadbee71c7d71246caf41.jpg"
+    }
+  ]
+  

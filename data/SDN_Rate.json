@@ -1,0 +1,18 @@
+[
+    {
+        "product": { "$oid": "67077e4e923f6eb796abca67" }, 
+        "user": { "$oid": "67077d0b923f6eb796abca94" }, 
+        "orderItem": { "$oid": "67077f0b923f6eb796abca98" }, 
+        "star": 5, 
+        "review": "Excellent product! Highly recommend.",
+        "dateReview": { "$date": "2024-11-01T10:00:00Z" } 
+    },
+    {
+        "product": { "$oid": "67077e4e923f6eb796abca8e" }, 
+        "user": { "$oid": "67077d0b923f6eb796abca94" }, 
+        "orderItem": { "$oid": "67077f4e923f6eb796abca9e" }, 
+        "star": 4, 
+        "review": "Good quality, but a bit small.",
+        "dateReview": { "$date": "2024-11-02T10:00:00Z" } 
+    }
+]
