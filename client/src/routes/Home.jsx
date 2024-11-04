@@ -7,24 +7,29 @@ import { TabTitle } from "../utils/General";
 
 
 const Home = () => {
-    const [ featuredItems, setFeaturedItems ] = useState()
+    const [featuredItems, setFeaturedItems] = useState();
     TabTitle("Home - Shema");
 
     useEffect(() => {
-        axios.get("https://shema-backend.vercel.app/api/items")
-            .then(res => setFeaturedItems(res.data))
-            .catch(err => console.log(err))
+        // Lấy sản phẩm nổi bật
+         axios.get("http://localhost:9999/api/products/features")
+            .then(res => setFeaturedItems(res.data.data))
+            .catch(err => console.log(err));
 
-        window.scrollTo(0, 0)
-    }, [])
 
-    return ( 
+
+        window.scrollTo(0, 0);
+        
+    }, []);
+   
+
+    return (
         <Fragment>
             <Landing />
             <FeaturedCategories />
-            <FeaturedItems items={featuredItems}/>
+            <FeaturedItems items={featuredItems} />
         </Fragment>
     );
 }
- 
+
 export default Home;

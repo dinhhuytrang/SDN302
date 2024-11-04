@@ -90,4 +90,19 @@ const searchProducts = async (req, res, next) => {
         next(error);
     }
 };
-module.exports = { getProducts,searchProducts, getProductByID,getRecommendedProducts, };
+//get feature product
+const getTopSellingProducts = async (req, res, next) => {
+    try {
+        const topSellingProducts = await Product.find().sort({ numberOfSale: -1 }).limit(8) 
+            .populate("category") // Populates thêm thông tin category nếu cần
+            .exec();
+
+        res.status(200).json({
+            message: "Top 8 best-selling products",
+            data: topSellingProducts
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+module.exports = { getProducts,searchProducts, getProductByID,getRecommendedProducts, getTopSellingProducts };

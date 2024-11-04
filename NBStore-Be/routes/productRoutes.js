@@ -7,8 +7,10 @@ ProductRouter.use(bodyParser.json());
 
 ProductRouter.get('/', getProducts);
 ProductRouter.get('/search', productController.searchProducts);
+ProductRouter.get('/features', productController.getTopSellingProducts);
 ProductRouter.get('/:id',productController.getProductByID);
 ProductRouter.get('/:id/recommendations',productController.getRecommendedProducts);
+
 
 module.exports = {
     ProductRouter
