@@ -22,7 +22,7 @@ export default function ListWareHouse() {
     setLoading(true);
     try {
       const response = await axios.get(`${BASE_URL}/api/warehouse/list`, {
-        params: { page }, 
+        params: { page },
       });
       setData(response.data.data);
       setTotalPages(response.data.pagination.totalPages);
@@ -36,23 +36,27 @@ export default function ListWareHouse() {
 
   const handleDelete = async (productId) => {
     const result = await Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "This action cannot be undone!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     });
 
     if (result.isConfirmed) {
       try {
         await axios.delete(`${BASE_URL}/api/warehouse/delete/${productId}`);
-        Swal.fire('Deleted!', 'The product has been deleted.', 'success');
+        Swal.fire("Deleted!", "The product has been deleted.", "success");
         fetchWarehouseData(currentPage); // Refresh the list
       } catch (error) {
         console.error("Error deleting product: ", error);
-        Swal.fire('Error!', 'There was an error deleting the product.', 'error');
+        Swal.fire(
+          "Error!",
+          "There was an error deleting the product.",
+          "error"
+        );
       }
     }
   };
@@ -69,7 +73,7 @@ export default function ListWareHouse() {
     <div className="container mt-4">
       <h2>Warehouse</h2>
       <div className="d-flex justify-content-between align-items-center mb-2">
-      <strong style={{ marginLeft: 10 }}>All  ({totalItems})</strong>
+        <strong style={{ marginLeft: 10 }}>All ({totalItems})</strong>
         <Link to="/admin/warehouse/addnew">
           <Button variant="primary">
             ADD NEW <FaPlus />
@@ -114,11 +118,16 @@ export default function ListWareHouse() {
                   {item.status}
                 </Badge>
               </td>
-              <td>
-                <Link to={`/admin/warehouse/update/${item._id}`}><FaEdit /></Link> |{" "}
-                <Button variant="link" onClick={() => handleDelete(item._id)}>
+              <td style={{ display: "flex", alignItems: "center", borderBottom:"none" }}>
+                <Link to={`/admin/warehouse/update/${item._id}`}>
+                  <FaEdit style={{ marginRight: "8px" }} />
+                </Link>
+                <span
+                  onClick={() => handleDelete(item._id)}
+                  style={{ cursor: "pointer", marginLeft: "8px" }} 
+                >
                   <MdDelete />
-                </Button>
+                </span>
               </td>
             </tr>
           ))}
