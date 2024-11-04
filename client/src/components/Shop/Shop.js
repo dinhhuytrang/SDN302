@@ -15,9 +15,15 @@ const Shop = () => {
     useEffect(() => {
         axios.get("http://localhost:9999/api/products")
             .then(res => {
+<<<<<<< HEAD
                 
                  setMenItems(res.data.data.filter((item) => item.category?.name === "men")) 
                 
+=======
+                console.log(res.data)   
+                 setMenItems(res.data.data.filter((item) => item.category?.name === "men")) // So sánh với category.name
+                
+>>>>>>> ca9e47da7f7e9e7c88d73e7e2f5bb12777babdb4
                  setKidsItems(res.data.data.filter((item) => item.category?.name === "kids" ))
                  setWomenItems(res.data.data.filter((item) => item.category?.name === "women"))
                 setLoading(false)
