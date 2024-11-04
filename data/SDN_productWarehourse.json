@@ -1,0 +1,16 @@
+[
+    {
+        "product": { "$oid": "67077e36923f6eb796abcac2" }, 
+        "status": "In",
+        "quantity": 50,
+        "supplier": "Fashion Co.",
+        "note": "New stock arrival."
+    },
+    {
+        "product": { "$oid": "67077e4e923f6eb796abca8e" }, 
+        "status": "Out", 
+        "quantity": 20,
+        "supplier": "Kidswear Ltd.",
+        "note": "Order fulfillment."
+    }
+]

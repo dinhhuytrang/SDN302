@@ -49,10 +49,10 @@ const userSchema = new mongoose.Schema({
     },
     statusAccount: {
         type: Number,
-        default: 1 // 0: active, 1: suspended, etc.
+        default: 1 
     }
 }, {
-    timestamps: true // Automatically creates createdAt and updatedAt fields
+    timestamps: true 
 });
 
 const User = mongoose.model('User', userSchema);

@@ -7,8 +7,6 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const cartRoutes = require('./routes/cartRoutes');
-const productWareHouseRoute = require('./routes/ProductWarehouse')
-
 const Rate = require('./models/Rate.model');
 const Product = require('./models/Products.model');
 const sendEmail = require('./sendEmail/sendEmail');
@@ -17,6 +15,7 @@ const router = express.Router();
 const User = require('./models/User.models');
 const Category = require('./models/Category.model');
 const productRoutes = require('./routes/productRoutes');
+const { productWareHouseRouter } = require('./routes/ProductWarehouseRouter');
 const { OrderRouter } = require('./routes/orderRoutes');
 const CategoryRouter = require('./routes/categoryRoutes');
 
@@ -506,7 +505,7 @@ connectDB()
 
 // Use user routes
 app.use('/api/products', productRoutes.ProductRouter);
-app.use('/api/warehouse',productWareHouseRoute)
+app.use('/api/warehouse',productWareHouseRouter)
 app.use('/api/users', userRoutes);
 app.use('/api/orders', OrderRouter)
 app.use('/api/categories', CategoryRouter)
