@@ -1,0 +1,47 @@
+.button-box {
+    display: flex;
+    justify-content: flex-end; 
+    margin-bottom: 10px;
+}
+
+.box-content {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.box-content-left,
+.box-content-right { 
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 10px; 
+    background-color: #fff; 
+    border-radius: 25px; 
+}
+
+.text-content h4 {
+    margin-left: 20px;
+}
+
+.content-image {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    background-color: #fff; 
+    border-radius: 25px; 
+    padding: 10px; 
+}
+.box-content-detail{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    background-color: #fffdfd; 
+}
+.content-right{
+    margin-top: 40px;
+}
+.button-update{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 300px;
+   
+}
