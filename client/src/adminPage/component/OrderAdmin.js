@@ -16,7 +16,7 @@ const OrderAdmin = () => {
     const itemsPerPage = 5
     const location = useLocation()
     const navigate = useNavigate()
-    const token = JSON.parse(localStorage.getItem("admin"))?.token
+    const token = JSON.parse(localStorage.getItem("admin"))?.accessToken
     const [selectedStatuses, setSelectedStatuses] = useState([]);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const OrderAdmin = () => {
 
     const fetchData = async () => {
         try {
-            const orderApi = await axios.get(`${BASE_URL}/admin/allOrder`, {
+            const orderApi = await axios.get(`${BASE_URL}/api/orders/admin`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -42,8 +42,10 @@ const OrderAdmin = () => {
             }
 
             setOrders(filteredOrders);
+            console.log(filteredOrders);
+            
 
-            const itemOrderApi = await axios.get(`${BASE_URL}/admin/allOrderItem`, {
+            const itemOrderApi = await axios.get(`${BASE_URL}/api/orders/admin/items`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -175,7 +177,7 @@ const OrderAdmin = () => {
                                             <Col xs={1} style={{ padding: "0" }}>
                                                 Người mua
                                             </Col>
-                                            <Col xs={2}>
+                                            <Col xs={2} style={{textAlign:"center"}}>
                                                 Mã đơn hàng
                                             </Col>
                                             <Col xs={2}>
@@ -195,13 +197,13 @@ const OrderAdmin = () => {
                                     {currentOrders.map((order, index) => (
                                         <Row key={order.id} style={{ borderBottom: "solid 3px #F5F5F5", padding: "12px 0  0 0" }}>
                                             <Col xs={1}>{indexOfFirstOrder + index + 1}</Col>
-                                            <Col xs={1}>
-                                                <button style={{ border: "none", background: "none" }} onClick={() => navigate(`/admin/detailAccount?idUser=${order?.user.id}`)}>
+                                            <Col xs={1} style={{display: "flex", justifyContent: "center", alignItems:"center"}}>
+                                                <button style={{ border: "none", background: "none",color:"red",margin:0}} onClick={() => navigate(`/admin/detailAccount?idUser=${order?.user.id}`)}>
                                                     {order?.user.username}
                                                 </button>
                                             </Col>
-                                            <Col xs={2} onClick={() => navigate(`/user/detailOrder?idOrder=${order?.id}`)} style={{ cursor: "pointer", textDecoration: "underline" }}>
-                                                {order?.code}
+                                            <Col xs={2} onClick={() => navigate(`/purchaseOrder/detail?idOrder=${order?._id}`)} style={{ cursor: "pointer", textDecoration: "underline",display: "flex", justifyContent: "center", alignItems:"center" }}>
+                                                {order?.orderCode}
                                             </Col>
                                             <Col xs={4}>
                                                 {itemOrder
@@ -211,7 +213,7 @@ const OrderAdmin = () => {
                                                             <Col xs={2}>
                                                                 <img style={{ width: "100%" }} src={`${item?.product.image[0]}`} alt="imgproduct" />
                                                             </Col>
-                                                            <Col xs={8} style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", textOverflow: "ellipsis", lineHeight: "1.5", maxHeight: "3em" }}>
+                                                            <Col onClick={()=>navigate(`/admin/products/${item?.product._id}`)} xs={8} style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", textOverflow: "ellipsis", lineHeight: "1.5", maxHeight: "3em" }}>
                                                                 {(item?.product.name)}
                                                             </Col>
                                                             <Col xs={2} style={{ textAlign: "center" }}>
@@ -242,7 +244,6 @@ const OrderAdmin = () => {
                     </Col>
                 </Row>
             </Container>
-            <Footer />
         </div>
     )
 }

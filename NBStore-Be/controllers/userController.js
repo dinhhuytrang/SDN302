@@ -111,25 +111,35 @@ const verifyEmail = async (req, res) => {
 };
 
 // Hàm changepw
-const changePassword = async (req, res) => {
+const changePassword = async (req, res, next) => {
   const { currentPassword, newPassword, confirmPassword } = req.body;
+
   try {
-    const userId = req.user.id;
-    const user = await User.findById(userId);
+    const userId = req.user.id; // Assuming req.user contains the authenticated user data
+    const user = await User.findById(userId).populate("role").exec(); // Similar to your signin structure
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
+    // Validate the current password
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Incorrect current password" });
     }
+
+    // Check if newPassword and confirmPassword match
     if (newPassword !== confirmPassword) {
       return res.status(400).json({ message: "New password and confirm password do not match" });
     }
+
+    // Ensure the new password is different from the current password
     const isSamePassword = await bcrypt.compare(newPassword, user.password);
     if (isSamePassword) {
       return res.status(400).json({ message: "New password must be different from the current password" });
     }
+
+    // Password strength validation
     if (newPassword.length < 8) {
       return res.status(400).json({ message: "New password must be at least 8 characters long" });
     }
@@ -143,19 +153,26 @@ const changePassword = async (req, res) => {
         message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
       });
     }
+
+    // Hash the new password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-
+    // Update the user's password in the database
     user.password = hashedPassword;
     await user.save();
 
+    // Optionally, you can invalidate the current tokens by deleting the refresh token
+    res.clearCookie("refreshToken");
+
+    // Send success response
     return res.status(200).json({ message: "Password changed successfully" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "An error occurred", error });
   }
 };
+
 
 
 const resetAccount = async (req, res, next) => {
@@ -196,9 +213,9 @@ function generateAccessToken(user) {
 
 // Generate refresh token
 async function generateRefreshToken(user) {
-  const token = jwt.sign({ id: user.id}, 
-   process.env.JWT_SECRET,
-  { expiresIn: "7d" });
+  const token = jwt.sign({ id: user.id },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" });
 
   user.refreshToken = token;
   await user.save();
@@ -215,7 +232,7 @@ async function requestRefreshToken(req, res, next) {
     const foundUser = await User.findOne({ refreshToken }).populate("role").exec();
     if (!foundUser) return res.status(403).json({ message: "Refresh token is not valid" });
 
-    jwt.verify(refreshToken,  process.env.JWT_SECRET, async (err, user) => {
+    jwt.verify(refreshToken, process.env.JWT_SECRET, async (err, user) => {
       if (err) return res.status(403).json({ message: "Refresh token is not valid" });
 
       const newAccessToken = generateAccessToken(foundUser);
@@ -238,7 +255,7 @@ async function requestRefreshToken(req, res, next) {
 // Sign in action
 async function signin(req, res, next) {
   try {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email }).populate("role").exec();
     if (!user) return res.status(404).json({ message: "Email and User not found." });
@@ -248,7 +265,7 @@ async function signin(req, res, next) {
     if (!validPassword) return res.status(401).json({ message: "Wrong password" });
 
     //check status account
-    if (user.statusAccount !== 1) { 
+    if (user.statusAccount !== 1) {
       console.log("Account is locked by system");
       //send mail notify user
       return res.status(401).json({ message: "Your account is locked by system." });
@@ -275,7 +292,7 @@ async function signin(req, res, next) {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role,  
+        role: user.role,
         phone: user.phone,
         address: user.address,
         avatar: user.avatar,
@@ -289,5 +306,70 @@ async function signin(req, res, next) {
   }
 }
 
+async function adminSignin(req, res, next) {
+  try {
+    const { username, password } = req.body;
 
-module.exports = { getUsers, signin, createUser, changePassword, verifyEmail, resetAccount };
+    const user = await User.findOne({ username }).populate("role").exec();
+    if (!user) return res.status(404).json({ message: "Account not found." });
+
+    //validate password
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) return res.status(401).json({ message: "Wrong password" });
+
+    if (!user.role === "ADMIN") {
+      return res.status(401).json({ message: "Your account not allow access" });
+    }
+
+    const accessToken = generateAccessToken(user);
+    const refreshToken = await generateRefreshToken(user);
+    await user.save();
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Strict",
+      path: "/",
+    });
+
+    // Redirect to homepage after successful login
+    // res.redirect('/');
+
+    const responsePayload = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      phone: user.phone,
+      address: user.address,
+      avatar: user.avatar,
+      birthday: user.birthday,
+      accessToken: accessToken
+    }
+
+    res.status(201).json(responsePayload);
+  } catch (error) {
+    next(error);
+  }
+}
+
+const changeStatusAccount = async (req, res, next) => {
+  try {
+    const idUser = req.query.idUser
+    const user = await User.findById(idUser)
+    if (user === null) {
+      return res.status(404).json("Not found user")
+    }
+    let statusAccount = user.statusAccount
+    if (statusAccount === 1) {
+      statusAccount = 0
+    } else {
+      statusAccount = 1
+    }
+    await User.findByIdAndUpdate(idUser, { statusAccount: statusAccount })
+    res.status(200).json("Update success")
+  } catch (error) {
+    next()
+  }
+}
+module.exports = { getUsers, signin, createUser, changePassword, verifyEmail, resetAccount, adminSignin, changeStatusAccount };

@@ -16,12 +16,16 @@ const orderSchema = new Schema({
     type: String, // Trạng thái đơn hàng (ví dụ: "Pending", "Shipped", "Delivered")
     required: true
   },
+  sale: {
+    type: Number,
+    default: 0
+  },
   createDate: {
     type: Date, // Ngày tạo đơn hàng
     default: Date.now
   },
   payMethod: {
-    type: String, // Phương thức thanh toán (ví dụ: "Credit Card", "Cash on Delivery")
+    type: String, // Phương thức thanh toán (ví dụ: "vnpay", "cod")
     required: true
   },
   orderCode: {
@@ -36,6 +40,10 @@ const orderSchema = new Schema({
   phone: {
     type: String, // Số điện thoại liên hệ
     required: true
+  },
+  sale: {
+    type: Number,
+    default: 0
   }
 }, { timestamps: true });
 

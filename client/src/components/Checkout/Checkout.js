@@ -3,12 +3,14 @@ import { CartItemsContext } from '../../Context/CartItemsContext';
 import './Checkout.css';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
 
 const Checkout = () => {
     const [name, setName] = useState('');
@@ -59,13 +61,13 @@ const Checkout = () => {
     };
 
     return (
+
         <div className="checkout__container">
             <h2>Checkout</h2>
             <div className="checkout__content">
                 <div className="checkout__form">
                     <label>Tên người nhận:</label>
                     <p>{name}</p>
-
                     <label>Số điện thoại:</label>
                     <p>{phone}</p>
 
@@ -126,8 +128,8 @@ const Checkout = () => {
                         onChange={() => setPaymentMethod('VNPay')} 
                     />
                     <label htmlFor="vnpay">Thanh toán qua VNPay</label>
+
                 </div>
-            </div>
 
             <Button 
                 variant="contained" 
@@ -142,6 +144,7 @@ const Checkout = () => {
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
+
         </div>
     );
 };

@@ -7,10 +7,10 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
-  image: {
-    type: [String], // Mảng các link ảnh
+  image: [{
+    type: String, // Mảng các link ảnh
     required: false
-  },
+  }],
   price: {
     type: Number,
     required: true
@@ -25,8 +25,8 @@ const productSchema = new Schema({
   },
   category: {
     type: mongoose.Schema.Types.ObjectId, // Liên kết tới bảng categories
-    ref: 'Category',
-    required: false
+    ref: 'category',
+    required: true
   },
   description: {
     type: String,

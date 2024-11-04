@@ -71,7 +71,13 @@ const LoginCard = () => {
                     </div>
                 </div>
                 <div className="login__other__actions">
-                    <div className="login__forgot__password"><Link to="/account/resetpassword">Forgot password?</Link></div>
+                    <div className="login__forgot__password">
+                        <Link to="/account/resetpassword">Forgot password?</Link>
+                    <span style={{marginLeft:"20px"}}>
+                        <Link to="/account/changepw">Change Password ?</Link>
+                    </span>
+                    
+                    </div>
                     <div className="login__new__account">Don't have account? <Link to="/account/register">Create account</Link></div>
                 </div>
             </div>

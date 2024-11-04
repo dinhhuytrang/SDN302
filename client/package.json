@@ -14,6 +14,8 @@
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "ecommerce": "file:",
+    "formik": "^2.4.6",
+    "mdb-react-ui-kit": "^9.0.0",
     "mdbreact": "^5.2.0",
     "moment": "^2.30.1",
     "rc-drawer": "^5.1.0",
@@ -28,7 +30,8 @@
     "react-toastify": "^10.0.6",
     "sweetalert2": "^11.14.3",
     "uuid": "^8.3.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

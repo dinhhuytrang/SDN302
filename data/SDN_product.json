@@ -1,0 +1,336 @@
+[
+    
+    {
+        
+        "_id": { "$oid": "67077d0b923f6eb796abcaa9" },
+        "name": "Hawaiian Shirt",
+        "image": [
+            "https://down-vn.img.susercontent.com/file/sg-11134201-7qvdo-ljxmx1us5fr9c5.webp",
+            "https://down-vn.img.susercontent.com/file/sg-11134201-7qves-ljxmx3etwt6c68.webp"
+        ],
+        "price": 2700000,
+        "remain": 35,
+        "numberOfSale": 10,
+        "category": { "$oid": "67077e0b923f6eb796abca97" },
+        "description": "Men's Fashionable Hawaiian Style Loose Long Sleeve Shirt",
+        "option": [
+            "Brown-Size S", "Brown-Size M", "Brown-Size L",
+            "White-Size S", "White-Size M", "White-Size L"
+        ],
+        "rate": []
+    },
+    {
+        "_id": { "$oid": "67077d4e923f6eb796abca9b" },
+        "name": "SCafé Men's Polo Shirt",
+        "image": [
+            "https://down-vn.img.susercontent.com/file/vn-11134201-7qukw-li6s3gn2bmc215.webp",
+            "https://down-vn.img.susercontent.com/file/vn-11134201-7qukw-li6s3h5dm7m430.webp"
+        ],
+        "price": 3000000,
+        "remain": 40,
+        "numberOfSale": 20,
+        "category": { "$oid": "67077e0b923f6eb796abca97" },
+        "description": "Coolmate men's SCafé polo shirt with effective deodorization",
+        "option": [
+            "Brown-Size S", "Brown-Size M", "Brown-Size L"
+        ],
+        "rate": []
+    },
+    {
+        "_id": { "$oid": "67077d95923f6eb796abcaa1" },
+        "name": "Short Sleeve Shirt",
+        "image": [
+            "https://down-vn.img.susercontent.com/file/cn-11134207-7r98o-lprlsl96mom065.webp",
+            "https://down-vn.img.susercontent.com/file/cn-11134207-7r98o-lprlsl96phqw31.webp"
+        ],
+        "price": 1500000,
+        "remain": 20,
+        "numberOfSale": 7,
+        "category": { "$oid": "67077e0b923f6eb796abca97" },
+        "description": "Men's Fashion Printed Short Sleeve Shirt",
+        "option": [
+            "Blue-Size S", "Blue-Size M", "Blue-Size L"
+        ],
+        "rate": []
+    },
+    {
+        "_id": { "$oid": "67077e36923f6eb796abcac0" },
+        "name": "HERUS V2 knitted polo shirt",
+        "image": [
+            "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m0jpdxwcdjvxaf.webp",
+            "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-luyqo594yalhd9.webp"
+        ],
+        "price": 1500000,
+        "remain": 19,
+        "numberOfSale": 7,
+        "category": { "$oid": "67077e0b923f6eb796abca97" },
+        "description": "HERUS V2 premium knitted polo shirt, classic Korean style",
+        "option": [
+            "Blue-Size S", "Blue-Size M", "Blue-Size L"
+        ],
+        "rate": []
+    },
+    {
+        "_id": { "$oid": "67077e36923f6eb796abcac1" },
+        "name": "JULIDO Men's Sportswear",
+        "image": [
+            "https://down-vn.img.susercontent.com/file/vn-11134207-7lwdcz4q80gd5ce.webp",
+            "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lwbz0g17tgbded.webp"
+        ],
+        "price": 1990000,
+        "remain": 23,
+        "numberOfSale": 7,
+        "category": { "$oid": "67077e0b923f6eb796abca97" },
+        "description": "JULIDO men's sports set short sleeve shirt loose fitting shorts",
+        "option": [
+            "Black-Size S", "Black-Size M", "Black-Size L",
+            "White-Size S", "White-Size M", "White-Size L"
+        ],
+        "rate": []
+    },
+    {
+        "_id": { "$oid": "67077e36923f6eb796abcac2" },
+        "name": "Local Brand T-Shirt",
+        "image": [
+            "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m093l7k9cfe53f.webp",
+            "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m1dw3xixqkig84.webp"
+        ],
+        "price": 2990000,
+        "remain": 35,
+        "numberOfSale": 14,
+        "category": { "$oid": "67077e0b923f6eb796abca97" },
+        "description": "Local Brand T-Shirt VIBESTU Logo With Boxy Collar, Loose Form",
+        "option": [
+            "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
+            "White-Size S", "White-Size M", "White-Size L"
+        ],
+        "rate": []
+    },    
+    
+    {
+            "_id": { "$oid": "67077e4e923f6eb796abca67" },
+            "name": "Lovito T-Shirt",
+            "image": [
+                "https://down-vn.img.susercontent.com/file/sg-11134201-7rdvq-lz9ygvuz3zaa20.webp",
+                "https://down-vn.img.susercontent.com/file/sg-11134201-7rdvq-lz9ygvuz3zaa20.webp"
+            ],
+            "price": 1500000,
+            "remain": 50,
+            "numberOfSale": 30,
+            "category": { "$oid": "67077e4e923f6eb796abca9d" },
+            "description": "Lovito T-shirt with embroidered solid color fabric stitching casual style for women LNE37180",
+            "option": [
+                "Size S", "Size M", "Size L"
+            ]
+            
+        },
+        {
+            "_id": { "$oid": "67077e4e923f6eb796abca8e" },
+            "name": "Lovito Csa T-Shirt",
+            "image": [
+                "https://down-vn.img.susercontent.com/file/sg-11134201-7rd3p-lv8l65qr26hi1f.webp",
+                "https://down-vn.img.susercontent.com/file/sg-11134201-7rd5q-lv8l68ukik7r3f.webp"
+            ],
+            "price": 1500000,
+            "remain": 50,
+            "numberOfSale": 37,
+            "category": { "$oid": "67077e4e923f6eb796abca9d" },
+            "description": "Lovito Women's Casual Solid Color Zipper T-Shirt LNA27136",
+            "option": [
+                "Black-Size S", "Black-Size M", "Black-Size L",
+                "Brown-Size S", "Brown-Size M", "Brown-Size L"
+            ]
+            
+        },
+        {
+            "_id": { "$oid": "67077e4e923f6eb796abca8f" },
+            "name": "TOLI Women's T-shirt",
+            "image": [
+                "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lxdqfua81byxd7.webp",
+                "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lz9z8j48o6z1ac.webp"
+            ],
+            "price": 2000000,
+            "remain": 40,
+            "numberOfSale": 30,            
+            "category": { "$oid": "67077e4e923f6eb796abca9d" },
+            "description": "Lovito Women's Casual Solid Color Zipper T-Shirt LNA27136",
+            "option": [
+                "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
+                "White-Size S", "White-Size M", "White-Size L"
+            ]
+        },
+        {
+            "_id": { "$oid": "67077e4e923f6eb796abca7g" },
+            "name": "TOLI Women's T-shirt",
+            "image": [
+                "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lxdqfua81byxd7.webp",
+                "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lz9z8j48o6z1ac.webp"
+            ],
+            "price": 1000000,
+            "remain": 45,
+            "numberOfSale": 30,
+            "category": { "$oid": "67077e4e923f6eb796abca9d" },
+            "description": "TOLI women's T-shirt with round neck and short sleeves, light fit, 4-way stretch cotton fabric, printed with FRANCE M02",
+            "option": [
+                "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
+                "White-Size S", "White-Size M", "White-Size L"
+            ]
+           
+        },
+        {
+            "_id": { "$oid": "67077e4e923f6eb796abca6h" },
+            "name": "Croptop shirt",
+            "image": [
+                "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lfaim68ogqc7a2.webp",
+                "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lf9xz7bj5d93cb.webp"
+            ],
+            "price": 2500000,
+            "remain": 20,
+            "numberOfSale": 10,
+            "category": { "$oid": "67077e4e923f6eb796abca9d" },
+            "description": "Croptop shirt, Layered ruffled silk shirt, can be worn in 2 styles",
+            "option": [
+                "Pink-Size S", "Pink-Size M", "Pink-Size L",
+                "White-Size S", "White-Size M", "White-Size L"
+            ]
+        
+        },
+        {
+            "_id": { "$oid": "67077e4e923f6eb796abca9i" },
+            "name": "JINZAO cardigan sweater",
+            "image": [
+                "https://down-vn.img.susercontent.com/file/sg-11134201-7rdvf-lzoh0dzu8ap4ca.webp",
+                "https://down-vn.img.susercontent.com/file/sg-11134201-7rdyu-lzoh0nkq7kzq96.webp"
+            ],
+            "price": 3990000,
+            "remain": 34,
+            "numberOfSale": 12,
+            "category": { "$oid": "67077e4e923f6eb796abca9d" },
+            "description": "JINZAO cardigan sweater cardigan jacket Casual Korean Style Vintage Fashion",
+            "option": [
+                "Pink-Size S", "Pink-Size M", "Pink-Size L",
+                "White-Size S", "White-Size M", "White-Size L"
+            ]
+            
+        },
+
+        [
+            {
+                "_id": { "$oid": "67077e4e923f6eb796abca9k" },
+                "name": "Jogasia sweatshirt set",
+                "image": [
+                    "https://cdn.fcglcdn.com/brainbees/images/products/300x364/17907275a.webp",
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/17907275b.webp"
+                ],
+                "price": 1650000,
+                "remain": 30,
+                "numberOfSale": 15,
+                "category": { "$oid": "67077e95923f6eb796abcaa4" },
+                "description": "Products are designed, manufactured and exclusively distributed by CANIFA - a Vietnamese fashion brand trusted by many customers since 2001. With a system of more than 100 stores and distributors nationwide.",
+                "option": [
+                    "Lightblue-Size S",
+                    "Lightblue-Size M",
+                    "Lightblue-Size L",
+                    "Purple-Size S",
+                    "Purple-Size M",
+                    "Purple-Size L"
+                ]
+            },
+            {
+                "_id": { "$oid": "67077e4e923f6eb796abca91" },
+                "name": "Woven Full Sleeves Front Open Padded Hooded",
+                "image": [
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/17391169a.webp",
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/17391169b.webp"
+                ],
+                "price": 1950000,
+                "remain": 30,
+                "numberOfSale": 15,
+                "category": { "$oid": "67077e95923f6eb796abcaa4" },
+                "description": "Products are designed, manufactured and exclusively distributed by CANIFA - a Vietnamese fashion brand trusted by many customers since 2001. With a system of more than 100 stores and distributors nationwide.",
+                "option": [
+                    "Lightblue-Size S",
+                    "Lightblue-Size M",
+                    "Lightblue-Size L",
+                    "Purple-Size S",
+                    "Purple-Size M",
+                    "Purple-Size L"
+                ]
+            },
+            {
+                "_id": { "$oid": "67077e4e923f6eb796abcac0" },
+                "name": "Cotton Knit Full Sleeves Front Open Hooded Sweat Jacket",
+                "image": [
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/17824574a.webp",
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/17824574b.webp"
+                ],
+                "price": 1250000,
+                "remain": 30,
+                "numberOfSale": 15,
+                "category": { "$oid": "67077e95923f6eb796abcaa4" },
+                "description": "Products are designed, manufactured and exclusively distributed by CANIFA - a Vietnamese fashion brand trusted by many customers since 2001. With a system of more than 100 stores and distributors nationwide.",
+                "option": [
+                    "3-6M",
+                    "6-9M",
+                    "9-12M"
+                ]
+            },
+            {
+                "_id": { "$oid": "67077e4e923f6eb796abcac1" },
+                "name": "Terry Knit Full Sleeves Drop Shoulder",
+                "image": [
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/18545649b.webp",
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/18545649a.webp"
+                ],
+                "price": 1950000,
+                "remain": 30,
+                "numberOfSale": 15,
+                "category": { "$oid": "67077e95923f6eb796abcaa4" },
+                "description": "Products are designed, manufactured and exclusively distributed by CANIFA - a Vietnamese fashion brand trusted by many customers since 2001. With a system of more than 100 stores and distributors nationwide.",
+                "option": [
+                    "3-6M",
+                    "6-9M",
+                    "9-12M"
+                ]
+            },
+            {
+                "_id": { "$oid": "67077e4e923f6eb796abcac2" },
+                "name": "Terry Knit Full Sleeves Sweatshirt",
+                "image": [
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/18277801a.webp",
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/18277801b.webp"
+                ],
+                "price": 1150000,
+                "remain": 30,
+                "numberOfSale": 15,
+                "category": { "$oid": "67077e95923f6eb796abcaa4" },
+                "description": "Products are designed, manufactured and exclusively distributed by CANIFA - a Vietnamese fashion brand trusted by many customers since 2001. With a system of more than 100 stores and distributors nationwide.",
+                "option": [
+                    "3-6M",
+                    "6-9M",
+                    "9-12M"
+                ]
+            },
+            {
+                "_id": { "$oid": "67077e4e923f6eb796abcac3" },
+                "name": "Woven Full Sleeves Hooded Winter Jacket with Teddy",
+                "image": [
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/18566898a.webp",
+                    "https://cdn.fcglcdn.com/brainbees/images/products/583x720/18566898b.webp"
+                ],
+                "price": 1950000,
+                "remain": 30,
+                "numberOfSale": 15,
+                "category": { "$oid": "67077e95923f6eb796abcaa4" },
+                "description": "Products are designed, manufactured and exclusively distributed by CANIFA - a Vietnamese fashion brand trusted by many customers since 2001. With a system of more than 100 stores and distributors nationwide.",
+                "option": [
+                    "3-6M",
+                    "6-9M",
+                    "9-12M"
+                ]
+            }
+        ]
+        
+    
+    
+]
