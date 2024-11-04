@@ -32,6 +32,7 @@ import NewProduct from '../adminPage/products/AddProduct';
 import ListWareHouse from '../adminPage/Whitehouse/WareHouseList';
 import UpdateWareHouse from '../adminPage/Whitehouse/UpdateWareHouse';
 import PurchaseOrder from '../components/PurchaseOrder/PurchaseOrder';
+import DetailOrder from '../components/PurchaseOrder/DetailOrder';
 import ProductAdmin from '../adminPage/component/ProductAdmin';
 import UpdateProduct from '../adminPage/products/UpdateProduct';
 
@@ -56,7 +57,11 @@ function App() {
                 <Route path="changepw" element={<ChangePasswordScreen />} />
                 <Route path="*" element={<Login />} />
               </Route>
-              <Route path='purchaseOrder' element={<PurchaseOrder/>}/>
+
+              <Route path='/purchaseOrder' element={<PurchaseOrder/>}/>
+              <Route path='/purchaseOrder/detail' element={<DetailOrder/>}/>
+
+              
               <Route path="/shop" element={<Shop />} />
               <Route path="/category">
                 <Route path=":id" element={<CategoryView />} />

@@ -15,6 +15,7 @@ const router = express.Router();
 const User = require('./models/User.models');
 const Category = require('./models/Category.model');
 const productRoutes = require('./routes/productRoutes');
+
 const { productWareHouseRouter } = require('./routes/ProductWarehouseRouter');
 const { OrderRouter } = require('./routes/orderRoutes');
 const CategoryRouter = require('./routes/categoryRoutes');

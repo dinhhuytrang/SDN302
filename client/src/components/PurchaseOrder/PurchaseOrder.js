@@ -5,7 +5,7 @@ import axios from "axios";
 import { AiOutlineShop } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import formatMoney from "../../function/formatMoney";
-import { message, Modal, Pagination, Rate } from "antd";
+import { message, Modal, notification, Pagination, Rate } from "antd";
 import { BASE_URL, CANCEL, COMPLETED, PREPARING_ORDER, SHIPPING, WAIT_FOR_CONFIRM_ORDER } from "../../constant/constant";
 import TextArea from "antd/es/input/TextArea";
 import { FaStar } from "react-icons/fa";
@@ -90,10 +90,22 @@ const PurchaseOrder = () => {
         padding: "15px 0",
         borderRight: "solid 1px #F0F0F0",
     }
-    const changeStatusOrder = async (idOrder, status) => {
+    const changeStatusOrder = async (idOrder) => {
         try {
-            const response = await axios.post(`${BASE_URL}/shop/changeStatusOrder?idOrder=${idOrder}&status=${status}`)
+            const response = await axios.post(`${BASE_URL}/api/orders/changeStatus?idOrder=${idOrder}`)
             console.log(response.data);
+            if (response) {
+                notification.open({
+                    message: "Thông báo",
+                    description: response.data.message,
+                    placement: "topRight",
+                    duration: 3, // thời gian hiển thị (giây), có thể chỉnh sửa
+                    style: {
+                        backgroundColor: response.status === 200 ? "green" : "#f8d7da",
+                        color: response.status === 200 ? "#FFFFFF" : "#721c24"
+                    },
+                });
+            }
             fetchData(user?.id)
         } catch (error) {
             console.log(error);
@@ -147,7 +159,7 @@ const PurchaseOrder = () => {
     }
 
     const viewDetailOrder = (idOrder) => {
-        navigate(`/user/detailOrder?idOrder=${idOrder}`)
+        navigate(`/purchaseOrder/detail?idOrder=${idOrder}`)
     }
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -188,7 +200,7 @@ const PurchaseOrder = () => {
                                     {allItem?.map(item =>
                                         item.order._id === order._id ? (
                                             <Container key={item._id}>
-                                                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #7F7F7F" }}>
+                                                <div style={{ borderBottom: "1px solid #7F7F7F", padding: "20px 10px" }}>
                                                     {order?.status === COMPLETED ? (
                                                         item?.rate ? (
                                                             <div style={{
@@ -204,19 +216,25 @@ const PurchaseOrder = () => {
                                                                 ))}
                                                             </div>
                                                         ) : (
-                                                            <div style={{ display: "flex" }}>
-                                                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                                    {order?.status}
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                                                <div>
+                                                                    Code: {order?.orderCode}
                                                                 </div>
-                                                                <button onClick={() => showRateForm(item?.product.idProduct, item?.id)} style={{ color: "#EE4D2D", border: "none", background: "none" }}>Đánh giá</button>
+                                                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", minWidth: "fit-content", gap: "10px" }}>
+                                                                    <div style={{ width: 200 }}>
+                                                                        {order?.status}
+                                                                    </div>
+                                                                    <button onClick={() => showRateForm(item?.product.idProduct, item?.id)} style={{ color: "#EE4D2D", border: "none", background: "none", margin: 0 }}>Đánh giá</button>
+                                                                </div>
                                                             </div>
+
                                                         )
                                                     ) : (
-                                                        <div style={{display:"flex",justifyContent:"space-around",alignItems:"center"}}>
+                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                                             <div>
-                                                                Code:
+                                                                Code: {order?.orderCode}
                                                             </div>
-                                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', color: "red" }}>
+                                                            <div style={{ color: "red" }}>
                                                                 {order?.status}
                                                             </div>
                                                         </div>
@@ -262,7 +280,7 @@ const PurchaseOrder = () => {
                                                                 style={{ background: "#EE4D2D", color: "white", border: "none", width: "150px", padding: "10px 0", borderRadius: "5px" }}
                                                             >Hủy đơn</button>;
                                                         } else if (order?.status === "Đang vận chuyển") {
-                                                            return <button onClick={() => changeStatusOrder(order?.id, order?.status)}
+                                                            return <button onClick={() => changeStatusOrder(order?._id)}
                                                                 style={{ background: "#EE4D2D", color: "white", border: "none", width: "150px", padding: "10px 0", borderRadius: "5px" }}
                                                             >Đã nhận được hàng</button>;
                                                         } else {
@@ -282,7 +300,8 @@ const PurchaseOrder = () => {
                             ) : (
                                 <div>
                                     <Container style={{ display: "flex", borderBottom: "1px solid #7F7F7F" }}>
-                                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: "20px" }}>Mã đơn hàng: {order?.code}</div>
+                                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: "20px", padding: "20px 10px" }}>Code: {order?.orderCode}</div>
+
                                     </Container>
                                     {allItem?.map(item =>
                                         item.order._id === order._id ? (
@@ -291,7 +310,7 @@ const PurchaseOrder = () => {
                                                     <div>
 
                                                     </div>
-                                                    {order?.status === "Hoàn thành" ? (
+                                                    {order?.status === COMPLETED ? (
                                                         item?.rate ? (
                                                             <div style={{
                                                                 display: "flex",
@@ -307,10 +326,10 @@ const PurchaseOrder = () => {
                                                             </div>
                                                         ) : (
                                                             <div style={{ display: "flex" }}>
-                                                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: "150px" }}>
                                                                     {order?.status}
                                                                 </div>
-                                                                <button onClick={() => showRateForm(item?.product._id, item?.id)} style={{ color: "#EE4D2D", border: "none", background: "none" }}>Đánh giá</button>
+                                                                <button onClick={() => showRateForm(item?.product._id, item?.id)} style={{ color: "#EE4D2D", border: "none", background: "none", margin: 0 }}>Đánh giá</button>
                                                             </div>
                                                         )
                                                     ) : (
@@ -321,7 +340,7 @@ const PurchaseOrder = () => {
                                                         </div>
                                                     )}
                                                 </div>
-                                                <Row onClick={() => viewDetailOrder(order?.id)} style={{ marginTop: "10px", borderBottom: "1px solid #F5F5F5", paddingBottom: "10px" }}>
+                                                <Row onClick={() => viewDetailOrder(order?._id)} style={{ marginTop: "10px", borderBottom: "1px solid #F5F5F5", paddingBottom: "10px" }}>
                                                     <Col xs={2}>
                                                         <img src={`${item?.product.image[0]}`}
                                                             alt="imgPro"
@@ -359,7 +378,7 @@ const PurchaseOrder = () => {
                                                         style={{ background: "#EE4D2D", color: "white", border: "none", width: "150px", padding: "10px 0", borderRadius: "5px" }}
                                                     >Mua lại</button>;
                                                 } else if (order?.status === "Đang vận chuyển") {
-                                                    return <button onClick={() => changeStatusOrder(order?.id, order?.status)}
+                                                    return <button onClick={() => changeStatusOrder(order?._id)}
                                                         style={{ background: "#EE4D2D", color: "white", border: "none", width: "150px", padding: "10px 0", borderRadius: "5px" }}
                                                     >Đã nhận được hàng</button>;
                                                 } else {
@@ -367,7 +386,7 @@ const PurchaseOrder = () => {
                                                         style={{ background: "#6C6C6C", color: "white", border: "none", width: "150px", padding: "10px 0", borderRadius: "5px" }}
                                                     >Đã nhận được hàng</button>;
                                                 }
-                                            })()}
+                                            })}
                                                 <button style={{ background: "white", border: "solid 1px #6C6C6C", width: "150px", padding: "10px 0", borderRadius: "5px", marginLeft: "10px" }}
                                                 >Chat với người bán</button>
                                             </div>
