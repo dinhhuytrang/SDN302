@@ -11,4 +11,4 @@ productWareHouseRouter.get('/:id',ProductWarehouse.getProductWarehouseDetail);
 productWareHouseRouter.put('/update/:id',ProductWarehouse.updateProductWarehouse);
 productWareHouseRouter.delete('/delete/:id',ProductWarehouse.deleteProductWarehouse)
 
-module.exports = productWareHouseRouter
+module.exports = {productWareHouseRouter}
