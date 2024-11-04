@@ -6,6 +6,7 @@ import StatusOrder from "./component/StatusOrder"
 import { AiOutlineShop } from "react-icons/ai"
 import formatMoney from "../../function/formatMoney"
 import { BASE_URL } from "../../constant/constant"
+import Header from "../Header/Header"
 
 
 const DetailOrder = () => {
@@ -37,111 +38,115 @@ const DetailOrder = () => {
         }
     }
     return (
-        <Container>
-            <div style={{ display: "flex", justifyContent: "end", background: "white", padding: "10px 20px", marginBottom: "2px" }}>
-                <div>Mã đơn hàng: {orderInfo?.orderCode}</div>
-                <div style={{ margin: "0 20px" }} >|</div>
-                <div style={{ color: "red" }}>{orderInfo?.status}</div>
-            </div>
-            <div style={{ background: "white", marginBottom: "2px" }}>
-                <StatusOrder order={orderInfo} />
-            </div>
-            <div style={{ background: "white", marginBottom: "2px", padding: "30px 0" }}>
-                <Container>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <h5>Địa chỉ nhận hàng</h5>
-                        <div>SPX Express</div>
-                    </div>
-                    <div>
-                        <div>{orderInfo?.user.name}</div>
-                        <div style={{ color: "#B7BAB0" }}>{orderInfo?.phone}</div>
-                        <div style={{ color: "#B7BAB0" }}>{orderInfo?.address}</div>
-                    </div>
-                </Container>
-            </div>
-            <Container style={{ background: "#FAFAFA" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #7F7F7F" }}>
-                    <div style={{ display: "flex", padding: "10px 0" }}>
-                        <button onClick={() => navigate(`/shop/${orderInfo?.shop.id}`)} style={{
-                            background: "white",
-                            border: "solid 1px #E8E8E8",
-                            marginLeft: "20px"
-                        }}><AiOutlineShop /> Xem Shop</button>
-                    </div>
+        <div>
+            <Header />
+            <Container>
+                <div style={{ display: "flex", justifyContent: "end", background: "white", padding: "10px 20px", marginBottom: "2px" }}>
+                    <div>Mã đơn hàng: {orderInfo?.orderCode}</div>
+                    <div style={{ margin: "0 20px" }} >|</div>
+                    <div style={{ color: "red" }}>{orderInfo?.status}</div>
                 </div>
-                {orderItem?.map(item => (
-                    <Container key={item.id}>
-                        <Row onClick={() => navigate(`/product/${item.product._id}`)} style={{ marginTop: "10px", borderBottom: "1px solid #F5F5F5", paddingBottom: "10px" }}>
-                            <Col xs={2}>
-                                <img src={`${item?.product.image[0]}`}
-                                    alt="imgPro"
-                                    style={{ width: "100%" }}
-                                />
-                            </Col>
-                            <Col xs={7}>
-                                <div style={{ fontSize: "18px" }}>{item?.product.name}</div>
-                                <div>x {item?.quantity}</div>
-                            </Col>
-                            <Col xs={3}>
-                                <div style={{ color: "#EE4D2D", display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                                    {formatMoney(item?.product.price)} đ
-                                </div>
-                            </Col>
-                        </Row>
-
+                <div style={{ background: "white", marginBottom: "2px" }}>
+                    <StatusOrder order={orderInfo} />
+                </div>
+                <div style={{ background: "white", marginBottom: "2px", padding: "30px 0" }}>
+                    <Container>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <h5>Địa chỉ nhận hàng</h5>
+                            <div>SPX Express</div>
+                        </div>
+                        <div>
+                            <div>{orderInfo?.user.name}</div>
+                            <div style={{ color: "#B7BAB0" }}>{orderInfo?.phone}</div>
+                            <div style={{ color: "#B7BAB0" }}>{orderInfo?.address}</div>
+                        </div>
                     </Container>
-                ))}
-            </Container>
-            <div style={{ paddingBottom: "20px" }}>
-                <Table bordered style={{ border: "#F5F5F5", textAlign: "end", marginBottom: "0px" }}  >
-                    <tbody>
-                        <tr>
-                            <td style={{ width: "75%", color: "#AFA7AC" }}>Tiền hàng</td>
-                            <td>
-                                {formatMoney(orderItem?.reduce((total, item) => total + item?.product.price * item?.quantity, 0))} đ
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style={{ color: "#AFA7AC" }}>Giảm giá</td>
-                            <td>{formatMoney(orderInfo?.sale===0? 0 : orderInfo?.sale )} %</td>
+                </div>
+                <Container style={{ background: "#FAFAFA" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #7F7F7F" }}>
+                        <div style={{ display: "flex", padding: "10px 0" }}>
+                            <button onClick={() => navigate(`/shop/${orderInfo?.shop.id}`)} style={{
+                                background: "white",
+                                border: "solid 1px #E8E8E8",
+                                marginLeft: "20px"
+                            }}><AiOutlineShop /> Xem Shop</button>
+                        </div>
+                    </div>
+                    {orderItem?.map(item => (
+                        <Container key={item.id}>
+                            <Row onClick={() => navigate(`/product/${item.product._id}`)} style={{ marginTop: "10px", borderBottom: "1px solid #F5F5F5", paddingBottom: "10px" }}>
+                                <Col xs={2}>
+                                    <img src={`${item?.product.image[0]}`}
+                                        alt="imgPro"
+                                        style={{ width: "100%" }}
+                                    />
+                                </Col>
+                                <Col xs={7}>
+                                    <div style={{ fontSize: "18px" }}>{item?.product.name}</div>
+                                    <div>x {item?.quantity}</div>
+                                </Col>
+                                <Col xs={3}>
+                                    <div style={{ color: "#EE4D2D", display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                                        {formatMoney(item?.product.price)} đ
+                                    </div>
+                                </Col>
+                            </Row>
 
-                        </tr>
-                        <tr>
-                            <td style={{ color: "#AFA7AC" }}>Thành tiền</td>
-                            <td style={{ fontSize: "20px", color: "red" }}>{formatMoney(orderInfo?.totalOrder)} đ</td>
-                        </tr>
-                    </tbody>
-                </Table>
-                {orderInfo?.payMethod === "cod" ? (
-                    <div style={{ background: "#FFFEFA", border: "1px solid #E8E1CA", fontSize: "13px", padding: "14px " }}>
-                        <div>
-                            Vui lòng thanh toán <span style={{ color: "red" }}>{formatMoney(orderInfo?.totalOrder)} đ</span> + tiền ship khi nhận hàng
+                        </Container>
+                    ))}
+                </Container>
+                <div style={{ paddingBottom: "20px" }}>
+                    <Table bordered style={{ border: "#F5F5F5", textAlign: "end", marginBottom: "0px" }}  >
+                        <tbody>
+                            <tr>
+                                <td style={{ width: "75%", color: "#AFA7AC" }}>Tiền hàng</td>
+                                <td>
+                                    {formatMoney(orderItem?.reduce((total, item) => total + item?.product.price * item?.quantity, 0))} đ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style={{ color: "#AFA7AC" }}>Giảm giá</td>
+                                <td>{formatMoney(orderInfo?.sale === 0 ? 0 : orderInfo?.sale)} %</td>
+
+                            </tr>
+                            <tr>
+                                <td style={{ color: "#AFA7AC" }}>Thành tiền</td>
+                                <td style={{ fontSize: "20px", color: "red" }}>{formatMoney(orderInfo?.totalOrder)} đ</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    {orderInfo?.payMethod === "cod" ? (
+                        <div style={{ background: "#FFFEFA", border: "1px solid #E8E1CA", fontSize: "13px", padding: "14px " }}>
+                            <div>
+                                Vui lòng thanh toán <span style={{ color: "red" }}>{formatMoney(orderInfo?.totalOrder)} đ</span> + tiền ship khi nhận hàng
+                            </div>
+                            <div>Tiền ship từ 20.000đ - 50.000đ tùy thuộc vào khoảng cách của bạn và shop</div>
                         </div>
-                        <div>Tiền ship từ 20.000đ - 50.000đ tùy thuộc vào khoảng cách của bạn và shop</div>
-                    </div>
-                ) : (
-                    <div style={{ background: "#FFFEFA", border: "1px solid #E8E1CA", fontSize: "13px", padding: "14px " }}>
-                        <div>
-                            Vui lòng thanh toán tiền ship khi nhận hàng
+                    ) : (
+                        <div style={{ background: "#FFFEFA", border: "1px solid #E8E1CA", fontSize: "13px", padding: "14px " }}>
+                            <div>
+                                Vui lòng thanh toán tiền ship khi nhận hàng
+                            </div>
+                            <div>Tiền ship từ 20.000đ - 50.000đ tùy thuộc vào khoảng cách của bạn và shop</div>
                         </div>
-                        <div>Tiền ship từ 20.000đ - 50.000đ tùy thuộc vào khoảng cách của bạn và shop</div>
-                    </div>
-                )}
-                <Table bordered style={{ border: "#F5F5F5", textAlign: "end", marginBottom: "0px" }}  >
-                    <tbody>
-                        <tr>
-                            <td style={{ width: "75%", color: "#AFA7AC" }}>Phương thức thanh toán</td>
-                            <td>{orderInfo?.payMethod === "cod"
-                                ? "Thanh toán khi nhận hàng"
-                                : orderInfo?.payMethod === "online"
-                                    ? "Thanh toán qua ví VNPay"
-                                    : "Thanh toán bằng số dư ví"}
-                            </td>
-                        </tr>
-                    </tbody>
-                </Table>
-            </div>
-        </Container>
+                    )}
+                    <Table bordered style={{ border: "#F5F5F5", textAlign: "end", marginBottom: "0px" }}  >
+                        <tbody>
+                            <tr>
+                                <td style={{ width: "75%", color: "#AFA7AC" }}>Phương thức thanh toán</td>
+                                <td>{orderInfo?.payMethod === "cod"
+                                    ? "Thanh toán khi nhận hàng"
+                                    : orderInfo?.payMethod === "online"
+                                        ? "Thanh toán qua ví VNPay"
+                                        : "Thanh toán bằng số dư ví"}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                </div>
+            </Container>
+        </div>
+
     )
 }
 export default DetailOrder

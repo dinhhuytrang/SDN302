@@ -45,7 +45,7 @@ const SideBar = () => {
         "/admin/categories",
         "/admin/products",
         "/admin/orders",
-        "/admin/reports"
+        "/admin/warehouse"
     ];
     
     const buttonTexts = [
@@ -54,7 +54,7 @@ const SideBar = () => {
         "Danh mục",
         "Sản phẩm",
         "Đơn hàng",
-        "Báo cáo vi phạm"
+        "Quản lý kho"
     ];
 
     // Determine which button should be highlighted

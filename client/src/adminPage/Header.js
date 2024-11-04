@@ -1,26 +1,31 @@
 import { Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { IoNotificationsOutline } from "react-icons/io5";
 import { Avatar, Dropdown } from "antd";
 import { useEffect, useState } from "react";
-import { BASE_URL, UNREAD } from "../constant/constant";
-import axios from "axios";
 
 const Header = () => {
     const [admin, setAdmin] = useState(JSON.parse(localStorage.getItem("admin")));
     const navigate = useNavigate();
-    const [newNoti, setNewNoti] = useState([]);
+    const token = JSON.parse(localStorage.getItem("admin"))?.accessToken;
+    
+    useEffect(() => {
+        if (!token) {
+            navigate('/admin/signin');
+        } else {
+            fetchData();
+        }
+    }, [token, navigate]);
 
     useEffect(() => {
         const adminLocal = JSON.parse(localStorage.getItem("admin"));
+
         setAdmin(adminLocal);
         fetchData();
     }, []);
 
     const fetchData = async () => {
         try {
-            const notiApi = await axios.post(`${BASE_URL}/user/notification?idUser=${admin.id}`);
-            setNewNoti(notiApi.data.filter(noti => noti.status === UNREAD));
+
         } catch (error) {
             console.error("Error fetching data", error);
         }
@@ -55,22 +60,7 @@ const Header = () => {
                 </div>
                 <div style={{ height: "130px", display: "flex" }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <button onClick={()=>navigate("/admin/notification")} style={{ position: 'relative', marginRight: "20px",border:"none",background:"none" }}>
-                            <IoNotificationsOutline  style={{ border: "solid 1px #F5F5F5", fontSize: "30px", color: "#8E92BC", borderRadius: "50%", padding: "10px", height: "35%", width: "auto" }} />
-                            {newNoti.length !== 0 && (
-                                <span style={{
-                                    position: 'absolute',
-                                    top: '-2px',
-                                    right: '1px',
-                                    height: '15px',
-                                    width: '15px',
-                                    borderRadius: '50%',
-                                    backgroundColor: 'red',
-                                    display: 'block',
-                                    content: '""'
-                                }}></span>
-                            )}
-                        </button>
+
                         <Dropdown
                             menu={{ onClick: handleDropdownItemClick, items: items }}
                             arrow

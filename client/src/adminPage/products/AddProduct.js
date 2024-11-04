@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Col, Row, InputGroup } from "react-bootstrap";
@@ -13,7 +13,13 @@ const NewProductForm = () => {
   const [images, setImages] = useState([]);
   const [files, setFiles] = useState([]); // Store the files for uploading
   const navigate = useNavigate(); // Initialize navigate
+  const token = JSON.parse(localStorage.getItem("admin"))?.accessToken
 
+  useEffect(() => {
+    if (!token) {
+        navigate('/admin/signin');
+    } 
+}, [token, navigate]);
   const formik = useFormik({
     initialValues: {
       name: "",

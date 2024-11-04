@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom"; // Import Link here
+import { useParams, Link, useNavigate } from "react-router-dom"; // Import Link here
 import { Row, Col, Carousel } from "react-bootstrap";
 import axios from "axios";
 import "../Whitehouse/addwhite.css";
@@ -7,7 +7,14 @@ import { BASE_URL } from "../../constant/constant";
 function ViewDetailWhiteHouse() {
   const { id } = useParams(); // Get the 'id' parameter from the route
   const [productData, setProductData] = useState(null);
+  const navigate = useNavigate()
+  const token = JSON.parse(localStorage.getItem("admin"))?.accessToken
 
+  useEffect(() => {
+    if (!token) {
+      navigate('/admin/signin');
+    }
+  }, [token, navigate]);
   useEffect(() => {
     // Fetch product details using the dynamic 'id' from useParams
     axios
