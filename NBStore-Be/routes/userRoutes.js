@@ -6,9 +6,11 @@ const UserRouter = express.Router();
 
 UserRouter.get('/', UserController.getUsers);
 UserRouter.post('/login', UserController.signin);
+UserRouter.post('/loginAdmin', UserController.adminSignin);
+
 UserRouter.post('/register', UserController.createUser);
 UserRouter.get('/verify-email', UserController.verifyEmail);
 UserRouter.post('/resetPassword', UserController.resetAccount);
 UserRouter.post('/changepw', authenticateToken, UserController.changePassword);
-
+UserRouter.post('/changeStatusAccount',UserController.changeStatusAccount)
 module.exports = UserRouter;

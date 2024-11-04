@@ -17,6 +17,18 @@ const getAllOrderOfUser = async (req, res, next) => {
         next(error)
     }
 }
+const adminGetAllOrder = async (req, res, next) => {
+    try {
+
+        const orders = await Order.find().populate("user").exec()
+        if (orders.length === 0) {
+            return res.status(404).json({ message: "No orders found" });
+        }
+        res.status(200).json(orders)
+    } catch (error) {
+        next(error)
+    }
+}
 
 const getAllItemOrderOfUser = async (req, res, next) => {
     try {
@@ -84,10 +96,19 @@ const changeStatus = async (req, res, next) => {
         } else if (orderInfo.status === SHIPPING) {
             orderInfo.status = COMPLETED
         } else {
-            return res.status(500).json({message:"Cannot update more"})
+            return res.status(500).json({ message: "Cannot update more" })
         }
         await Order.findByIdAndUpdate(idOrder, { status: orderInfo.status }, { new: true })
         res.status(200).json({ message: "Update success" })
+    } catch (error) {
+        next()
+    }
+}
+
+const getAllOrderItem = async (req, res, next) => {
+    try {
+        const orderItem = await OrderItem.find().populate(["order", "product"]).exec()
+        res.status(200).json(orderItem)
     } catch (error) {
         next()
     }
@@ -97,5 +118,7 @@ module.exports = {
     getAllItemOrderOfUser,
     getOrderInfo,
     getItemOfOrder,
-    changeStatus
+    changeStatus,
+    adminGetAllOrder,
+    getAllOrderItem
 };

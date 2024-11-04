@@ -4,6 +4,7 @@ import Landing from "../components/Landing/Landing";
 import FeaturedItems from "../components/Featured/Items/FetauredItems";
 import FeaturedCategories from "../components/Featured/Categories/FeaturedCategories";
 import { TabTitle } from "../utils/General";
+import Header from "../components/Header/Header";
 
 
 const Home = () => {
@@ -18,13 +19,17 @@ const Home = () => {
         window.scrollTo(0, 0)
     }, [])
 
-    return ( 
-        <Fragment>
-            <Landing />
-            <FeaturedCategories />
-            <FeaturedItems items={featuredItems}/>
-        </Fragment>
+    return (
+        <div>
+
+            <Header />
+            <Fragment>
+                <Landing />
+                <FeaturedCategories />
+                <FeaturedItems items={featuredItems} />
+            </Fragment>
+        </div>
     );
 }
- 
+
 export default Home;

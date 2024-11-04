@@ -18,7 +18,7 @@ const Categories = () => {
     const [newImage, setNewImage] = useState('');
     const [newName, setNewName] = useState('')
     const [loading, setLoading] = useState(false)
-    const token = JSON.parse(localStorage.getItem("admin"))?.token
+    const token = JSON.parse(localStorage.getItem("admin"))?.accessToken
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -81,7 +81,7 @@ const Categories = () => {
 
     return (
         <div>
-            {/* <Header /> */}
+            <Header />
             <Container fluid>
                 <Row>
                     <Col xs={2}>

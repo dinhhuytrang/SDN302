@@ -35,6 +35,7 @@ import PurchaseOrder from '../components/PurchaseOrder/PurchaseOrder';
 import DetailOrder from '../components/PurchaseOrder/DetailOrder';
 import ProductAdmin from '../adminPage/component/ProductAdmin';
 import UpdateProduct from '../adminPage/products/UpdateProduct';
+import SigninAdmin from '../adminPage/authenticate/Signin';
 
 
 
@@ -45,7 +46,7 @@ function App() {
       <WishItemsProvider>
         <SearchProvider>
           <Router >
-            <Header />
+            {/* <Header /> */}
             <Routes>
               <Route index element={<Home />} />
               <Route path="/account">
@@ -85,6 +86,7 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
 
               <Route path="/admin" element={<Overview />} />
+              <Route path="/admin/signin" element={<SigninAdmin />} />
 
               <Route path="/admin/overview" element={<Overview />} />
               <Route path="/admin/accounts" element={<ListUser />} />
