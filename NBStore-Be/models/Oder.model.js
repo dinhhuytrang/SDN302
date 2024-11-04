@@ -16,6 +16,10 @@ const orderSchema = new Schema({
     type: String, // Trạng thái đơn hàng (ví dụ: "Pending", "Shipped", "Delivered")
     required: true
   },
+  sale: {
+    type: Number,
+    default: 0
+  },
   createDate: {
     type: Date, // Ngày tạo đơn hàng
     default: Date.now
