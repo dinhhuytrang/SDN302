@@ -43,7 +43,6 @@ const CartItemsProvider = (props) => {
                 // Get userId from localStorage
                 const user = JSON.parse(localStorage.getItem('user'));
                 if (!user || !user.id) {
-                    console.error('User ID not found in local storage');
                     return;
                 }
                 const userId = user.id;

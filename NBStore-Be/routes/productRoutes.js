@@ -12,7 +12,6 @@ ProductRouter.get('/:id/recommendations',productController.getRecommendedProduct
 ProductRouter.post('/create',productController.createNewProduct)
 ProductRouter.get('/search', productController.searchProducts);
 ProductRouter.get('/:id',productController.getProductByID);
-ProductRouter.get('/:id/recommendations',productController.getRecommendedProducts);
 ProductRouter.put('/update/:productId', productController.updateProduct);
 ProductRouter.delete('/remove/:productId', productController.deleteProduct);
 

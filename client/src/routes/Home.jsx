@@ -8,8 +8,8 @@ import Header from "../components/Header/Header";
 
 
 const Home = () => {
-    const [featuredItems, setFeaturedItems] = useState()
-    TabTitle("Home - Shema");
+    const [ featuredItems, setFeaturedItems ] = useState()
+    TabTitle("Home - NBStore");
 
     useEffect(() => {
         axios.get("https://shema-backend.vercel.app/api/items")

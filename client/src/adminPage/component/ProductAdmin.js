@@ -24,8 +24,13 @@ const ProductAdmin = () => {
         }
     }, [token, navigate])
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (!token) {
+            // Chuyển hướng đến trang đăng nhập nếu không có token
+            navigate('/admin/signin');
+        } else {
+            fetchData();
+        }
+    }, [token, navigate])
 
     const fetchData = async () => {
         try {
