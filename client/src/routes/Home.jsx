@@ -6,14 +6,17 @@ import FeaturedCategories from "../components/Featured/Categories/FeaturedCatego
 import { TabTitle } from "../utils/General";
 
 
+
 const Home = () => {
-    const [featuredItems, setFeaturedItems] = useState();
-    TabTitle("Home - Shema");
+    const [ featuredItems, setFeaturedItems ] = useState()
+    TabTitle("Home - NBStore");
 
     useEffect(() => {
         // Lấy sản phẩm nổi bật
          axios.get("http://localhost:9999/api/products/features")
+         
             .then(res => setFeaturedItems(res.data.data))
+            
             .catch(err => console.log(err));
 
 

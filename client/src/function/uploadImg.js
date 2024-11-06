@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const uploadImg = async (files) => {
+    console.log("file chuyen vao: ",files);
+    
     if (files) {
         const CLOUD_NAME = "djdnup7sk";
         const PRESET_NAME = "shopee";

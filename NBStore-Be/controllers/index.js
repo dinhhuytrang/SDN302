@@ -1,10 +1,13 @@
-const UserController=require("./userController")
+const UserController = require("./userController")
 const productController = require("./productController")
-const OrderController=require("./orderController")
 const CategoryController = require("./categoryController")
-module.exports={
-    UserController , 
+const ProductWarehouse = require("./ProductWarehouse.controller")
+
+const OrderController = require("./orderController")
+module.exports = {
+    UserController,
     productController,
     OrderController,
+    ProductWarehouse,
     CategoryController
 }

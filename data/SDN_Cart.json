@@ -1,0 +1,12 @@
+[
+    {
+        "user": { "$oid": "67077d0b923f6eb796abca94" }, 
+        "product": { "$oid": "67077e36923f6eb796abcac0" },
+        "quantity": 2
+    },
+    {
+        "user": { "$oid": "67077d95923f6eb796abcaa1" }, 
+        "product": { "$oid": "67077d0b923f6eb796abcaa9" }, 
+        "quantity": 1
+    }
+]

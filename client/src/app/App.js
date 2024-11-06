@@ -26,7 +26,17 @@ import Overview from '../adminPage/component/Overview';
 import ListUser from '../adminPage/component/ListUser';
 import Categories from '../adminPage/component/Categories';
 import OrderAdmin from '../adminPage/component/OrderAdmin';
+import AddProductPage from '../adminPage/Whitehouse/AddNewWhitehouse';
+import ViewDetailWhiteHouse from '../adminPage/Whitehouse/ViewDetailWhiteHouse';
+import NewProduct from '../adminPage/products/AddProduct';
+import ListWareHouse from '../adminPage/Whitehouse/WareHouseList';
+import UpdateWareHouse from '../adminPage/Whitehouse/UpdateWareHouse';
 import PurchaseOrder from '../components/PurchaseOrder/PurchaseOrder';
+import DetailOrder from '../components/PurchaseOrder/DetailOrder';
+import ProductAdmin from '../adminPage/component/ProductAdmin';
+import UpdateProduct from '../adminPage/products/UpdateProduct';
+import SigninAdmin from '../adminPage/authenticate/Signin';
+
 
 
 function App() {
@@ -36,7 +46,7 @@ function App() {
       <WishItemsProvider>
         <SearchProvider>
           <Router >
-            <Header />
+            {/* <Header /> */}
             <Routes>
               <Route index element={<Home />} />
               <Route path="/account">
@@ -48,7 +58,11 @@ function App() {
                 <Route path="changepw" element={<ChangePasswordScreen />} />
                 <Route path="*" element={<Login />} />
               </Route>
-              <Route path='purchaseOrder' element={<PurchaseOrder/>}/>
+
+              <Route path='/purchaseOrder' element={<PurchaseOrder/>}/>
+              <Route path='/purchaseOrder/detail' element={<DetailOrder/>}/>
+
+              
               <Route path="/shop" element={<Shop />} />
               <Route path="/category">
                 <Route path=":id" element={<CategoryView />} />
@@ -72,13 +86,19 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
 
               <Route path="/admin" element={<Overview />} />
+              <Route path="/admin/signin" element={<SigninAdmin />} />
 
               <Route path="/admin/overview" element={<Overview />} />
               <Route path="/admin/accounts" element={<ListUser />} />
               <Route path="/admin/categories" element={<Categories />} />
-              {/* <Route path="/admin/products" element={<ProductAdmin />} /> */}
+              <Route path="/admin/products" element={<ProductAdmin />} />
+              <Route path="/admin/products/:id" element={<UpdateProduct/>} />
               <Route path="/admin/orders" element={<OrderAdmin />} />
-
+              <Route path="/admin/add-product" element={<NewProduct />} />
+              <Route path="/admin/warehouse" element={<ListWareHouse />} />
+              <Route path="/admin/warehouse/addnew" element={<AddProductPage />} />
+              <Route path="/admin/warehouse/detail/:id" element={<ViewDetailWhiteHouse />} />
+              <Route path="/admin/warehouse/update/:id" element={<UpdateWareHouse />} />
             </Routes>
             <Footer />
           </Router>

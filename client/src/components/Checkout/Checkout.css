@@ -1,67 +1,101 @@
+/* Container chính của Checkout */
 .checkout__container {
-    max-width: 600px;
-    margin: 2% auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #FFE26E;
+    width: 100%; /* Đảm bảo rằng nó chiếm toàn bộ chiều rộng */
+    max-width: 1200px; /* Đặt chiều rộng tối đa */
+    margin: 2% auto; /* Canh giữa */
+    padding: 20px; /* Khoảng cách bên trong */
+    border: 1px solid #ccc; /* Đường viền */
+    border-radius: 10px; /* Bo góc */
+    background-color: #FFE26E; /* Màu nền */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Bóng cho container */
 }
 
+/* Nội dung chính */
+.checkout__content {
+    display: flex; /* Sử dụng flexbox để bố trí */
+    justify-content: space-between; /* Giữa hai cột */
+}
+
+/* Thông tin người nhận */
 .checkout__form {
     display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+    flex-direction: column; /* Bố trí theo chiều dọc */
+    margin-right: 20px; /* Khoảng cách giữa thông tin và danh sách sản phẩm */
+    flex: 1; /* Chiếm không gian bằng nhau */
 }
 
+/* Label trong form */
 .checkout__form label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 15px;
+    font-weight: bold; /* Đậm chữ */
+    margin: 15px 0 5px; /* Khoảng cách */
 }
 
+/* Input trong form */
 .checkout__form input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    width: 100%;
-    box-sizing: border-box;
+    padding: 10px; /* Khoảng cách bên trong */
+    font-size: 16px; /* Kích thước chữ */
+    border: 1px solid #ccc; /* Đường viền */
+    border-radius: 5px; /* Bo góc */
+    margin-bottom: 10px; /* Khoảng cách dưới */
+    width: 100%; /* Chiều rộng 100% */
+    box-sizing: border-box; /* Để padding và border không vượt quá chiều rộng */
 }
 
+/* Danh sách sản phẩm */
 .checkout__items {
-    margin-bottom: 20px;
+    margin-left: 20px; /* Khoảng cách giữa thông tin và danh sách sản phẩm */
+    flex: 1; /* Chiếm không gian bằng nhau */
 }
 
-.checkout__items ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+/* Bảng sản phẩm */
+.checkout__items table {
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    border-collapse: collapse; /* Gộp các đường biên lại */
 }
 
-.checkout__items ul li {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+/* Tiêu đề và ô trong bảng */
+.checkout__items th, .checkout__items td {
+    border: 1px solid #ddd; /* Đường viền cho các ô */
+    padding: 10px; /* Khoảng cách bên trong */
+    text-align: left; /* Căn trái nội dung */
 }
 
+.checkout__items th {
+    background-color: #f2f2f2; /* Màu nền cho tiêu đề bảng */
+}
+
+/* Phương thức thanh toán */
+.checkout__payment-method {
+    margin-top: 20px; /* Đặt khoảng cách trên cho phần phương thức thanh toán */
+}
+
+/* Tổng số tiền */
 .total__amount {
-    font-weight: bold;
-    margin-top: 10px;
-    font-size: 18px;
+    display: flex; /* Sử dụng flexbox để kiểm soát cách bố trí */
+    flex-direction: column; /* Bố trí các mục theo chiều dọc */
+    margin-top: 20px; /* Khoảng cách phía trên */
+    height: 100px; /* Chiều cao cố định */
 }
 
+.total__amount p {
+    margin: 5px 0; /* Khoảng cách giữa các dòng */
+    font-weight: bold; /* Để tổng tiền nổi bật hơn */
+    font-size: 1em; /* Kích thước chữ */
+}
+
+/* Nút thanh toán */
 button {
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    padding: 15px; /* Khoảng cách bên trong */
+    font-size: 16px; /* Kích thước chữ */
+    background-color: #007bff; /* Màu nền */
+    color: white; /* Màu chữ */
+    border: none; /* Không có viền */
+    border-radius: 5px; /* Bo góc */
+    cursor: pointer; /* Con trỏ khi di chuột */
+    margin-top: 20px; /* Khoảng cách trên */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Màu nền khi hover */
 }

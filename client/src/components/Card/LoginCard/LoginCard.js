@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginCard.css';
 
 const LoginCard = () => {
-    const [email, setEmail] = useState(''); // Không lấy từ localStorage nữa
-    const [password, setPassword] = useState(''); // Không lấy từ localStorage nữa
+    const [username, setUsername] = useState(''); // Đổi từ email sang username
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     // Hàm xử lý khi nhấn nút LOGIN
@@ -15,7 +15,7 @@ const LoginCard = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ username, password }) // Đổi từ email sang username
             });
 
             const data = await response.json();
@@ -46,14 +46,14 @@ const LoginCard = () => {
                     <h1>Login</h1>
                 </div>
                 <div className="login__inputs">
-                    <div className="email__input__container input__container">
-                        <label className="email__label input__label">Email</label>
+                    <div className="username__input__container input__container"> {/* Đổi từ email sang username */}
+                        <label className="username__label input__label">Username</label> {/* Đổi label */}
                         <input
-                            type="email"
-                            className="email__input login__input"
-                            placeholder='example@gmail.com'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)} // Cập nhật giá trị email
+                            type="text" // Đổi từ email sang text
+                            className="username__input login__input"
+                            placeholder='Enter your username'
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)} // Cập nhật giá trị username
                         />
                     </div>
                     <div className="password__input__container input__container">
