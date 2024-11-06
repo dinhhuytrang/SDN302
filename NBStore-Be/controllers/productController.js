@@ -121,6 +121,23 @@ const searchProducts = async (req, res, next) => {
     }
 };
 
+//get feature product
+const getTopSellingProducts = async (req, res, next) => {
+    try {
+        const topSellingProducts = await Product.find().sort({ numberOfSale: -1 }).limit(8) 
+            .populate("category") // Populates thêm thông tin category nếu cần
+            .exec();
+
+        res.status(200).json({
+            message: "Top 8 best-selling products",
+            data: topSellingProducts
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 const updateProduct = async (req, res, next) => {
     try {
         const productId = req.params.productId;
@@ -155,5 +172,6 @@ const deleteProduct = async (req, res) => {
     }
 };
 
-module.exports = { getProducts, searchProducts, getProductByID, getRecommendedProducts, createNewProduct, updateProduct, deleteProduct };
+module.exports = { getProducts, searchProducts, getProductByID, getRecommendedProducts, createNewProduct, updateProduct, deleteProduct, getTopSellingProducts };
+
 

@@ -61,7 +61,6 @@ const Checkout = () => {
     };
 
     return (
-
         <div className="checkout__container">
             <h2>Checkout</h2>
             <div className="checkout__content">
@@ -70,11 +69,10 @@ const Checkout = () => {
                     <p>{name}</p>
                     <label>Số điện thoại:</label>
                     <p>{phone}</p>
-
                     <label>Địa chỉ:</label>
                     <p>{address}</p>
                 </div>
-
+    
                 <div className="checkout__items">
                     <h3>Danh sách sản phẩm</h3>
                     <table>
@@ -104,7 +102,7 @@ const Checkout = () => {
                     </div>
                 </div>
             </div>
-
+    
             <div className="checkout__payment-method">
                 <h3>Phương thức thanh toán</h3>
                 <div>
@@ -128,9 +126,9 @@ const Checkout = () => {
                         onChange={() => setPaymentMethod('VNPay')} 
                     />
                     <label htmlFor="vnpay">Thanh toán qua VNPay</label>
-
                 </div>
-
+            </div>
+    
             <Button 
                 variant="contained" 
                 color="primary" 
@@ -138,15 +136,15 @@ const Checkout = () => {
             >
                 Thanh toán
             </Button>
-
+    
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                 <Alert onClose={handleCloseSnackbar} severity={cartItems.items.length > 0 ? "success" : "error"}>
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
-
         </div>
     );
+    
 };
 
 export default Checkout;

@@ -4,7 +4,7 @@ import Landing from "../components/Landing/Landing";
 import FeaturedItems from "../components/Featured/Items/FetauredItems";
 import FeaturedCategories from "../components/Featured/Categories/FeaturedCategories";
 import { TabTitle } from "../utils/General";
-import Header from "../components/Header/Header";
+
 
 
 const Home = () => {
@@ -12,23 +12,26 @@ const Home = () => {
     TabTitle("Home - NBStore");
 
     useEffect(() => {
-        axios.get("https://shema-backend.vercel.app/api/items")
-            .then(res => setFeaturedItems(res.data))
-            .catch(err => console.log(err))
+        // Lấy sản phẩm nổi bật
+         axios.get("http://localhost:9999/api/products/features")
+         
+            .then(res => setFeaturedItems(res.data.data))
+            
+            .catch(err => console.log(err));
 
-        window.scrollTo(0, 0)
-    }, [])
+
+
+        window.scrollTo(0, 0);
+        
+    }, []);
+   
 
     return (
-        <div>
-
-            <Header />
-            <Fragment>
-                <Landing />
-                <FeaturedCategories />
-                <FeaturedItems items={featuredItems} />
-            </Fragment>
-        </div>
+        <Fragment>
+            <Landing />
+            <FeaturedCategories />
+            <FeaturedItems items={featuredItems} />
+        </Fragment>
     );
 }
 
