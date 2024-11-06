@@ -255,26 +255,29 @@ async function requestRefreshToken(req, res, next) {
 // Sign in action
 async function signin(req, res, next) {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body; // Accept username instead of email
 
-    const user = await User.findOne({ email }).populate("role").exec();
-    if (!user) return res.status(404).json({ message: "Email and User not found." });
+    // Find user by username instead of email
+    const user = await User.findOne({ username }).populate("role").exec();
 
-    //validate password
+    if (!user) return res.status(404).json({ message: "Username not found." });
+
+    // Validate the password
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) return res.status(401).json({ message: "Wrong password" });
 
-    //check status account
+    // Check if the account is locked
     if (user.statusAccount !== 1) {
       console.log("Account is locked by system");
-      //send mail notify user
       return res.status(401).json({ message: "Your account is locked by system." });
     }
 
+    // Generate access and refresh tokens
     const accessToken = generateAccessToken(user);
     const refreshToken = await generateRefreshToken(user);
     await user.save();
 
+    // Set the refresh token in cookies
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: false,
@@ -282,15 +285,14 @@ async function signin(req, res, next) {
       path: "/",
     });
 
-    // Redirect to homepage after successful login
-    // res.redirect('/');
-
+    // Return response with user details and access token
     const responsePayload = {
       message: "Logged in successfully",
       accessToken,
       user: {
         id: user._id,
         name: user.name,
+        username: user.username,  // Include username in response
         email: user.email,
         role: user.role,
         phone: user.phone,
@@ -305,6 +307,7 @@ async function signin(req, res, next) {
     next(error);
   }
 }
+
 
 async function adminSignin(req, res, next) {
   try {

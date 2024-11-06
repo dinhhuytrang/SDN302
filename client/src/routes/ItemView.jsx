@@ -7,6 +7,8 @@ import { BASE_URL } from '../../src/constant/constant';
 import Header from '../components/Header/Header';
 const ProductView = (props) => {
     const param = useParams()
+    console.log(param);
+    
     const [item, setItem] = useState()
     const [loading, setLoading] = useState(true)
 

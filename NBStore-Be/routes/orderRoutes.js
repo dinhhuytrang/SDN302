@@ -13,6 +13,7 @@ OrderRouter.get("/getOrderInfo/:idOrder", OrderController.getOrderInfo)
 OrderRouter.get("/getItemOfOrder/:idOrder", OrderController.getItemOfOrder)
 
 OrderRouter.post('/changeStatus', OrderController.changeStatus)
+OrderRouter.post('/orders', OrderController.createOrder)
 
 module.exports = {
     OrderRouter
