@@ -104,6 +104,7 @@ const Checkout = () => {
     };
 
     return (
+
         <div>
             <Header />  {/* Thêm Header */}
             
@@ -129,6 +130,7 @@ const Checkout = () => {
                                     <th>Đơn giá</th>
                                     <th>Số lượng</th>
                                     <th>Thành tiền</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -155,6 +157,7 @@ const Checkout = () => {
                         </div>
                     </div>
                 </div>
+
 
                 <div className="checkout__payment-method">
                     <h3>Phương thức thanh toán</h3>
@@ -196,8 +199,10 @@ const Checkout = () => {
                     </Snackbar>
                 </div>
             </div>
+
         </div>
     );
+    
 };
 
 export default Checkout;

@@ -15,9 +15,13 @@ const router = express.Router();
 const User = require('./models/User.models');
 const Category = require('./models/Category.model');
 const productRoutes = require('./routes/productRoutes');
-
-const { productWareHouseRouter } = require('./routes/ProductWarehouseRouter');
+const { searchProducts, getTopSellingProducts } = require('./controllers/productController');
+const Order = require('./models/Oder.model');
 const { OrderRouter } = require('./routes/orderRoutes');
+const OrderItem = require('./models/OderItem.model');
+// const { CategoryRouter } = require('./routes/categryRoutes');
+const { productWareHouseRouter } = require('./routes/ProductWarehouseRouter');
+// const { OrderRouter } = require('./routes/orderRoutes');
 const CategoryRouter = require('./routes/categoryRoutes');
 
 dotenv.config();
@@ -128,271 +132,7 @@ const rateData = [
     }
 ];
 
-// const newCategory = [
-//     {
-//         name: "men",
-//         image: "https://i.pinimg.com/736x/d4/24/58/d4245806458d4177c8f0ef15d2733522.jpg"
-//     },
-//     {
-//         name: "women",
-//         image: "https://i.pinimg.com/736x/9d/04/6f/9d046fea7c898e80afc80f20bb5a26d3.jpg"
-//     },
-//     {
-//         name: "kids",
-//         image: "https://i.pinimg.com/736x/80/eb/06/80eb06b4e48fadbee71c7d71246caf41.jpg"
-//     }
-// ];
 
-const newProduct = [
-    {
-        name: "CANIFA sweatshirt set",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134258-7ras8-m188fxl9fk3e65", "https://down-vn.img.susercontent.com/file/vn-11134201-7r98o-lxmd4nqtgel556@resize_w450_nl.webp"],
-        price: 165,
-        remain: 30,
-        numberOfSale: 15,
-        description: "Products are designed, manufactured and exclusively distributed by CANIFA - a Vietnamese fashion brand trusted by many customers since 2001. With a system of more than 100 stores and distributors nationwide.",
-        option: [
-            "Lightblue-Size S", "Lightblue-Size M", "Lightblue-Size L",
-            "Purple-Size S", "Purple-Size M", "Purple-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
-
-    },
-    {
-        name: "Cool Feel Short Sleeve Set",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lx0nrm8lsvdl09.webp", "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lx0r0r60u5zv21.webp"],
-        price: 350,
-        remain: 45,
-        numberOfSale: 20,
-        description: "Cool Feel clothes, super thin, smooth, cool, summer home wear for babies, Unifriend Korea",
-        option: [
-            "White-blue-Size S", "White-blue-Size M", "White-blue-Size L",
-            "White-green-Size S", "White-green-Size M", "White-green-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
-    },
-
-    {
-        name: "Vest gile",
-        image: ["https://down-vn.img.susercontent.com/file/sg-11134201-7rdyx-m0v1p9d675dwd0.webp", "https://down-vn.img.susercontent.com/file/sg-11134201-7rdvt-m0v1p9zx8g78a1.webp"],
-        price: 300,
-        remain: 30,
-        numberOfSale: 20,
-        description: "Set of boy's vest, short-sleeved black shirt, vest and bow tie, size 1 to 7T BERNIE 0724B26",
-        option: [
-            "Size S", "Size M", "Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
-    },
-
-    {
-        name: "AIRCOOL baby short sleeve clothes set",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-ls9l8v3qrsuc16.webp", "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-ls9l8v3qdr4pe0.webp"],
-        price: 270,
-        remain: 24,
-        numberOfSale: 15,
-        description: "AIRCOOL cotton short-sleeved baby clothes set, cool and stretchy",
-        option: [
-            "White-Size S", "White-Size M", "White-Size L",
-            "Black-Size S", "Black-Size M", "Black-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
-    },
-
-    {
-        name: "CANIFA baby pajamas",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134201-7r98o-lwpirn2sgqyo1a.webp", "https://down-vn.img.susercontent.com/file/vn-11134201-7r98o-lwpirn50di5bba.webp"],
-        price: 320,
-        remain: 30,
-        numberOfSale: 15,
-        description: "CANIFA baby pajamas set, cool and stretchy",
-        option: [
-            "White-Size S", "White-Size M", "White-Size L",
-            "Blue-Size S", "Blue-Size M", "Blue-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
-    },
-
-    {
-        name: "BEAR LEADER Jacket Set",
-        image: ["https://down-vn.img.susercontent.com/file/cn-11134207-7r98o-llizecj568x8dc.webp", "https://down-vn.img.susercontent.com/file/sg-11134201-22110-5lkhk6pdfyjv39.webp"],
-        price: 350,
-        remain: 30,
-        numberOfSale: 15,
-        description: "BEAR LEADER Cotton Jacket and Short Skirt Set",
-        option: [
-            "White-Size S", "White-Size M", "White-Size L",
-            "Blue-Size S", "Blue-Size M", "Blue-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d1')
-    },
-
-    //Women
-    {
-        name: "Lovito T-Shirt",
-        image: ["https://down-vn.img.susercontent.com/file/sg-11134201-7rdvq-lz9ygvuz3zaa20.webp", "https://down-vn.img.susercontent.com/file/sg-11134201-7rdvq-lz9ygvuz3zaa20.webp"],
-        price: 150,
-        remain: 50,
-        numberOfSale: 30,
-        description: "Lovito T-shirt with embroidered solid color fabric stitching casual style for women LNE37180",
-        option: [           
-            "Size S", "Size M", "Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
-    },
-
-    {
-        name: "Lovito T-Shirt",
-        image: ["https://down-vn.img.susercontent.com/file/sg-11134201-7rd3p-lv8l65qr26hi1f.webp", "https://down-vn.img.susercontent.com/file/sg-11134201-7rd5q-lv8l68ukik7r3f.webp"],
-        price: 150,
-        remain: 50,
-        numberOfSale: 37,
-        description: "Lovito Women's Casual Solid Color Zipper T-Shirt LNA27136",
-        option: [           
-            "Black-Size S", "Black-Size M", "Black-Size L",
-            "Brown-Size S", "Brown-Size M", "Brown-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
-    },
-
-    {
-        name: "TOLI Women's T-shirt",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lxdqfua81byxd7.webp", "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lz9z8j48o6z1ac.webp"],
-        price: 200,
-        remain: 40,
-        numberOfSale: 30,
-        description: "Lovito Women's Casual Solid Color Zipper T-Shirt LNA27136",
-        option: [           
-            "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
-            "White-Size S", "White-Size M", "White-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
-    },
-
-    {
-        name: "TOLI Women's T-shirt",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lxdqfua81byxd7.webp", "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lz9z8j48o6z1ac.webp"],
-        price: 200,
-        remain: 45,
-        numberOfSale: 30,
-        description: "TOLI women's T-shirt with round neck and short sleeves, light fit, 4-way stretch cotton fabric, printed with FRANCE M02",
-        option: [           
-            "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
-            "White-Size S", "White-Size M", "White-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
-    },
-
-    {
-        name: "Croptop shirt",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lfaim68ogqc7a2.webp", "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lf9xz7bj5d93cb.webp"],
-        price: 250,
-        remain: 20,
-        numberOfSale: 10,
-        description: "Croptop shirt, Layered ruffled silk shirt, can be worn in 2 styles",
-        option: [           
-            "Pink-Size S", "Pink-Size M", "Pink-Size L",
-            "White-Size S", "White-Size M", "White-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
-    },
-
-    {
-        name: "JINZAO cardigan sweater",
-        image: ["https://down-vn.img.susercontent.com/file/sg-11134201-7rdvf-lzoh0dzu8ap4ca.webp", "https://down-vn.img.susercontent.com/file/sg-11134201-7rdyu-lzoh0nkq7kzq96.webp"],
-        price: 399,
-        remain: 34,
-        numberOfSale: 12,
-        description: "JINZAO cardigan sweater cardigan jacket Casual Korean Style Vintage Fashion",
-        option: [           
-            "Pink-Size S", "Pink-Size M", "Pink-Size L",
-            "White-Size S", "White-Size M", "White-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8d0')
-    },
-
-    // Men
-    {
-        name: "Hawaiian Shirt",
-        image: ["https://down-vn.img.susercontent.com/file/sg-11134201-7qvdo-ljxmx1us5fr9c5.webp", "https://down-vn.img.susercontent.com/file/sg-11134201-7qves-ljxmx3etwt6c68.webp"],
-        price: 270,
-        remain: 35,
-        numberOfSale: 10,
-        description: "Men's Fashionable Hawaiian Style Loose Long Sleeve Shirt",
-        option: [           
-            "Brown-Size S", "Brown-Size M", "Brown-Size L",
-            "White-Size S", "White-Size M", "White-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
-    },
-
-    {
-        name: "SCafé Men's Polo Shirt",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134201-7qukw-li6s3gn2bmc215.webp", "https://down-vn.img.susercontent.com/file/vn-11134201-7qukw-li6s3h5dm7m430.webp"],
-        price: 300,
-        remain: 40,
-        numberOfSale: 20,
-        description: "Coolmate men's SCafé polo shirt with effective deodorization",
-        option: [           
-            "Brown-Size S", "Brown-Size M", "Brown-Size L"          
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
-    },
-
-    {
-        name: "Short Sleeve Shirt",
-        image: ["https://down-vn.img.susercontent.com/file/cn-11134207-7r98o-lprlsl96mom065.webp", "https://down-vn.img.susercontent.com/file/cn-11134207-7r98o-lprlsl96phqw31.webp"],
-        price: 150,
-        remain: 20,
-        numberOfSale: 7,
-        description: "Men's Fashion Printed Short Sleeve Shirt",
-        option: [           
-            "Blue-Size S", "Blue-Size M", "Blue-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
-    },
-
-    {
-        name: "HERUS V2 knitted polo shirt",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m0jpdxwcdjvxaf.webp", "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-luyqo594yalhd9.webp"],
-        price: 150,
-        remain: 19,
-        numberOfSale: 7,
-        description: "HERUS V2 premium knitted polo shirt, classic Korean style",
-        option: [           
-            "Blue-Size S", "Blue-Size M", "Blue-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
-    },
-
-    {
-        name: "JULIDO Men's Sportswear",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lwdcz4q80gd5ce.webp", "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lwbz0g17tgbded.webp"],
-        price: 199,
-        remain: 23,
-        numberOfSale: 7,
-        description: "JULIDO men's sports set short sleeve shirt loose fitting shorts",
-        option: [           
-            "Black-Size S", "Black-Size M", "Black-Size L",
-            "White-Size S", "White-Size M", "White-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
-    },
-
-    {
-        name: "Local Brand T-Shirt",
-        image: ["https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-m093l7k9cfe53f.webp", "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m1dw3xixqkig84.webp"],
-        price: 299,
-        remain: 35,
-        numberOfSale: 14,
-        description: "Local Brand T-Shirt VIBESTU Logo With Boxy Collar, Loose Form",
-        option: [           
-            "Yellow-Size S", "Yellow-Size M", "Yellow-Size L",
-            "White-Size S", "White-Size M", "White-Size L"
-        ],
-        category: new mongoose.Types.ObjectId('6716709457498f74ea78c8cf')
-    }
-]
 const newUser = [
     {
         username: "user1",
@@ -508,7 +248,11 @@ connectDB()
 app.use('/api/products', productRoutes.ProductRouter);
 app.use('/api/warehouse',productWareHouseRouter)
 app.use('/api/users', userRoutes);
-app.use('/api/orders', OrderRouter)
+
+app.use('/api/products', searchProducts);
+app.use('/api/products', getTopSellingProducts);
+app.use('/api/orders',OrderRouter);
+
 app.use('/api/categories', CategoryRouter)
 app.use('/api/sendemail', router.post('/', async (req, res, next) => {
     try {
