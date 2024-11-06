@@ -10,23 +10,19 @@ const CategoryView = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Category IDs for men, women, kids (replace with your real ObjectId values)
-    const MEN_CATEGORY_ID = '6716709457498f74ea78c8cf';
-    const WOMEN_CATEGORY_ID = '6716709457498f74ea78c8d0';
-    const KIDS_CATEGORY_ID = '6716709457498f74ea78c8d1';
-
     useEffect(() => {
         axios.get("http://localhost:9999/api/products")
             .then(res => {
                 const data = res.data.data; // accessing 'data' array from API response
-
+                console.log(res.data.data);
+                
                 // Filter products by category based on URL parameter
                 if (param.id === 'men') {
-                    setProducts(data.filter(item => item.category._id === MEN_CATEGORY_ID));
+                    setProducts(data.filter(item => item.category.name === "men"));
                 } else if (param.id === 'women') {
-                    setProducts(data.filter(item => item.category._id === WOMEN_CATEGORY_ID));
+                    setProducts(data.filter(item => item.category.name === "women"));
                 } else if (param.id === 'kids') {
-                    setProducts(data.filter(item => item.category._id === KIDS_CATEGORY_ID));
+                    setProducts(data.filter(item => item.category.name === "kids"));
                 }
 
                 setLoading(false);
